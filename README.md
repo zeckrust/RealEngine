@@ -7,4 +7,4 @@ This project is using Visual Studio 2022
 
 2. [Download](https://openframeworks.cc/download/) openFrameworks for Visual Studio
 
-3. From the root directory of the openFrameworks directory, clone this repository in the **_apps_** folder
+3. From the root directory of the openFrameworks folder, clone this repository in the **_apps_** folder
