@@ -9,12 +9,23 @@ CustomButton::CustomButton() : ofxLabel() {
 	isPressed = false;
 }
 
+void CustomButton::setupButton(std::string label, int x, int y) {
+	setupLabel(label);
+	setPosition(x, y);
+	setupHitBox(x, y);
+}
+
 void CustomButton::setupLabel(std::string label) {
 	ofxLabel::setup("", label);
 }
 
 void CustomButton::setupHitBox(int x, int y) {
 	hitBox = ofRectangle(x, y, TITLE_BAR_BUTTON_WIDTH, TITLE_BAR_HEIGHT);
+}
+
+void CustomButton::draw() {
+	ofxBaseGui::draw();
+	handlePressedState();
 }
 
 bool CustomButton::mousePressed(ofMouseEventArgs& args) {
@@ -27,9 +38,7 @@ bool CustomButton::mousePressed(ofMouseEventArgs& args) {
 	return false;
 }
 
-void CustomButton::draw() {
-	ofxBaseGui::draw();
-
+void CustomButton::handlePressedState() {
 	auto now = std::chrono::high_resolution_clock::now();
 	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now - pressedTimeStart);
 

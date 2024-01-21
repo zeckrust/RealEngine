@@ -25,9 +25,7 @@ void TitleBar::setupButtons() {
 			if (i != 0) {
 				nextPosX += buttons[i - 1]->getWidth() + TITLE_BAR_BUTTON_PADDING;
 			}
-			buttons[i]->setupLabel(buttonNames[i]);
-			buttons[i]->setPosition(nextPosX, TITLE_BAR_POS_Y);
-			buttons[i]->setupHitBox(nextPosX, TITLE_BAR_POS_Y);
+			buttons[i]->setupButton(buttonNames[i], nextPosX, TITLE_BAR_POS_Y);
 		}
 	}
 }
