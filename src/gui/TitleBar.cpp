@@ -54,6 +54,16 @@ void TitleBar::updateWidth(int width) {
 	rect.setWidth(width);
 }
 
+void TitleBar::mousePressed(int x, int y, int button) {
+	ofMouseEventArgs mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Type::Pressed, x, y, button);
+
+	for (int i = 0; i < std::size(buttons) ; i++) {
+		if (buttons[i] != nullptr && buttons[i]->mousePressed(mouseEvent)) {
+			break;
+		}
+	}
+}
+
 std::array<CustomButton*, TitleBar::MAX_NB_BUTTONS> TitleBar::getButtons() {
 	return buttons;
 }

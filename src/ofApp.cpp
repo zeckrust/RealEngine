@@ -37,14 +37,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-	ofMouseEventArgs mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Type::Pressed, x, y, button);
-	std::array<CustomButton*, TitleBar::MAX_NB_BUTTONS> buttons = titleBar.getButtons();
-
-	for (int i = 0; i < std::size(buttons) ; i++) {
-		if (buttons[i] != nullptr && buttons[i]->mousePressed(mouseEvent)) {
-			break;
-		}
-	}
+	titleBar.mousePressed(x, y, button);
 }
 
 //--------------------------------------------------------------
