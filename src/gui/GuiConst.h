@@ -15,3 +15,7 @@ const int TITLE_BAR_BUTTON_WIDTH = 60;
 const int TITLE_BAR_COLOR_R = 66;
 const int TITLE_BAR_COLOR_G = 66;
 const int TITLE_BAR_COLOR_B = 66;
+
+// Custom button
+const ofColor DEFAULT_BUTTON_COLOR = ofColor(0, 0, 0, 0);
+const ofColor PRESSED_BUTTON_COLOR = ofColor(0, 0, 0, 255);
