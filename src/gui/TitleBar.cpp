@@ -16,9 +16,9 @@ void TitleBar::setupButtons() {
 	buttons[1] = &viewButton;
 	buttons[2] = &windowButton;
 	
-	fileButton.setup("", "File");
-	viewButton.setup("", "View");
-	windowButton.setup("", "Window");
+	fileButton.setupLabel("File");
+	viewButton.setupLabel("View");
+	windowButton.setupLabel("Window");
 	setupButtonsPosition();
 }
 
@@ -30,6 +30,7 @@ void TitleBar::setupButtonsPosition() {
 				nextPosX += buttons[i - 1]->getWidth() + TITLE_BAR_BUTTON_PADDING;
 			}
 			buttons[i]->setPosition(nextPosX, TITLE_BAR_POS_Y);
+			buttons[i]->setupHitBox(nextPosX, TITLE_BAR_POS_Y);
 		}
 	}
 }
@@ -54,4 +55,8 @@ void TitleBar::drawButtons() {
 
 void TitleBar::update(int width) {
 	rect.setWidth(width);
+}
+
+std::array<CustomButton*, TitleBar::MAX_NB_BUTTONS> TitleBar::getButtons() {
+	return buttons;
 }
