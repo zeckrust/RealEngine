@@ -17,5 +17,6 @@ const int TITLE_BAR_COLOR_G = 66;
 const int TITLE_BAR_COLOR_B = 66;
 
 // Custom button
-const ofColor DEFAULT_BUTTON_COLOR = ofColor(0, 0, 0, 0);
-const ofColor PRESSED_BUTTON_COLOR = ofColor(0, 0, 0, 255);
+const ofColor BUTTON_DEFAULT_COLOR = ofColor(0, 0, 0, 0);
+const ofColor BUTTON_PRESSED_COLOR = ofColor(0, 0, 0, 255);
+const int BUTTON_PRESSED_DURATION_MS = 100;

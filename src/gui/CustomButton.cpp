@@ -3,7 +3,7 @@
 CustomButton::CustomButton() : ofxLabel() {
 	setDefaultHeight(TITLE_BAR_HEIGHT);
 	setDefaultWidth(TITLE_BAR_BUTTON_WIDTH);
-	setBackgroundColor(DEFAULT_BUTTON_COLOR);
+	setBackgroundColor(BUTTON_DEFAULT_COLOR);
 
 	hitBox = ofRectangle();
 	isPressed = false;
@@ -19,7 +19,7 @@ void CustomButton::setupHitBox(int x, int y) {
 
 bool CustomButton::mousePressed(ofMouseEventArgs& args) {
 	if (hitBox.inside(args.x, args.y)) {
-		setBackgroundColor(PRESSED_BUTTON_COLOR);
+		setBackgroundColor(BUTTON_PRESSED_COLOR);
 		isPressed = true;
 		pressedTimeStart = std::chrono::high_resolution_clock::now();
 		return true;
@@ -31,9 +31,10 @@ void CustomButton::draw() {
 	ofxBaseGui::draw();
 
 	auto now = std::chrono::high_resolution_clock::now();
-	auto duration = std::chrono::duration_cast<std::chrono::seconds>(now - pressedTimeStart);
+	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now - pressedTimeStart);
 
-	if (isPressed && duration.count() < 1) {
-		setBackgroundColor(DEFAULT_BUTTON_COLOR);
+	if (isPressed && duration.count() > BUTTON_PRESSED_DURATION_MS) {
+		setBackgroundColor(BUTTON_DEFAULT_COLOR);
+		isPressed = false;
 	}
 }
