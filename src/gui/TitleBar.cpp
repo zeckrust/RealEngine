@@ -1,6 +1,13 @@
 #include "TitleBar.h"
 
 TitleBar::TitleBar() {
+	buttons[0] = &fileButton;
+	buttons[1] = &viewButton;
+	buttons[2] = &windowButton;
+	buttonNames[0] = "File";
+	buttonNames[1] = "View";
+	buttonNames[2] = "Window";
+
 	setup();
 }
 
@@ -12,23 +19,13 @@ void TitleBar::setup() {
 }
 
 void TitleBar::setupButtons() {
-	buttons[0] = &fileButton;
-	buttons[1] = &viewButton;
-	buttons[2] = &windowButton;
-	
-	fileButton.setupLabel("File");
-	viewButton.setupLabel("View");
-	windowButton.setupLabel("Window");
-	setupButtonsPosition();
-}
-
-void TitleBar::setupButtonsPosition() {
 	float nextPosX = TITLE_BAR_BUTTON_PADDING;
 	for (int i = 0; i < std::size(buttons); i++) {
 		if (buttons[i] != nullptr) {
 			if (i != 0) {
 				nextPosX += buttons[i - 1]->getWidth() + TITLE_BAR_BUTTON_PADDING;
 			}
+			buttons[i]->setupLabel(buttonNames[i]);
 			buttons[i]->setPosition(nextPosX, TITLE_BAR_POS_Y);
 			buttons[i]->setupHitBox(nextPosX, TITLE_BAR_POS_Y);
 		}
@@ -53,7 +50,7 @@ void TitleBar::drawButtons() {
 	}
 }
 
-void TitleBar::update(int width) {
+void TitleBar::updateWidth(int width) {
 	rect.setWidth(width);
 }
 

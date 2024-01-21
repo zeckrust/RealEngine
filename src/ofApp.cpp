@@ -64,7 +64,7 @@ void ofApp::mouseExited(int x, int y){
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h){
-	titleBar.update(w);
+	titleBar.updateWidth(w);
 }
 
 //--------------------------------------------------------------
