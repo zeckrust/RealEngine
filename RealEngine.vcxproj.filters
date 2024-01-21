@@ -105,6 +105,9 @@
     <Filter Include="src\gui">
       <UniqueIdentifier>{14e5438a-6c54-4836-82ee-41db60bd8b4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\gui\fonts">
+      <UniqueIdentifier>{79c3a31c-c87e-4e67-9768-2a4d29b61bd1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ofApp.h">
@@ -422,5 +425,13 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="src\gui\fonts\OpenSans-Bold.ttf">
+      <Filter>src\gui\fonts</Filter>
+    </Font>
+    <Font Include="src\gui\fonts\OpenSans-Regular.ttf">
+      <Filter>src\gui\fonts</Filter>
+    </Font>
   </ItemGroup>
 </Project>

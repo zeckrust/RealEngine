@@ -1,15 +1,18 @@
 #include "CustomButton.h"
 
 CustomButton::CustomButton() : ofxLabel() {
-	setDefaultHeight(TITLE_BAR_HEIGHT);
-	setDefaultWidth(TITLE_BAR_BUTTON_WIDTH);
-	setBackgroundColor(BUTTON_DEFAULT_COLOR);
-
 	hitBox = ofRectangle();
+	labelStr = "";
+	labelWidth = 0;
 	isPressed = false;
 }
 
-void CustomButton::setupButton(std::string label, int x, int y) {
+void CustomButton::setupButton(std::string label, std::string font, int x, int y) {
+	setupFont(label, font);
+	setDefaultHeight(TITLE_BAR_HEIGHT);
+	setDefaultWidth(labelWidth);
+	setBackgroundColor(BUTTON_DEFAULT_COLOR);
+
 	setupLabel(label);
 	setPosition(x, y);
 	setupHitBox(x, y);
@@ -17,10 +20,19 @@ void CustomButton::setupButton(std::string label, int x, int y) {
 
 void CustomButton::setupLabel(std::string label) {
 	ofxLabel::setup("", label);
+	labelStr = label;
+}
+
+void CustomButton::setupFont(std::string label, std::string font) {
+	std::string executablePath = ofFilePath::getCurrentExeDir();
+	std::string fontPath = ofFilePath::join(executablePath, font);
+	loadFont(fontPath, BUTTON_FONT_SIZE); // for the ofxLabel
+	labelFont.load(fontPath, BUTTON_FONT_SIZE); // for the ofTrueTypeFont
+	labelWidth = labelFont.stringWidth(label) + FONT_WIDTH_ERROR;
 }
 
 void CustomButton::setupHitBox(int x, int y) {
-	hitBox = ofRectangle(x, y, TITLE_BAR_BUTTON_WIDTH, TITLE_BAR_HEIGHT);
+	hitBox = ofRectangle(x, y, labelWidth, TITLE_BAR_HEIGHT);
 }
 
 void CustomButton::draw() {
@@ -46,4 +58,8 @@ void CustomButton::handlePressedState() {
 		setBackgroundColor(BUTTON_DEFAULT_COLOR);
 		isPressed = false;
 	}
+}
+
+float CustomButton::getWidth() const {
+	return labelWidth;
 }
