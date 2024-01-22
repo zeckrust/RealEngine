@@ -10,7 +10,7 @@ TitleBarButton::TitleBarButton() : CustomButton() {
 
 void TitleBarButton::draw() {
 	CustomButton::draw();
-	handleShowExtension();
+	handleDrawExtension();
 	drawSubButtons();
 }
 
@@ -22,6 +22,15 @@ void TitleBarButton::drawSubButtons() {
 			}
 		}
 	}
+}
+
+void TitleBarButton::drawExtension() {
+	float posX = getPosition().x;
+	float posY = getPosition().y + getHeight();
+
+	rectExtension = ofRectangle(posX, posY, extensionWidth, extensionHeight);
+	ofSetColor(TITLE_BAR_COLOR);
+	ofDrawRectangle(rectExtension);
 }
 
 bool TitleBarButton::mousePressed(ofMouseEventArgs& args) {
@@ -39,24 +48,44 @@ bool TitleBarButton::mousePressed(ofMouseEventArgs& args) {
 	return false;
 }
 
-void TitleBarButton::handleShowExtension() {
-	float posX = getPosition().x;
-	float posY = getPosition().y + getHeight();
+bool TitleBarButton::mouseMoved(ofMouseEventArgs& args) {
+	bool isMouseOverButton = false;
+	if (CustomButton::mouseMoved(args)) {
+		isMouseOverButton = true;
+	}
+	else if(showExtension) {
+		for (int i = 0; i < std::size(subButtons); i++) {
+			if (subButtons[i] != nullptr && subButtons[i]->mouseMoved(args)) {
+				isMouseOverButton = true;
+			}
+		}
+	}
+	return isMouseOverButton;
+}
 
-	if (showExtension && isMouseInExtension(posX, posY, extensionWidth, extensionHeight)) {
-		rectExtension = ofRectangle(posX, posY, extensionWidth, extensionHeight);
-		ofSetColor(TITLE_BAR_COLOR);
-		ofDrawRectangle(rectExtension);
+void TitleBarButton::handleDrawExtension() {
+	if (showExtension && isMouseInExtension()) {
+		drawExtension();
+		closeExtensionTimeStart = std::chrono::high_resolution_clock::now();
+	}
+	else if (isInCloseThreshold()) {
+		drawExtension();
 	}
 	else {
 		showExtension = false;
 	}
 }
 
-bool TitleBarButton::isMouseInExtension(float x, float y, float width, float height) {
+bool TitleBarButton::isMouseInExtension() {
 	bool isInExtension = rectExtension.inside(ofGetMouseX(), ofGetMouseY());
 	bool isInTitleButton = getHitBox().inside(ofGetMouseX(), ofGetMouseY());
 	return isInExtension || isInTitleButton;
+}
+
+bool TitleBarButton::isInCloseThreshold() {
+	auto now = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now - closeExtensionTimeStart);
+	return duration.count() < BUTTON_CLOSE_EXTENSION_THRESHOLD_MS;
 }
 
 float TitleBarButton::getExtensionWidth() {

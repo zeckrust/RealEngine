@@ -13,6 +13,7 @@ class TitleBar
 		void draw();
 		void updateWidth(int width);
 		void mousePressed(int x, int y, int button);
+		void mouseMoved(int x, int y);
 
 		static const size_t MAX_NB_BUTTONS = 3;
 		std::array<TitleBarButton*, MAX_NB_BUTTONS> getButtons();

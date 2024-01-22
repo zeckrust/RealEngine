@@ -50,6 +50,15 @@ bool CustomButton::mousePressed(ofMouseEventArgs& args) {
 	return false;
 }
 
+bool CustomButton::mouseMoved(ofMouseEventArgs& args) {
+	if (hitBox.inside(args.x, args.y)) {
+		setBackgroundColor(BUTTON_HOVER_COLOR);
+		return true;
+	}
+	setBackgroundColor(BUTTON_DEFAULT_COLOR);
+	return false;
+}
+
 void CustomButton::handlePressedState() {
 	auto now = std::chrono::high_resolution_clock::now();
 	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now - pressedTimeStart);

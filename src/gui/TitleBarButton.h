@@ -10,6 +10,7 @@ class TitleBarButton : public CustomButton
 		TitleBarButton();
 		void draw();
 		bool mousePressed(ofMouseEventArgs& args) override;
+		bool mouseMoved(ofMouseEventArgs& args) override;
 		float getExtensionWidth();
 		float getExtensionHeight();
 
@@ -18,17 +19,20 @@ class TitleBarButton : public CustomButton
 
 	private:
 		void drawSubButtons();
-		void handleShowExtension();
-		bool isMouseInExtension(float x, float y, float width, float height);
+		void drawExtension();
+		void handleDrawExtension();
+		bool isMouseInExtension();
+		bool isInCloseThreshold();
 
 		void update();
 		void updateExtensionWidth();
 		void updateExtensionHeight();
 		void updateSubButtons();
 
-		ofRectangle rectExtension;
-		std::vector<CustomButton*> subButtons;
 		bool showExtension;
 		float extensionWidth;
 		float extensionHeight;
+		ofRectangle rectExtension;
+		std::vector<CustomButton*> subButtons;
+		std::chrono::steady_clock::time_point closeExtensionTimeStart;
 };

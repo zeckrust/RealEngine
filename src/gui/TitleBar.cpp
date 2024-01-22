@@ -61,9 +61,17 @@ void TitleBar::updateWidth(int width) {
 
 void TitleBar::mousePressed(int x, int y, int button) {
 	ofMouseEventArgs mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Type::Pressed, x, y, button);
-
 	for (int i = 0; i < std::size(buttons) ; i++) {
 		if (buttons[i] != nullptr && buttons[i]->mousePressed(mouseEvent)) {
+			break;
+		}
+	}
+}
+
+void TitleBar::mouseMoved(int x, int y) {
+	ofMouseEventArgs mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Type::Moved, x, y);
+	for (int i = 0; i < std::size(buttons) ; i++) {
+		if (buttons[i] != nullptr && buttons[i]->mouseMoved(mouseEvent)) {
 			break;
 		}
 	}

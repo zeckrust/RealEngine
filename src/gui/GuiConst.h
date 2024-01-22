@@ -1,7 +1,7 @@
 #pragma once
 
 // App
-const ofColor BACKGROUND_COLOR = ofColor(120, 120, 120);
+
 
 // Title bar
 const float TITLE_BAR_POS_X = 0.0f;
@@ -14,8 +14,10 @@ const ofColor TITLE_BAR_COLOR = ofColor(66, 66, 66);
 // Custom button
 const ofColor BUTTON_DEFAULT_COLOR = ofColor(0, 0, 0, 0);
 const ofColor BUTTON_PRESSED_COLOR = ofColor(0, 0, 0, 255);
+const ofColor BUTTON_HOVER_COLOR = ofColor(120, 120, 120, 255);
 const ofColor BUTTON_LABEL_COLOR = ofColor(255, 255, 255, 255);
 const int BUTTON_PRESSED_DURATION_MS = 100;
+const int BUTTON_CLOSE_EXTENSION_THRESHOLD_MS = 1000;
 const int BUTTON_FONT_SIZE = 11;
 
 // Fonts

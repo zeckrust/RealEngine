@@ -7,7 +7,6 @@ void ofApp::setup() {
 	camera2d = Camera2d();
 	camera2d.addImage(&circle);
 	camera2d.addImage(&circle2);
-	ofBackground(BACKGROUND_COLOR);
 }
 
 //--------------------------------------------------------------
@@ -49,7 +48,7 @@ void ofApp::keyReleased(int key) {
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y) {
-
+	titleBar.mouseMoved(x, y);
 }
 
 //--------------------------------------------------------------
