@@ -7,7 +7,6 @@ void ofApp::setup() {
 	camera2d = Camera2d();
 	camera2d.addImage(&circle);
 	camera2d.addImage(&circle2);
-	ofBackground(BACKGROUND_COLOR);
 }
 
 //--------------------------------------------------------------
@@ -52,11 +51,6 @@ void ofApp::mouseMoved(int x, int y) {
 }
 
 //--------------------------------------------------------------
-void ofApp::draw(){
-	titleBar.draw();
-}
-
-//--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button) {
 	camera2d.moveCamera(x, y);
 }
@@ -83,17 +77,12 @@ void ofApp::mouseExited(int x, int y) {
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h) {
-	titleBar.updateWidth(w);
+
 }
 
 //--------------------------------------------------------------
 void ofApp::gotMessage(ofMessage msg) {
 
-}
-
-//--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){
-	titleBar.mousePressed(x, y, button);
 }
 
 //--------------------------------------------------------------

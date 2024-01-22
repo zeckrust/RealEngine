@@ -4,7 +4,6 @@
 #include "ofxGui.h"
 #include "Transformation/Camera2d.h"
 #include "Image/Object2d.h"
-#include "gui/TitleBar.h"
 
 class ofApp : public ofBaseApp{
 
@@ -51,7 +50,4 @@ class ofApp : public ofBaseApp{
 
 		ofSoundPlayer ring;
 		ofImage moveCursor;
-		
-	private:
-		TitleBar titleBar;
 };
