@@ -34,6 +34,7 @@ void ofApp::draw() {
 	ofBackgroundGradient(ofColor::aliceBlue, ofColor::blanchedAlmond);
 	ofDrawCircle(circle.getPosition(), circle.getRadius());
 	ofDrawCircle(circle2.getPosition(), circle2.getRadius());
+	titleBar.draw();
 }
 
 //--------------------------------------------------------------
@@ -52,17 +53,13 @@ void ofApp::mouseMoved(int x, int y) {
 }
 
 //--------------------------------------------------------------
-void ofApp::draw(){
-	titleBar.draw();
-}
-
-//--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button) {
 	camera2d.moveCamera(x, y);
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button) {
+	titleBar.mousePressed(x, y, button);
 	camera2d.setLastMousePosition(glm::vec2(x, y));
 }
 
@@ -89,11 +86,6 @@ void ofApp::windowResized(int w, int h) {
 //--------------------------------------------------------------
 void ofApp::gotMessage(ofMessage msg) {
 
-}
-
-//--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){
-	titleBar.mousePressed(x, y, button);
 }
 
 //--------------------------------------------------------------
