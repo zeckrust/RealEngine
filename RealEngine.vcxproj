@@ -104,6 +104,10 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\gui\CustomButton.cpp" />
+    <ClCompile Include="src\gui\TitleBar.cpp" />
+    <ClCompile Include="src\gui\TitleBarButton.cpp" />
+    <ClCompile Include="src\Image\Object2d.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
     <ClCompile Include="..\..\addons\ofxAssimpModelLoader\src\ofxAssimpAnimation.cpp" />
@@ -120,8 +124,14 @@
     <ClCompile Include="..\..\addons\ofxGui\src\ofxSlider.cpp" />
     <ClCompile Include="..\..\addons\ofxGui\src\ofxSliderGroup.cpp" />
     <ClCompile Include="..\..\addons\ofxGui\src\ofxToggle.cpp" />
+    <ClCompile Include="src\Transformation\Camera2d.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\gui\CustomButton.h" />
+    <ClInclude Include="src\gui\GuiConst.h" />
+    <ClInclude Include="src\gui\TitleBar.h" />
+    <ClInclude Include="src\gui\TitleBarButton.h" />
+    <ClInclude Include="src\Image\Object2d.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="..\..\addons\ofxAssimpModelLoader\src\ofxAssimpAnimation.h" />
     <ClInclude Include="..\..\addons\ofxAssimpModelLoader\src\ofxAssimpMeshHelper.h" />
@@ -223,6 +233,7 @@
     <ClInclude Include="..\..\addons\ofxGui\src\ofxSliderGroup.h" />
     <ClInclude Include="..\..\addons\ofxGui\src\ofxToggle.h" />
     <ClInclude Include="..\..\addons\ofxUnitTests\src\ofxUnitTests.h" />
+    <ClInclude Include="src\Transformation\Camera2d.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">
