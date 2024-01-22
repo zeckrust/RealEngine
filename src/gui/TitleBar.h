@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofxGui.h"
-#include "CustomButton.h"
+#include "TitleBarButton.h"
 #include "GuiConst.h"
 
 class TitleBar
@@ -15,7 +15,7 @@ class TitleBar
 		void mousePressed(int x, int y, int button);
 
 		static const size_t MAX_NB_BUTTONS = 3;
-		std::array<CustomButton*, MAX_NB_BUTTONS> getButtons();
+		std::array<TitleBarButton*, MAX_NB_BUTTONS> getButtons();
 
 	private:
 		void drawBar();
@@ -23,10 +23,15 @@ class TitleBar
 
 		ofRectangle rect;
 
-		std::array<CustomButton*, MAX_NB_BUTTONS> buttons;
+		std::array<TitleBarButton*, MAX_NB_BUTTONS> buttons;
 		std::array<std::string, MAX_NB_BUTTONS> buttonNames;
 
-		CustomButton fileButton;
-		CustomButton viewButton;
-		CustomButton windowButton;
+		TitleBarButton fileButton;
+		TitleBarButton viewButton;
+		TitleBarButton windowButton;
+
+		// Only for test purposes
+		CustomButton testButton1;
+		CustomButton testButton2;
+		CustomButton testButton3;
 };

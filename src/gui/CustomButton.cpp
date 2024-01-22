@@ -7,9 +7,9 @@ CustomButton::CustomButton() : ofxLabel() {
 	isPressed = false;
 }
 
-void CustomButton::setupButton(std::string label, std::string font, int x, int y) {
+void CustomButton::setup(std::string label, std::string font, int x, int y, int height) {
 	setupFont(label, font);
-	setDefaultHeight(TITLE_BAR_HEIGHT);
+	setDefaultHeight(height);
 	setDefaultWidth(labelWidth);
 	setBackgroundColor(BUTTON_DEFAULT_COLOR);
 
@@ -62,4 +62,8 @@ void CustomButton::handlePressedState() {
 
 float CustomButton::getWidth() const {
 	return labelWidth;
+}
+
+ofRectangle CustomButton::getHitBox() const {
+	return hitBox;
 }

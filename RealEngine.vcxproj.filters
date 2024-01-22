@@ -49,10 +49,13 @@
     <ClCompile Include="..\..\addons\ofxGui\src\ofxToggle.cpp">
       <Filter>addons\ofxGui\src</Filter>
     </ClCompile>
+    <ClCompile Include="src\gui\TitleBar.cpp">
+      <Filter>src\gui</Filter>
+    </ClCompile>
     <ClCompile Include="src\gui\CustomButton.cpp">
       <Filter>src\gui</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\TitleBar.cpp">
+    <ClCompile Include="src\gui\TitleBarButton.cpp">
       <Filter>src\gui</Filter>
     </ClCompile>
   </ItemGroup>
@@ -413,13 +416,16 @@
     <ClInclude Include="..\..\addons\ofxUnitTests\src\ofxUnitTests.h">
       <Filter>addons\ofxUnitTests\src</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\CustomButton.h">
-      <Filter>src\gui</Filter>
-    </ClInclude>
     <ClInclude Include="src\gui\TitleBar.h">
       <Filter>src\gui</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\GuiConst.h">
+      <Filter>src\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\CustomButton.h">
+      <Filter>src\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\TitleBarButton.h">
       <Filter>src\gui</Filter>
     </ClInclude>
   </ItemGroup>

@@ -9,6 +9,13 @@ TitleBar::TitleBar() {
 	buttonNames[2] = "Window";
 
 	setup();
+
+	// Only for test purposes
+	testButton1.setup("_______test1_______", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	testButton2.setup("test2", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	testButton3.setup("test3", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	std::vector<CustomButton*> testSubButtons {&testButton1, &testButton2, &testButton3};
+	fileButton.setSubButtons(testSubButtons);
 }
 
 void TitleBar::setup() {
@@ -25,7 +32,7 @@ void TitleBar::setupButtons() {
 			if (i != 0) {
 				nextPosX += buttons[i - 1]->getWidth() + TITLE_BAR_BUTTON_PADDING;
 			}
-			buttons[i]->setupButton(buttonNames[i], BOLD_FONT, nextPosX, TITLE_BAR_POS_Y);
+			buttons[i]->setup(buttonNames[i], BOLD_FONT, nextPosX, TITLE_BAR_POS_Y, TITLE_BAR_HEIGHT);
 		}
 	}
 }
@@ -62,6 +69,6 @@ void TitleBar::mousePressed(int x, int y, int button) {
 	}
 }
 
-std::array<CustomButton*, TitleBar::MAX_NB_BUTTONS> TitleBar::getButtons() {
+std::array<TitleBarButton*, TitleBar::MAX_NB_BUTTONS> TitleBar::getButtons() {
 	return buttons;
 }
