@@ -54,6 +54,14 @@
     </ClCompile>
     <ClCompile Include="src\Image\Object2d.cpp">
       <Filter>src\Image</Filter>
+    <ClCompile Include="src\gui\TitleBar.cpp">
+      <Filter>src\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\CustomButton.cpp">
+      <Filter>src\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\TitleBarButton.cpp">
+      <Filter>src\gui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +121,11 @@
     </Filter>
     <Filter Include="src\Transformation">
       <UniqueIdentifier>{ddb69931-0f7f-4b50-b17b-2d652c7c62cd}</UniqueIdentifier>
+    <Filter Include="src\gui">
+      <UniqueIdentifier>{14e5438a-6c54-4836-82ee-41db60bd8b4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gui\fonts">
+      <UniqueIdentifier>{79c3a31c-c87e-4e67-9768-2a4d29b61bd1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -424,19 +437,28 @@
     </ClInclude>
     <ClInclude Include="src\Image\Object2d.h">
       <Filter>src\Image</Filter>
+    <ClInclude Include="src\gui\TitleBar.h">
+      <Filter>src\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\GuiConst.h">
+      <Filter>src\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\CustomButton.h">
+      <Filter>src\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\TitleBarButton.h">
+      <Filter>src\gui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="..\..\..\..\Users\Mathieu\Downloads\settings.xml">
-      <Filter>bin\data</Filter>
-    </Xml>
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="..\..\..\..\Users\Mathieu\Downloads\ring.wav">
-      <Filter>bin\data</Filter>
-    </Media>
+    <Font Include="src\gui\fonts\OpenSans-Bold.ttf">
+      <Filter>src\gui\fonts</Filter>
+    </Font>
+    <Font Include="src\gui\fonts\OpenSans-Regular.ttf">
+      <Filter>src\gui\fonts</Filter>
+    </Font>
   </ItemGroup>
 </Project>

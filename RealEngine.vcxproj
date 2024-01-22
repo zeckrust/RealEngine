@@ -48,11 +48,13 @@
     <TargetName>$(ProjectName)_debug</TargetName>
     <LinkIncremental>true</LinkIncremental>
     <GenerateManifest>true</GenerateManifest>
+    <IncludePath>C:\Dev\openFrameworks\apps\RealEngine\src;$(IncludePath);src</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>bin\</OutDir>
     <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);;src</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -67,6 +69,7 @@
       <ObjectFileName>$(IntDir)\Build\%(RelativeDir)\$(Configuration)\</ObjectFileName>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -89,6 +92,7 @@
       <ObjectFileName>$(IntDir)\Build\%(RelativeDir)\$(Configuration)\</ObjectFileName>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
@@ -105,6 +109,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Image\Object2d.cpp" />
+    <ClCompile Include="src\gui\CustomButton.cpp" />
+    <ClCompile Include="src\gui\TitleBar.cpp" />
+    <ClCompile Include="src\gui\TitleBarButton.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
     <ClCompile Include="..\..\addons\ofxAssimpModelLoader\src\ofxAssimpAnimation.cpp" />
@@ -125,6 +132,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Image\Object2d.h" />
+    <ClInclude Include="src\gui\CustomButton.h" />
+    <ClInclude Include="src\gui\GuiConst.h" />
+    <ClInclude Include="src\gui\TitleBar.h" />
+    <ClInclude Include="src\gui\TitleBarButton.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="..\..\addons\ofxAssimpModelLoader\src\ofxAssimpAnimation.h" />
     <ClInclude Include="..\..\addons\ofxAssimpModelLoader\src\ofxAssimpMeshHelper.h" />
@@ -240,10 +251,8 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="..\..\..\..\Users\Mathieu\Downloads\settings.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="..\..\..\..\Users\Mathieu\Downloads\ring.wav" />
+    <Font Include="src\gui\fonts\OpenSans-Bold.ttf" />
+    <Font Include="src\gui\fonts\OpenSans-Regular.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ProjectExtensions>
