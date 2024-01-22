@@ -11,7 +11,11 @@ class CustomButton : public ofxLabel
 		void setup(std::string label, std::string font, int x, int y, int height);
 		void draw();
 		bool mousePressed(ofMouseEventArgs& args) override;
+		void setWidth(float width);
+		void setHitBox(ofRectangle rect);
 		float getWidth() const;
+
+	protected:
 		ofRectangle getHitBox() const;
 
 	private:

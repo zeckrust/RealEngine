@@ -60,6 +60,16 @@ void CustomButton::handlePressedState() {
 	}
 }
 
+void CustomButton::setWidth(float width) {
+	setDefaultWidth(width);
+	ofxLabel::setup("", labelStr);
+	labelWidth = width;
+}
+
+void CustomButton::setHitBox(ofRectangle rect) {
+	hitBox = rect;
+}
+
 float CustomButton::getWidth() const {
 	return labelWidth;
 }

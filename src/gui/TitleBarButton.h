@@ -17,10 +17,18 @@ class TitleBarButton : public CustomButton
 		void addSubButton(CustomButton* button);
 
 	private:
+		void drawSubButtons();
 		void handleShowExtension();
 		bool isMouseInExtension(float x, float y, float width, float height);
+
+		void update();
+		void updateExtensionWidth();
+		void updateExtensionHeight();
+		void updateSubButtons();
 
 		ofRectangle rectExtension;
 		std::vector<CustomButton*> subButtons;
 		bool showExtension;
+		float extensionWidth;
+		float extensionHeight;
 };
