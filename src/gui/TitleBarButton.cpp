@@ -27,7 +27,7 @@ void TitleBarButton::handleShowExtension() {
 
 	if (showExtension && isMouseInExtension(posX, posY, width, height)) {
 		rectExtension = ofRectangle(posX, posY, width, height);
-		ofSetColor(TITLE_BAR_COLOR_R, TITLE_BAR_COLOR_G, TITLE_BAR_COLOR_B);
+		ofSetColor(TITLE_BAR_COLOR);
 		ofDrawRectangle(rectExtension);
 	}
 	else {

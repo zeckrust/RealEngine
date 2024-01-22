@@ -43,7 +43,7 @@ void TitleBar::draw() {
 }
 
 void TitleBar::drawBar() {
-	ofSetColor(TITLE_BAR_COLOR_R, TITLE_BAR_COLOR_G, TITLE_BAR_COLOR_B);
+	ofSetColor(TITLE_BAR_COLOR);
 	ofDrawRectangle(rect);
 }
 
