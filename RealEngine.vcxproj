@@ -104,6 +104,7 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Image\Object2d.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
     <ClCompile Include="..\..\addons\ofxAssimpModelLoader\src\ofxAssimpAnimation.cpp" />
@@ -120,8 +121,10 @@
     <ClCompile Include="..\..\addons\ofxGui\src\ofxSlider.cpp" />
     <ClCompile Include="..\..\addons\ofxGui\src\ofxSliderGroup.cpp" />
     <ClCompile Include="..\..\addons\ofxGui\src\ofxToggle.cpp" />
+    <ClCompile Include="src\transformation\Camera2d.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Image\Object2d.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="..\..\addons\ofxAssimpModelLoader\src\ofxAssimpAnimation.h" />
     <ClInclude Include="..\..\addons\ofxAssimpModelLoader\src\ofxAssimpMeshHelper.h" />
@@ -223,6 +226,7 @@
     <ClInclude Include="..\..\addons\ofxGui\src\ofxSliderGroup.h" />
     <ClInclude Include="..\..\addons\ofxGui\src\ofxToggle.h" />
     <ClInclude Include="..\..\addons\ofxUnitTests\src\ofxUnitTests.h" />
+    <ClInclude Include="src\transformation\Camera2d.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">
@@ -234,6 +238,12 @@
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/D_DEBUG %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>$(OF_ROOT)\libs\openFrameworksCompiled\project\vs</AdditionalIncludeDirectories>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\..\..\..\Users\Mathieu\Downloads\settings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\..\..\..\Users\Mathieu\Downloads\ring.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ProjectExtensions>
