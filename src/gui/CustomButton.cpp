@@ -4,7 +4,9 @@ CustomButton::CustomButton() : ofxLabel() {
 	hitBox = ofRectangle();
 	labelStr = "";
 	labelWidth = 0;
+	labelFont = ofTrueTypeFont();
 	isPressed = false;
+	pressedTimeStart = std::chrono::high_resolution_clock::now();
 }
 
 void CustomButton::setup(std::string label, std::string font, int x, int y, int height) {

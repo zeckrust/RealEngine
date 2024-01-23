@@ -23,6 +23,7 @@ class TitleBar
 		void drawButtons();
 
 		ofRectangle rect;
+		ofRectangle lineLimit;
 
 		std::array<TitleBarButton*, MAX_NB_BUTTONS> buttons;
 		std::array<std::string, MAX_NB_BUTTONS> buttonNames;

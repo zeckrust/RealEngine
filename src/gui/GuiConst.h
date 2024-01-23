@@ -9,7 +9,9 @@ const float TITLE_BAR_POS_Y = 0.0f;
 const float TITLE_BAR_BUTTON_PADDING = 10.0f;
 
 const int TITLE_BAR_HEIGHT = 30;
-const ofColor TITLE_BAR_COLOR = ofColor(66, 66, 66);
+const ofColor TITLE_BAR_COLOR = ofColor(66, 66, 66, 255);
+const int TITLE_BAR_LINE_LIMIT_HEIGHT = 2;
+const ofColor TITLE_BAR_LINE_LIMIT_COLOR = ofColor(78, 59, 255, 255);
 
 // Custom button
 const ofColor BUTTON_DEFAULT_COLOR = ofColor(0, 0, 0, 0);

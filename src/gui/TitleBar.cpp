@@ -21,6 +21,8 @@ TitleBar::TitleBar() {
 void TitleBar::setup() {
 	rect.setPosition(TITLE_BAR_POS_X, TITLE_BAR_POS_Y);
 	rect.setSize(ofGetWindowWidth(), TITLE_BAR_HEIGHT);
+	lineLimit.setPosition(rect.getPosition().x, rect.getPosition().y + rect.getHeight());
+	lineLimit.setSize(ofGetWindowWidth(), TITLE_BAR_LINE_LIMIT_HEIGHT);
 
 	setupButtons();
 }
@@ -45,6 +47,8 @@ void TitleBar::draw() {
 void TitleBar::drawBar() {
 	ofSetColor(TITLE_BAR_COLOR);
 	ofDrawRectangle(rect);
+	ofSetColor(TITLE_BAR_LINE_LIMIT_COLOR);
+	ofDrawRectangle(lineLimit);
 }
 
 void TitleBar::drawButtons() {
