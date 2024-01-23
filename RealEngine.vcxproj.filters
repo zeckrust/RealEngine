@@ -49,13 +49,7 @@
     <ClCompile Include="..\..\addons\ofxGui\src\ofxToggle.cpp">
       <Filter>addons\ofxGui\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\CustomButton.cpp">
-      <Filter>src\gui</Filter>
-    </ClCompile>
     <ClCompile Include="src\gui\TitleBar.cpp">
-      <Filter>src\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\TitleBarButton.cpp">
       <Filter>src\gui</Filter>
     </ClCompile>
     <ClCompile Include="src\Image\Object2d.cpp">
@@ -63,6 +57,12 @@
     </ClCompile>
     <ClCompile Include="src\Transformation\Camera2d.cpp">
       <Filter>src\Transformation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\buttons\CustomButton.cpp">
+      <Filter>src\gui\buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\buttons\TitleBarButton.cpp">
+      <Filter>src\gui\buttons</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +119,9 @@
     </Filter>
     <Filter Include="src\Transformation">
       <UniqueIdentifier>{ef7e54c4-679f-4928-a8ba-90eb1c268a31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gui\buttons">
+      <UniqueIdentifier>{3ce213f7-6f1c-4865-b59c-9210a2fc6671}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -425,16 +428,7 @@
     <ClInclude Include="..\..\addons\ofxUnitTests\src\ofxUnitTests.h">
       <Filter>addons\ofxUnitTests\src</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\CustomButton.h">
-      <Filter>src\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\GuiConst.h">
-      <Filter>src\gui</Filter>
-    </ClInclude>
     <ClInclude Include="src\gui\TitleBar.h">
-      <Filter>src\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\TitleBarButton.h">
       <Filter>src\gui</Filter>
     </ClInclude>
     <ClInclude Include="src\Image\Object2d.h">
@@ -442,6 +436,18 @@
     </ClInclude>
     <ClInclude Include="src\Transformation\Camera2d.h">
       <Filter>src\Transformation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\buttons\CustomButton.h">
+      <Filter>src\gui\buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\buttons\TitleBarButton.h">
+      <Filter>src\gui\buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\GuiConst.h">
+      <Filter>src\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\buttons\ButtonsDefinition.h">
+      <Filter>src\gui\buttons</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

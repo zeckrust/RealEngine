@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofxGui.h"
-#include "TitleBarButton.h"
+#include "buttons/TitleBarButton.h"
 #include "GuiConst.h"
 
 class TitleBar
