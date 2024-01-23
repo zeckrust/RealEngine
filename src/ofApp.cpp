@@ -31,6 +31,7 @@ void ofApp::update() {
 //--------------------------------------------------------------
 void ofApp::draw() {
 	ofBackgroundGradient(ofColor::aliceBlue, ofColor::blanchedAlmond);
+	ofSetColor(ofColor::black);
 	ofDrawCircle(circle.getPosition(), circle.getRadius());
 	ofDrawCircle(circle2.getPosition(), circle2.getRadius());
 	titleBar.draw();

@@ -6,7 +6,7 @@ TitleBarButton::TitleBarButton() : CustomButton() {
 	showExtension = false;
 	extensionWidth = 0;
 	extensionHeight = 0;
-	closeExtensionTimeStart = std::chrono::high_resolution_clock::now();
+	closeExtensionTimeStart = std::chrono::steady_clock::time_point();
 }
 
 void TitleBarButton::draw() {
