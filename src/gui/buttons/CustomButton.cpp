@@ -1,13 +1,11 @@
 #include "CustomButton.h"
 
 CustomButton::CustomButton() : ofxLabel() {
-	hitBox = ofRectangle();
 	labelStr = "";
 	labelWidth = 0;
 	labelFont = ofTrueTypeFont();
 	isPressed = false;
 	pressedFunction = nullptr;
-	pressedTimeStart = std::chrono::high_resolution_clock::now();
 }
 
 void CustomButton::setup(std::string label, std::string font, int x, int y, int height) {
@@ -18,7 +16,6 @@ void CustomButton::setup(std::string label, std::string font, int x, int y, int 
 
 	setupLabel(label);
 	setPosition(x, y);
-	setupHitBox(x, y);
 }
 
 void CustomButton::setupLabel(std::string label) {
@@ -34,20 +31,10 @@ void CustomButton::setupFont(std::string label, std::string font) {
 	labelWidth = labelFont.stringWidth(label) + FONT_WIDTH_ERROR;
 }
 
-void CustomButton::setupHitBox(int x, int y) {
-	hitBox = ofRectangle(x, y, labelWidth, TITLE_BAR_HEIGHT);
-}
-
-void CustomButton::draw() {
-	ofxBaseGui::draw();
-	handlePressedState();
-}
-
 bool CustomButton::mousePressed(ofMouseEventArgs& args) {
-	if (hitBox.inside(args.x, args.y)) {
+	if (getShape().inside(args.x, args.y)) {
 		setBackgroundColor(BUTTON_PRESSED_COLOR);
 		isPressed = true;
-		pressedTimeStart = std::chrono::high_resolution_clock::now();
 		if (pressedFunction != nullptr) {
 			pressedFunction();
 		}
@@ -56,23 +43,22 @@ bool CustomButton::mousePressed(ofMouseEventArgs& args) {
 	return false;
 }
 
+bool CustomButton::mouseReleased(ofMouseEventArgs& args) {
+	if (isPressed) {
+		setBackgroundColor(BUTTON_DEFAULT_COLOR);
+		isPressed = false;
+		return true;
+	}
+	return false;
+}
+
 bool CustomButton::mouseMoved(ofMouseEventArgs& args) {
-	if (hitBox.inside(args.x, args.y)) {
+	if (getShape().inside(args.x, args.y)) {
 		setBackgroundColor(BUTTON_HOVER_COLOR);
 		return true;
 	}
 	setBackgroundColor(BUTTON_DEFAULT_COLOR);
 	return false;
-}
-
-void CustomButton::handlePressedState() {
-	auto now = std::chrono::high_resolution_clock::now();
-	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now - pressedTimeStart);
-
-	if (isPressed && duration.count() > BUTTON_PRESSED_DURATION_MS) {
-		setBackgroundColor(BUTTON_DEFAULT_COLOR);
-		isPressed = false;
-	}
 }
 
 void CustomButton::setWidth(float width) {
@@ -81,18 +67,10 @@ void CustomButton::setWidth(float width) {
 	labelWidth = width;
 }
 
-void CustomButton::setHitBox(ofRectangle rect) {
-	hitBox = rect;
-}
-
 void CustomButton::setPressedFunction(void (*_pressedFunction)()) {
 	pressedFunction = _pressedFunction;
 }
 
 float CustomButton::getWidth() const {
 	return labelWidth;
-}
-
-ofRectangle CustomButton::getHitBox() const {
-	return hitBox;
 }

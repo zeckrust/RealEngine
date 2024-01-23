@@ -49,6 +49,20 @@ bool TitleBarButton::mousePressed(ofMouseEventArgs& args) {
 	return false;
 }
 
+bool TitleBarButton::mouseReleased(ofMouseEventArgs& args) {
+	if (CustomButton::mouseReleased(args)) {
+		return true;
+	}
+	else {
+		for (int i = 0; i < std::size(subButtons); i++) {
+			if (subButtons[i] != nullptr && subButtons[i]->mouseReleased(args)) {
+				return true;
+			}
+		}
+		return false;
+	}
+}
+
 bool TitleBarButton::mouseMoved(ofMouseEventArgs& args) {
 	bool isMouseOverButton = false;
 	if (CustomButton::mouseMoved(args)) {
@@ -79,7 +93,7 @@ void TitleBarButton::handleDrawExtension() {
 
 bool TitleBarButton::isMouseInExtension() {
 	bool isInExtension = rectExtension.inside(ofGetMouseX(), ofGetMouseY());
-	bool isInTitleButton = getHitBox().inside(ofGetMouseX(), ofGetMouseY());
+	bool isInTitleButton = getShape().inside(ofGetMouseX(), ofGetMouseY());
 	return isInExtension || isInTitleButton;
 }
 
@@ -142,7 +156,6 @@ void TitleBarButton::updateSubButtons() {
 				nextPosY += subButtons[i - 1]->getHeight();
 			}
 			ofRectangle newHitBox = ofRectangle(posX, nextPosY, extensionWidth, subButtons[i]->getHeight());
-			subButtons[i]->setHitBox(newHitBox);
 			subButtons[i]->setWidth(extensionWidth);
 			subButtons[i]->setPosition(posX, nextPosY);
 		}

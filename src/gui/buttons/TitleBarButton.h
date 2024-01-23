@@ -9,6 +9,7 @@ class TitleBarButton : public CustomButton
 		TitleBarButton();
 		void draw();
 		bool mousePressed(ofMouseEventArgs& args) override;
+		bool mouseReleased(ofMouseEventArgs& args) override;
 		bool mouseMoved(ofMouseEventArgs& args) override;
 		float getExtensionWidth();
 		float getExtensionHeight();

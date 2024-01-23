@@ -73,6 +73,15 @@ void TitleBar::mousePressed(int x, int y, int button) {
 	}
 }
 
+void TitleBar::mouseReleased(int x, int y, int button) {
+	ofMouseEventArgs mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Type::Pressed, x, y, button);
+	for (int i = 0; i < std::size(buttons) ; i++) {
+		if (buttons[i] != nullptr && buttons[i]->mouseReleased(mouseEvent)) {
+			break;
+		}
+	}
+}
+
 void TitleBar::mouseMoved(int x, int y) {
 	ofMouseEventArgs mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Type::Moved, x, y);
 	for (int i = 0; i < std::size(buttons) ; i++) {

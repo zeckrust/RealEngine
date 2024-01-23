@@ -2,7 +2,6 @@
 
 // App
 
-
 // Title bar
 const float TITLE_BAR_POS_X = 0.0f;
 const float TITLE_BAR_POS_Y = 0.0f;
@@ -14,7 +13,7 @@ const int TITLE_BAR_LINE_LIMIT_HEIGHT = 2;
 const ofColor TITLE_BAR_LINE_LIMIT_COLOR = ofColor(78, 59, 255, 255);
 
 // Custom button
-const ofColor BUTTON_DEFAULT_COLOR = ofColor(0, 0, 0, 0);
+const ofColor BUTTON_DEFAULT_COLOR = TITLE_BAR_COLOR;
 const ofColor BUTTON_PRESSED_COLOR = ofColor(0, 0, 0, 255);
 const ofColor BUTTON_HOVER_COLOR = ofColor(120, 120, 120, 255);
 const ofColor BUTTON_LABEL_COLOR = ofColor(255, 255, 255, 255);
