@@ -61,6 +61,7 @@ void TitleBar::drawButtons() {
 
 void TitleBar::updateWidth(int width) {
 	rect.setWidth(width);
+	lineLimit.setWidth(width);
 }
 
 void TitleBar::mousePressed(int x, int y, int button) {
