@@ -83,12 +83,13 @@ bool TitleBar::mouseReleased(ofMouseEventArgs& args) {
 }
 
 bool TitleBar::mouseMoved(ofMouseEventArgs& args) {
+	bool isOnTitleBar = false;
 	for (int i = 0; i < std::size(buttons) ; i++) {
 		if (buttons[i] != nullptr && buttons[i]->mouseMoved(args)) {
-			return true;
+			isOnTitleBar = true;
 		}
 	}
-	return false;
+	return isOnTitleBar;
 }
 
 float TitleBar::getHeight() {
