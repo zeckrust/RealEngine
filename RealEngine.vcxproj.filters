@@ -64,6 +64,9 @@
     <ClCompile Include="src\gui\buttons\TitleBarButton.cpp">
       <Filter>src\gui\buttons</Filter>
     </ClCompile>
+    <ClCompile Include="src\gui\CustomPanel.cpp">
+      <Filter>src\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -448,6 +451,9 @@
     </ClInclude>
     <ClInclude Include="src\gui\buttons\ButtonsDefinition.h">
       <Filter>src\gui\buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\CustomPanel.h">
+      <Filter>src\gui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@
 #include "Transformation/Camera2d.h"
 #include "Image/Object2d.h"
 #include "gui/TitleBar.h"
+#include "gui/CustomPanel.h"
 
 class ofApp : public ofBaseApp{
 
@@ -53,5 +54,15 @@ class ofApp : public ofBaseApp{
 		ofImage moveCursor;
 		
 	private:
+		void setupPanels();
+		void drawGui();
+		void handleMousePressedGui(ofMouseEventArgs& args);
+		void handleMouseReleasedGui(ofMouseEventArgs& args);
+		void handleMouseMovedGui(ofMouseEventArgs& args);
+
 		TitleBar titleBar;
+		const std::string RIGHT_PANEL_NAME = "Right Panel";
+		const std::string LEFT_PANEL_NAME = "Left Panel";
+		CustomPanel rightPanel;
+		CustomPanel leftPanel;
 };
