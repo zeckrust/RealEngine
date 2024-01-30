@@ -68,7 +68,7 @@ bool TitleBarButton::mouseMoved(ofMouseEventArgs& args) {
 	if (CustomButton::mouseMoved(args)) {
 		isMouseOverButton = true;
 	}
-	else if(showExtension) {
+	if(showExtension) {
 		for (int i = 0; i < std::size(subButtons); i++) {
 			if (subButtons[i] != nullptr && subButtons[i]->mouseMoved(args)) {
 				isMouseOverButton = true;

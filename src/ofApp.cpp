@@ -2,6 +2,8 @@
 
 //--------------------------------------------------------------
 void ofApp::setup() {
+	gui.setup();
+
 	circle = Object2d();
 	circle2 = Object2d(glm::vec2(100, 100), 100);
 	camera2d = Camera2d();
@@ -26,6 +28,7 @@ void ofApp::ringButtonPressed() {
 
 //--------------------------------------------------------------
 void ofApp::update() {
+	gui.update();
 }
 
 //--------------------------------------------------------------
@@ -34,7 +37,8 @@ void ofApp::draw() {
 	ofSetColor(ofColor::black);
 	ofDrawCircle(circle.getPosition(), circle.getRadius());
 	ofDrawCircle(circle2.getPosition(), circle2.getRadius());
-	titleBar.draw();
+
+	gui.draw();
 }
 
 //--------------------------------------------------------------
@@ -49,7 +53,8 @@ void ofApp::keyReleased(int key) {
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y) {
-	titleBar.mouseMoved(x, y);
+	ofMouseEventArgs& mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Moved, x, y);
+	gui.mouseMoved(mouseEvent);
 }
 
 //--------------------------------------------------------------
@@ -59,13 +64,15 @@ void ofApp::mouseDragged(int x, int y, int button) {
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button) {
-	titleBar.mousePressed(x, y, button);
+	ofMouseEventArgs& mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Pressed, x, y);
+	gui.mousePressed(mouseEvent);
 	camera2d.setLastMousePosition(glm::vec2(x, y));
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button) {
-	titleBar.mouseReleased(x, y, button);
+	ofMouseEventArgs& mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Released, x, y);
+	gui.mouseReleased(mouseEvent);
 }
 
 //--------------------------------------------------------------
@@ -80,7 +87,7 @@ void ofApp::mouseExited(int x, int y) {
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h) {
-	titleBar.updateWidth(w);
+	gui.updateTitleBarWidth(w);
 }
 
 //--------------------------------------------------------------

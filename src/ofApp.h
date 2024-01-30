@@ -4,7 +4,7 @@
 #include "ofxGui.h"
 #include "Transformation/Camera2d.h"
 #include "Image/Object2d.h"
-#include "gui/TitleBar.h"
+#include "gui/Gui.h"
 
 class ofApp : public ofBaseApp{
 
@@ -47,11 +47,9 @@ class ofApp : public ofBaseApp{
 		ofxButton ringButton;
 		ofParameter<string> screenSize;
 
-		ofxPanel gui;
-
 		ofSoundPlayer ring;
 		ofImage moveCursor;
-		
+
 	private:
-		TitleBar titleBar;
+		Gui gui;
 };
