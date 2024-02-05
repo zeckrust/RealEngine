@@ -35,3 +35,10 @@ const std::string LEFT_PANEL_NAME = "Left Panel";
 const std::string REGULAR_FONT = "../src/gui/fonts/OpenSans-Regular.ttf";
 const std::string BOLD_FONT = "../src/gui/fonts/OpenSans-Bold.ttf";
 const float FONT_WIDTH_ERROR = 8.0f;
+
+
+// Scene
+const float SCENE_PADDING = 20.0f;
+const float SCENE_CORNER_RADIUS = 20.0f;
+const ofColor SCENE_BACKGROUND_COLOR = ofColor(150, 150, 150, 255);
+
