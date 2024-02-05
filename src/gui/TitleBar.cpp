@@ -21,9 +21,9 @@ TitleBar::TitleBar() {
 }
 
 void TitleBar::setup() {
-	rect.setPosition(TITLE_BAR_POS_X, TITLE_BAR_POS_Y);
-	rect.setSize(ofGetWindowWidth(), TITLE_BAR_HEIGHT);
-	lineLimit.setPosition(rect.getPosition().x, rect.getPosition().y + rect.getHeight());
+	rectBackground.setPosition(TITLE_BAR_POS_X, TITLE_BAR_POS_Y);
+	rectBackground.setSize(ofGetWindowWidth(), TITLE_BAR_HEIGHT);
+	lineLimit.setPosition(rectBackground.getPosition().x, rectBackground.getPosition().y + rectBackground.getHeight());
 	lineLimit.setSize(ofGetWindowWidth(), TITLE_BAR_LINE_LIMIT_HEIGHT);
 
 	setupButtons();
@@ -48,7 +48,7 @@ void TitleBar::draw() {
 
 void TitleBar::drawBar() {
 	ofSetColor(TITLE_BAR_COLOR);
-	ofDrawRectangle(rect);
+	ofDrawRectangle(rectBackground);
 	ofSetColor(TITLE_BAR_LINE_LIMIT_COLOR);
 	ofDrawRectangle(lineLimit);
 }
@@ -62,35 +62,40 @@ void TitleBar::drawButtons() {
 }
 
 void TitleBar::updateWidth(int width) {
-	rect.setWidth(width);
+	rectBackground.setWidth(width);
 	lineLimit.setWidth(width);
 }
 
-void TitleBar::mousePressed(int x, int y, int button) {
-	ofMouseEventArgs mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Type::Pressed, x, y, button);
+bool TitleBar::mousePressed(ofMouseEventArgs& args) {
 	for (int i = 0; i < std::size(buttons) ; i++) {
-		if (buttons[i] != nullptr && buttons[i]->mousePressed(mouseEvent)) {
-			break;
+		if (buttons[i] != nullptr && buttons[i]->mousePressed(args)) {
+			return true;
 		}
 	}
+	return false;
 }
 
-void TitleBar::mouseReleased(int x, int y, int button) {
-	ofMouseEventArgs mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Type::Pressed, x, y, button);
+bool TitleBar::mouseReleased(ofMouseEventArgs& args) {
 	for (int i = 0; i < std::size(buttons) ; i++) {
-		if (buttons[i] != nullptr && buttons[i]->mouseReleased(mouseEvent)) {
-			break;
+		if (buttons[i] != nullptr && buttons[i]->mouseReleased(args)) {
+			return true;
 		}
 	}
+	return false;
 }
 
-void TitleBar::mouseMoved(int x, int y) {
-	ofMouseEventArgs mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Type::Moved, x, y);
+bool TitleBar::mouseMoved(ofMouseEventArgs& args) {
+	bool isOnTitleBar = false;
 	for (int i = 0; i < std::size(buttons) ; i++) {
-		if (buttons[i] != nullptr && buttons[i]->mouseMoved(mouseEvent)) {
-			break;
+		if (buttons[i] != nullptr && buttons[i]->mouseMoved(args)) {
+			isOnTitleBar = true;
 		}
 	}
+	return isOnTitleBar;
+}
+
+float TitleBar::getHeight() {
+	return rectBackground.getHeight() + lineLimit.getHeight();
 }
 
 std::array<TitleBarButton*, TitleBar::MAX_NB_BUTTONS> TitleBar::getButtons() {

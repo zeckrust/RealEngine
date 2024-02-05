@@ -12,9 +12,10 @@ class TitleBar
 		void setupButtons();
 		void draw();
 		void updateWidth(int width);
-		void mousePressed(int x, int y, int button);
-		void mouseReleased(int x, int y, int button);
-		void mouseMoved(int x, int y);
+		bool mousePressed(ofMouseEventArgs& args);
+		bool mouseReleased(ofMouseEventArgs& args);
+		bool mouseMoved(ofMouseEventArgs& args);
+		float getHeight();
 
 		static const size_t MAX_NB_BUTTONS = 3;
 		std::array<TitleBarButton*, MAX_NB_BUTTONS> getButtons();
@@ -23,7 +24,7 @@ class TitleBar
 		void drawBar();
 		void drawButtons();
 
-		ofRectangle rect;
+		ofRectangle rectBackground;
 		ofRectangle lineLimit;
 
 		std::array<TitleBarButton*, MAX_NB_BUTTONS> buttons;

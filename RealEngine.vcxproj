@@ -106,6 +106,8 @@
   <ItemGroup>
     <ClCompile Include="src\gui\buttons\CustomButton.cpp" />
     <ClCompile Include="src\gui\buttons\TitleBarButton.cpp" />
+    <ClCompile Include="src\gui\CustomPanel.cpp" />
+    <ClCompile Include="src\gui\Gui.cpp" />
     <ClCompile Include="src\gui\TitleBar.cpp" />
     <ClCompile Include="src\Image\Object2d.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -130,6 +132,8 @@
     <ClInclude Include="src\gui\buttons\ButtonsDefinition.h" />
     <ClInclude Include="src\gui\buttons\CustomButton.h" />
     <ClInclude Include="src\gui\buttons\TitleBarButton.h" />
+    <ClInclude Include="src\gui\CustomPanel.h" />
+    <ClInclude Include="src\gui\Gui.h" />
     <ClInclude Include="src\gui\GuiConst.h" />
     <ClInclude Include="src\gui\TitleBar.h" />
     <ClInclude Include="src\Image\Object2d.h" />
