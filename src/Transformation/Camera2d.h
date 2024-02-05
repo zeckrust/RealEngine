@@ -2,7 +2,6 @@
 
 #include "ofMain.h"
 #include "../Image/Object2d.h"
-#include "../gui/Scene.h"
 
 class Camera2d
 {
