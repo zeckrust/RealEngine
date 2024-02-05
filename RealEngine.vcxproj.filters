@@ -70,6 +70,12 @@
     <ClCompile Include="src\gui\Gui.cpp">
       <Filter>src\gui</Filter>
     </ClCompile>
+    <ClCompile Include="src\gui\Scene.cpp">
+      <Filter>src\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -460,6 +466,12 @@
     </ClInclude>
     <ClInclude Include="src\gui\Gui.h">
       <Filter>src\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\Scene.h">
+      <Filter>src\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

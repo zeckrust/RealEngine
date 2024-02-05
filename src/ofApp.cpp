@@ -2,43 +2,23 @@
 
 //--------------------------------------------------------------
 void ofApp::setup() {
-	gui.setup();
-
-	circle = Object2d();
-	circle2 = Object2d(glm::vec2(100, 100), 100);
-	camera2d = Camera2d();
-	camera2d.addImage(&circle);
-	camera2d.addImage(&circle2);
+	ofSetWindowTitle("Real Engine");
+	renderer.setup();
 }
 
 //--------------------------------------------------------------
 void ofApp::exit() {
-	ringButton.removeListener(this, &ofApp::ringButtonPressed);
-}
 
-//--------------------------------------------------------------
-void ofApp::circleResolutionChanged(int& circleResolution) {
-	ofSetCircleResolution(circleResolution);
-}
-
-//--------------------------------------------------------------
-void ofApp::ringButtonPressed() {
-	ring.play();
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
-	gui.update();
+	renderer.update();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-	ofBackgroundGradient(ofColor::aliceBlue, ofColor::blanchedAlmond);
-	ofSetColor(ofColor::black);
-	ofDrawCircle(circle.getPosition(), circle.getRadius());
-	ofDrawCircle(circle2.getPosition(), circle2.getRadius());
-
-	gui.draw();
+	renderer.draw();
 }
 
 //--------------------------------------------------------------
@@ -54,25 +34,25 @@ void ofApp::keyReleased(int key) {
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y) {
 	ofMouseEventArgs& mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Moved, x, y);
-	gui.mouseMoved(mouseEvent);
+	renderer.mouseMoved(mouseEvent);
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button) {
-	camera2d.moveCamera(x, y);
+	ofMouseEventArgs& mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Dragged, x, y);
+	renderer.mouseDragged(mouseEvent);
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button) {
 	ofMouseEventArgs& mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Pressed, x, y);
-	gui.mousePressed(mouseEvent);
-	camera2d.setLastMousePosition(glm::vec2(x, y));
+	renderer.mousePressed(mouseEvent);
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button) {
 	ofMouseEventArgs& mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Released, x, y);
-	gui.mouseReleased(mouseEvent);
+	renderer.mouseReleased(mouseEvent);
 }
 
 //--------------------------------------------------------------
@@ -87,7 +67,7 @@ void ofApp::mouseExited(int x, int y) {
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h) {
-	gui.updateTitleBarWidth(w);
+	renderer.windowResized(w, h);
 }
 
 //--------------------------------------------------------------

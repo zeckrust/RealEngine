@@ -4,6 +4,7 @@
 #include "ofxGui.h"
 #include "TitleBar.h"
 #include "CustomPanel.h"
+#include "Scene.h"
 
 class Gui
 {
@@ -20,9 +21,12 @@ class Gui
 
 	private:
 		void setupPanels();
+		void setupScenes();
 
 		TitleBar titleBar;
 		CustomPanel rightPanel;
 		CustomPanel leftPanel;
+		Scene scene2d;
+		Scene scene3d;
 };
 
