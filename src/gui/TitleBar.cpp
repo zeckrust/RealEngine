@@ -1,4 +1,5 @@
 #include "TitleBar.h"
+#include "buttons/ButtonsDefinition.h"
 
 TitleBar::TitleBar() {
 	buttons[0] = &fileButton;
@@ -11,9 +12,10 @@ TitleBar::TitleBar() {
 	setup();
 
 	// Only for test purposes
-	testButton1.setup("_______test1_______", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
-	testButton2.setup("test2", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	testButton1.setup("import", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	testButton2.setup("export", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
 	testButton3.setup("test3", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	testButton1.setPressedFunction(&ButtonsDefinition::import);
 	std::vector<CustomButton*> testSubButtons {&testButton1, &testButton2, &testButton3};
 	fileButton.setSubButtons(testSubButtons);
 }
