@@ -5,6 +5,7 @@
 #include "Transformation/Camera2d.h"
 #include "Image/Object2d.h"
 #include "gui/Gui.h"
+#include "Renderer.h"
 
 class ofApp : public ofBaseApp{
 
@@ -33,8 +34,6 @@ class ofApp : public ofBaseApp{
 		bool bHide;
 		bool rightMousePressed;
 
-		Camera2d camera2d;
-
 		Object2d circle;
 		Object2d circle2;
 
@@ -52,4 +51,6 @@ class ofApp : public ofBaseApp{
 
 	private:
 		Gui gui;
+		Camera2d camera2d;
+		Renderer renderer = Renderer(&gui, &camera2d);
 };
