@@ -28,27 +28,6 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
-		void circleResolutionChanged(int& circleResolution);
-		void ringButtonPressed();
-
-		bool bHide;
-		bool rightMousePressed;
-
-		Object2d circle;
-		Object2d circle2;
-
-		ofParameter<float> radius;
-		ofParameter<ofColor> color;
-		ofParameter<glm::vec2> center;
-		ofParameter<int> circleResolution;
-		ofParameter<bool> filled;
-		ofxButton twoCircles;
-		ofxButton ringButton;
-		ofParameter<string> screenSize;
-
-		ofSoundPlayer ring;
-		ofImage moveCursor;
-
 	private:
 		Gui gui;
 		Camera2d camera2d;

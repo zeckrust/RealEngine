@@ -22,3 +22,6 @@ class Renderer
 		Camera2d* camera2d;
 
 };
+
+const int FRAME_RATE = 60;
+const ofColor BACKGROUND_COLOR = ofColor(212, 212, 212, 255);

@@ -37,7 +37,7 @@ const std::string BOLD_FONT = "../src/gui/fonts/OpenSans-Bold.ttf";
 const float FONT_WIDTH_ERROR = 8.0f;
 
 // Scene
-const float SCENE_PADDING = 20.0f;
-const float SCENE_CORNER_RADIUS = 20.0f;
-const ofColor SCENE_BACKGROUND_COLOR = ofColor(150, 150, 150, 255);
+const float SCENE_PADDING = 10.0f;
+const float SCENE_CORNER_RADIUS = 10.0f;
+const ofColor SCENE_BACKGROUND_COLOR = ofColor(69, 69, 69, 255);
 

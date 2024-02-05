@@ -5,6 +5,7 @@ Renderer::Renderer(Gui* _gui, Camera2d* _camera2d) : gui(_gui), camera2d(_camera
 }
 
 void Renderer::setup() {
+	ofSetFrameRate(FRAME_RATE);
 	gui->setup();
 }
 
@@ -13,6 +14,7 @@ void Renderer::update() {
 }
 
 void Renderer::draw() {
+	ofSetBackgroundColor(BACKGROUND_COLOR);
 	gui->draw();
 }
 
