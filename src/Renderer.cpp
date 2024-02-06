@@ -41,8 +41,8 @@ void Renderer::windowResized(int width, int height) {
 }
 
 void Renderer::keyPressed(ofKeyEventArgs& args) {
-	if (args.hasModifier(OF_KEY_CONTROL) && args.key == 19) { // 19 is CTRL+s key number
-		ofFileDialogResult result = ofSystemLoadDialog("Where to save 2d and 3d scenes", true,  "C:\\Users\\Mathieu\\Downloads");
+	if (args.key == KEY_CONTROL_S) {
+		ofFileDialogResult result = ofSystemLoadDialog("Where to save 2d and 3d scenes", true,  "");
 		saveScene(gui->getScene2d(), result.getPath() + "\\scene2d.png");
 		saveScene(gui->getScene3d(), result.getPath() + "\\scene3d.png");
 	}
@@ -51,6 +51,6 @@ void Renderer::keyPressed(ofKeyEventArgs& args) {
 void Renderer::saveScene(Scene& scene, std::string filePath) {
 	ofImage imageScene2d;
 	ofLog() << filePath;
-	imageScene2d.grabScreen(scene.getLeft(), scene.getTop(), scene.getWidth(), scene.getHeight());
+	imageScene2d.grabScreen(scene.getX(), scene.getY(), scene.getWidth(), scene.getHeight());
 	imageScene2d.save(filePath);
 }
