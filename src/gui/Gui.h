@@ -19,6 +19,9 @@ class Gui
 		void mousePressed(ofMouseEventArgs& args);
 		void mouseReleased(ofMouseEventArgs& args);
 
+		Scene getScene2d();
+		Scene getScene3d();
+
 	private:
 		void setupPanels();
 		void setupScenes();

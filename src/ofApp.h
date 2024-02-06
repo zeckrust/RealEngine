@@ -16,7 +16,7 @@ class ofApp : public ofBaseApp{
 
 		void exit();
 
-		void keyPressed(int key);
+		void keyPressed(ofKeyEventArgs& key);
 		void keyReleased(int key);
 		void mouseMoved(int x, int y);
 		void mouseDragged(int x, int y, int button);

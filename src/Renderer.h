@@ -16,8 +16,11 @@ class Renderer
 		void mouseReleased(ofMouseEventArgs& args);
 		void mouseMoved(ofMouseEventArgs& args);
 		void mouseDragged(ofMouseEventArgs& args);
+		void keyPressed(ofKeyEventArgs& args);
 
 	private:
+		void saveScene(Scene& scene, std::string filePath);
+
 		Gui* gui;
 		Camera2d* camera2d;
 
