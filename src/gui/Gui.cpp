@@ -60,3 +60,11 @@ void Gui::mouseReleased(ofMouseEventArgs& args) {
 		leftPanel.mouseReleased(args);
 	}
 }
+
+Scene Gui::getScene2d() {
+	return scene2d;
+}
+
+Scene Gui::getScene3d() {
+	return scene3d;
+}

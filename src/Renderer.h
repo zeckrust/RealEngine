@@ -16,8 +16,11 @@ class Renderer
 		void mouseReleased(ofMouseEventArgs& args);
 		void mouseMoved(ofMouseEventArgs& args);
 		void mouseDragged(ofMouseEventArgs& args);
+		void keyPressed(ofKeyEventArgs& args);
 
 	private:
+		void saveScene(Scene& scene, std::string filePath);
+
 		Gui* gui;
 		Camera2d* camera2d;
 
@@ -25,3 +28,4 @@ class Renderer
 
 const int FRAME_RATE = 60;
 const ofColor BACKGROUND_COLOR = ofColor(212, 212, 212, 255);
+const int KEY_CONTROL_S = 19;
