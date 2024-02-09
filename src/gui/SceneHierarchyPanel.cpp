@@ -26,12 +26,10 @@ void SceneHierarchyPanel::remove(ofxBaseGui *element) {
 	if (collection_it != collection.end()) {
 		collection.erase(collection_it);
 	}
-	else {
-		for (int i = 0; i < std::size(collection); i++) {
-			if (collection[i] != nullptr) {
-				SceneElement* sceneElement = (SceneElement*)collection[i];
-				sceneElement->removeChildren((SceneElement*)element);
-			}
+	for (int i = 0; i < std::size(collection); i++) {
+		if (collection[i] != nullptr) {
+			SceneElement* sceneElement = (SceneElement*)collection[i];
+			sceneElement->removeChildren((SceneElement*)element);
 		}
 	}
 }
@@ -56,7 +54,7 @@ bool SceneHierarchyPanel::mouseReleased(ofMouseEventArgs &args) {
 				releasedSceneElement = collection[i];
 			}
 		}
-		if (releasedSceneElement != nullptr) {
+		if (releasedSceneElement != nullptr && releasedSceneElement != pressedSceneElement) {
 			remove(pressedSceneElement);
 			SceneElement* sceneElement = (SceneElement*)releasedSceneElement;
 			sceneElement->addChildren((SceneElement*)pressedSceneElement);
@@ -77,9 +75,9 @@ void SceneHierarchyPanel::updateDisplay() {
 	std::vector<ofxBaseGui*> sceneElementsCopy = collection;
 	collection = std::vector<ofxBaseGui*>();
 	for (int i = 0; i < std::size(sceneElementsCopy); i++) {
-		if (sceneElementsCopy[i] != nullptr) {
+		SceneElement* sceneElement = (SceneElement*)sceneElementsCopy[i];
+		if (sceneElementsCopy[i] != nullptr && sceneElement->getDepth() == 0) {
 			add(sceneElementsCopy[i]);
-			SceneElement* sceneElement = (SceneElement*)sceneElementsCopy[i];
 			sceneElement->update(0);
 		}
 	}

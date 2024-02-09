@@ -16,7 +16,7 @@ void SceneElement::update(uint32_t newDepth) {
 	depth = newDepth;
 	std::string newLabel;
 	for (uint32_t i = 0; i < depth; ++i) {
-		newLabel += "    "; // Creates identation
+		newLabel += "|   "; // Creates identation
 	}
 	newLabel += labelName;
 
@@ -38,11 +38,9 @@ void SceneElement::removeChildren(SceneElement *element) {
 	if (child_it != children.end()) {
 		children.erase(child_it);
 	}
-	else {
-		for (int i = 0; i < std::size(children); i++) {
-			if (children[i] != nullptr) {
-				children[i]->removeChildren(element);
-			}
+	for (int i = 0; i < std::size(children); i++) {			
+		if (children[i] != nullptr) {
+			children[i]->removeChildren(element);
 		}
 	}
 }
