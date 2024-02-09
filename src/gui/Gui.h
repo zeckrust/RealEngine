@@ -4,7 +4,9 @@
 #include "ofxGui.h"
 #include "TitleBar.h"
 #include "CustomPanel.h"
-#include "Scene.h"
+#include "SceneHierarchyPanel.h"
+#include "scene/Scene.h"
+#include "scene/SceneElement.h"
 
 class Gui
 {
@@ -27,9 +29,16 @@ class Gui
 		void setupScenes();
 
 		TitleBar titleBar;
-		CustomPanel rightPanel;
+		SceneHierarchyPanel sceneHierarchyPanel;
 		CustomPanel leftPanel;
 		Scene scene2d;
 		Scene scene3d;
+
+		// Scene Elements tests
+		SceneElement element1 = SceneElement("element1");
+		SceneElement element11 = SceneElement("element11");
+		SceneElement element12 = SceneElement("element12");
+		SceneElement element121 = SceneElement("element121");
+		SceneElement element2 = SceneElement("element2");
 };
 

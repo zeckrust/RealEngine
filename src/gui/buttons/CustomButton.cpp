@@ -26,8 +26,8 @@ void CustomButton::setupLabel(std::string label) {
 void CustomButton::setupFont(std::string label, std::string font) {
 	std::string executablePath = ofFilePath::getCurrentExeDir();
 	std::string fontPath = ofFilePath::join(executablePath, font);
-	loadFont(fontPath, BUTTON_FONT_SIZE); // for the ofxLabel
-	labelFont.load(fontPath, BUTTON_FONT_SIZE); // for the ofTrueTypeFont
+	loadFont(fontPath, FONT_SIZE); // for the ofxLabel
+	labelFont.load(fontPath, FONT_SIZE); // for the ofTrueTypeFont
 	labelWidth = labelFont.stringWidth(label) + FONT_WIDTH_ERROR;
 }
 

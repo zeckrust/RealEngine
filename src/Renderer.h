@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "gui/Gui.h"
+#include "Transformation/Camera2d.h"
 
 class Renderer
 {

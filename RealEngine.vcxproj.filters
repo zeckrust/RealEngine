@@ -70,11 +70,17 @@
     <ClCompile Include="src\gui\Gui.cpp">
       <Filter>src\gui</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\Scene.cpp">
-      <Filter>src\gui</Filter>
-    </ClCompile>
     <ClCompile Include="src\Renderer.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\scene\SceneElement.cpp">
+      <Filter>src\gui\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\scene\Scene.cpp">
+      <Filter>src\gui\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\SceneHierarchyPanel.cpp">
+      <Filter>src\gui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +140,9 @@
     </Filter>
     <Filter Include="src\gui\buttons">
       <UniqueIdentifier>{3ce213f7-6f1c-4865-b59c-9210a2fc6671}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gui\scene">
+      <UniqueIdentifier>{6308404a-7031-4b84-af86-ba297e783b1e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -467,11 +476,17 @@
     <ClInclude Include="src\gui\Gui.h">
       <Filter>src\gui</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\Scene.h">
-      <Filter>src\gui</Filter>
-    </ClInclude>
     <ClInclude Include="src\Renderer.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\scene\SceneElement.h">
+      <Filter>src\gui\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\scene\Scene.h">
+      <Filter>src\gui\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\SceneHierarchyPanel.h">
+      <Filter>src\gui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

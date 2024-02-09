@@ -8,13 +8,20 @@ void Gui::setup() {
 }
 
 void Gui::setupPanels() {
-	rightPanel.setup(RIGHT_PANEL_NAME, 0, titleBar.getHeight());
+	sceneHierarchyPanel.setup(RIGHT_PANEL_NAME, 0, titleBar.getHeight());
 	leftPanel.setup(LEFT_PANEL_NAME, 0, titleBar.getHeight());
+
+	element12.addChildren(&element121);
+	element1.addChildren(&element11);
+	element1.addChildren(&element12);
+
+	sceneHierarchyPanel.add(&element1);
+	sceneHierarchyPanel.add(&element2);
 }
 
 void Gui::setupScenes() {
 	float scenesPosX = leftPanel.getPosition().x + leftPanel.getWidth() + SCENE_PADDING;
-	float scenesWidth = ofGetWidth() - rightPanel.getWidth() - leftPanel.getWidth() - (2*SCENE_PADDING);
+	float scenesWidth = ofGetWidth() - sceneHierarchyPanel.getWidth() - leftPanel.getWidth() - (2*SCENE_PADDING);
 	float scenesHeight = (ofGetHeight() - TITLE_BAR_HEIGHT - TITLE_BAR_LINE_LIMIT_HEIGHT - (3*SCENE_PADDING)) / 2;
 
 	float scene2dPosY = TITLE_BAR_HEIGHT + TITLE_BAR_LINE_LIMIT_HEIGHT + SCENE_PADDING;
@@ -25,7 +32,8 @@ void Gui::setupScenes() {
 }
 
 void Gui::update() {
-	rightPanel.setPosition(ofGetWidth() - rightPanel.getWidth(), rightPanel.getPosition().y);
+	int test = sceneHierarchyPanel.getWidth();
+	sceneHierarchyPanel.setPosition(ofGetWidth() - sceneHierarchyPanel.getWidth(), sceneHierarchyPanel.getPosition().y);
 }
 
 void Gui::updateTitleBarWidth(int width) {
@@ -35,28 +43,28 @@ void Gui::updateTitleBarWidth(int width) {
 void Gui::draw() {
 	scene2d.draw();
 	scene3d.draw();
-	rightPanel.draw();
+	sceneHierarchyPanel.draw();
 	leftPanel.draw();
 	titleBar.draw();
 }
 
 void Gui::mouseMoved(ofMouseEventArgs& args) {
 	if (!titleBar.mouseMoved(args)) {
-		rightPanel.mouseMoved(args);
+		sceneHierarchyPanel.mouseMoved(args);
 		leftPanel.mouseMoved(args);
 	}
 }
 
 void Gui::mousePressed(ofMouseEventArgs& args) {
 	if (!titleBar.mousePressed(args)) {
-		rightPanel.mousePressed(args);
+		sceneHierarchyPanel.mousePressed(args);
 		leftPanel.mousePressed(args);
 	}
 }
 
 void Gui::mouseReleased(ofMouseEventArgs& args) {
 	if (!titleBar.mouseReleased(args)) {
-		rightPanel.mouseReleased(args);
+		sceneHierarchyPanel.mouseReleased(args);
 		leftPanel.mouseReleased(args);
 	}
 }
