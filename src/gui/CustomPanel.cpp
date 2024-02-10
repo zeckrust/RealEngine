@@ -1,7 +1,7 @@
 #include "CustomPanel.h"
 
 CustomPanel::CustomPanel() : ofxGuiGroup() {
-
+	setDefaultWidth(CUSTOM_PANEL_DEFAULT_WIDTH);
 }
 
 void CustomPanel::setup(std::string panelName, float x, float y) {
@@ -21,5 +21,10 @@ void CustomPanel::updateWidth() {
 			width = collection[i]->getWidth();
 		}
 	}
-	setWidthElements(width);
+	if (width > CUSTOM_PANEL_DEFAULT_WIDTH) {
+		setWidthElements(width);
+	}
+	else {
+		setWidthElements(CUSTOM_PANEL_DEFAULT_WIDTH);
+	}
 }

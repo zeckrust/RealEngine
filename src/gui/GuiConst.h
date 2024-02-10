@@ -29,6 +29,7 @@ const ofColor PANEL_TITLE_COLOR = TITLE_BAR_COLOR;
 const ofColor PANEL_BACKGROUND_COLOR = ofColor(20, 20, 20, 255);
 const std::string RIGHT_PANEL_NAME = "Scene Elements";
 const std::string LEFT_PANEL_NAME = "Left Panel";
+const int CUSTOM_PANEL_DEFAULT_WIDTH = 150;
 
 // Fonts
 const int FONT_SIZE = 11;
