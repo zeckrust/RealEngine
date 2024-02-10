@@ -27,7 +27,7 @@ const int BUTTON_CLOSE_EXTENSION_THRESHOLD_MS = 1000;
 const int PANEL_TITLE_HEIGHT = 20;
 const ofColor PANEL_TITLE_COLOR = TITLE_BAR_COLOR;
 const ofColor PANEL_BACKGROUND_COLOR = ofColor(20, 20, 20, 255);
-const std::string RIGHT_PANEL_NAME = "Right Panel";
+const std::string RIGHT_PANEL_NAME = "Scene Elements";
 const std::string LEFT_PANEL_NAME = "Left Panel";
 
 // Fonts

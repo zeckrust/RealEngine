@@ -36,8 +36,7 @@ void Renderer::mouseDragged(ofMouseEventArgs& args) {
 }
 
 void Renderer::windowResized(int width, int height) {
-	gui->updateTitleBarWidth(width);
-	gui->setup();
+	gui->windowResized(width, height);
 }
 
 void Renderer::keyPressed(ofKeyEventArgs& args) {

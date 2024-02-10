@@ -27,7 +27,8 @@ void SceneElement::update(uint32_t newDepth) {
 }
 
 void SceneElement::addChildren(SceneElement *element) {
-	if (element != nullptr) {
+	auto child_it = std::find(children.begin(), children.end(), element);
+	if (element != nullptr && element != this && child_it == children.end()) {
 		children.push_back(element);
 		element->update(depth + 1);
 	}

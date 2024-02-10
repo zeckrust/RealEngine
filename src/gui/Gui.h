@@ -14,19 +14,19 @@ class Gui
 		Gui();
 		void setup();
 		void update();
-		void updateTitleBarWidth(int width);
 		void draw();
 
 		void mouseMoved(ofMouseEventArgs& args);
 		void mousePressed(ofMouseEventArgs& args);
 		void mouseReleased(ofMouseEventArgs& args);
+		void windowResized(int width, int height);
 
 		Scene getScene2d();
 		Scene getScene3d();
 
 	private:
 		void setupPanels();
-		void setupScenes();
+		void updateScenesSize();
 
 		TitleBar titleBar;
 		SceneHierarchyPanel sceneHierarchyPanel;

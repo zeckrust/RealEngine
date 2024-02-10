@@ -32,13 +32,22 @@ void SceneHierarchyPanel::remove(ofxBaseGui *element) {
 			sceneElement->removeChildren((SceneElement*)element);
 		}
 	}
+	removeElementChildren(element);
+}
+
+void SceneHierarchyPanel::removeElementChildren(ofxBaseGui *element) {
+	SceneElement* sceneElement = (SceneElement*) element;
+	std::vector<SceneElement*> sceneElementsChildren = sceneElement->getChildren();
+	for (int i = 0; i < std::size(sceneElementsChildren); i++) {
+		remove(sceneElementsChildren[i]);
+	}
 }
 
 bool SceneHierarchyPanel::mousePressed(ofMouseEventArgs &args) {
 	bool isPressed = ofxGuiGroup::mousePressed(args);
 	for (int i = 0; i < std::size(collection); i++) {
 		if (collection[i] != nullptr && collection[i]->mousePressed(args)) {
-			pressedSceneElement = collection[i];
+			pressedSceneElement = (SceneElement*)collection[i];
 		}
 	}
 	return isPressed;
@@ -48,25 +57,23 @@ bool SceneHierarchyPanel::mouseReleased(ofMouseEventArgs &args) {
 	bool isReleased = ofxGuiGroup::mouseReleased(args);
 	
 	if (pressedSceneElement != nullptr) {
-		ofxBaseGui* releasedSceneElement = nullptr;
 		for (int i = 0; i < std::size(collection); i++) {
 			if (collection[i] != nullptr && collection[i]->mouseReleased(args)) {
-				releasedSceneElement = collection[i];
+				releasedSceneElement = (SceneElement*)collection[i];
 			}
 		}
 		if (releasedSceneElement != nullptr && releasedSceneElement != pressedSceneElement) {
 			remove(pressedSceneElement);
-			SceneElement* sceneElement = (SceneElement*)releasedSceneElement;
-			sceneElement->addChildren((SceneElement*)pressedSceneElement);
+			releasedSceneElement->addChildren((SceneElement*)pressedSceneElement);
 			updateDisplay();
 		}
-		else {
+		else if (pressedSceneElement->getDepth() != 0) {
 			remove(pressedSceneElement);
 			add(pressedSceneElement);
-			SceneElement* sceneElement = (SceneElement*)pressedSceneElement;
-			sceneElement->update(0);
+			pressedSceneElement->update(0);
 		}
 		pressedSceneElement = nullptr;
+		releasedSceneElement = nullptr;
 	}
 	return isReleased;
 }

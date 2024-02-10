@@ -8,13 +8,14 @@ class SceneHierarchyPanel : public CustomPanel
 	public: 
 		SceneHierarchyPanel();
 		void add(ofxBaseGui *element) override;
-		void remove(ofxBaseGui* element);
+		void remove(ofxBaseGui *element);
 		virtual bool mousePressed(ofMouseEventArgs &args) override;
 		virtual bool mouseReleased(ofMouseEventArgs &args) override;
 
 	private:
 		void updateDisplay();
+		void removeElementChildren(ofxBaseGui *element);
 
-		ofxBaseGui* pressedSceneElement = nullptr;
-
+		SceneElement *pressedSceneElement = nullptr;
+		SceneElement *releasedSceneElement = nullptr;
 };

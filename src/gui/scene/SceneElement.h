@@ -2,7 +2,6 @@
 
 #include "ofxGui.h"
 #include "../GuiConst.h"
-#include "../SceneHierarchyPanel.h"
 
 class SceneElement : public ofxLabel
 {
