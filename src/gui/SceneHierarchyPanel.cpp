@@ -62,20 +62,33 @@ bool SceneHierarchyPanel::mouseReleased(ofMouseEventArgs &args) {
 				releasedSceneElement = (SceneElement*)collection[i];
 			}
 		}
-		if (releasedSceneElement != nullptr && releasedSceneElement != pressedSceneElement) {
-			remove(pressedSceneElement);
-			releasedSceneElement->addChildren((SceneElement*)pressedSceneElement);
-			updateDisplay();
-		}
-		else if (pressedSceneElement->getDepth() != 0) {
-			remove(pressedSceneElement);
-			add(pressedSceneElement);
-			pressedSceneElement->update(0);
-		}
+		handleMouseReleased();
 		pressedSceneElement = nullptr;
 		releasedSceneElement = nullptr;
 	}
 	return isReleased;
+}
+
+void SceneHierarchyPanel::handleMouseReleased() {
+	SceneElement* releasedElement = (SceneElement*)releasedSceneElement;
+	SceneElement* pressedElement = (SceneElement*)pressedSceneElement;
+
+	bool isReleasedElementInvalid = releasedSceneElement != nullptr && pressedElement->isElementAlreadyChild(releasedElement);
+	isReleasedElementInvalid |= releasedSceneElement == pressedSceneElement;
+
+	if (isReleasedElementInvalid) {
+		return;
+	}
+	else if (releasedSceneElement != nullptr) {
+		remove(pressedSceneElement);
+		releasedSceneElement->addChildren(pressedElement);
+		updateDisplay();
+	}
+	else if (pressedSceneElement->getDepth() != 0) {
+		remove(pressedSceneElement);
+		add(pressedSceneElement);
+		pressedSceneElement->update(0);
+	}
 }
 
 void SceneHierarchyPanel::updateDisplay() {

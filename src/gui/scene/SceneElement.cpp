@@ -70,3 +70,16 @@ void SceneElement::updateChildren() {
 		}
 	}
 }
+
+bool SceneElement::isElementAlreadyChild(SceneElement *element) {
+	auto child_it = std::find(children.begin(), children.end(), element);
+	if (child_it != children.end()) {
+		return true;
+	}
+	for (int i = 0; i < std::size(children); i++) {
+		if (children[i] != nullptr && children[i]->isElementAlreadyChild(element)) {
+			return true;
+		}
+	}
+	return false;
+}

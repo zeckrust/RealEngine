@@ -14,6 +14,7 @@ class SceneElement : public ofxLabel
 		virtual bool mouseReleased(ofMouseEventArgs &args) override;
 		std::vector<SceneElement*> getChildren();
 		uint32_t getDepth();
+		bool isElementAlreadyChild(SceneElement *element);
 
 	private:
 		void setupFont();

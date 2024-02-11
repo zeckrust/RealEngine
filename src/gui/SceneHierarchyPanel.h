@@ -13,8 +13,9 @@ class SceneHierarchyPanel : public CustomPanel
 		virtual bool mouseReleased(ofMouseEventArgs &args) override;
 
 	private:
-		void updateDisplay();
 		void removeElementChildren(ofxBaseGui *element);
+		void handleMouseReleased();
+		void updateDisplay();
 
 		SceneElement *pressedSceneElement = nullptr;
 		SceneElement *releasedSceneElement = nullptr;
