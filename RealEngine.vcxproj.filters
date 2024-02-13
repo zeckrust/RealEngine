@@ -467,9 +467,6 @@
     <ClInclude Include="src\gui\GuiConst.h">
       <Filter>src\gui</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\buttons\ButtonsDefinition.h">
-      <Filter>src\gui\buttons</Filter>
-    </ClInclude>
     <ClInclude Include="src\gui\CustomPanel.h">
       <Filter>src\gui</Filter>
     </ClInclude>

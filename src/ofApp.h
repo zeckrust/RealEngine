@@ -29,7 +29,6 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 
 	private:
-		Gui gui;
 		Camera2d camera2d;
-		Renderer renderer = Renderer(&gui, &camera2d);
+		Renderer renderer = Renderer(&camera2d);
 };

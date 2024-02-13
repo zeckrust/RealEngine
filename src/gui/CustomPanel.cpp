@@ -1,16 +1,20 @@
 #include "CustomPanel.h"
 
 CustomPanel::CustomPanel() : ofxGuiGroup() {
-	setDefaultWidth(CUSTOM_PANEL_DEFAULT_WIDTH);
+
 }
 
 void CustomPanel::setup(std::string panelName, float x, float y) {
 	ofxGuiGroup::setup(panelName, FILE_NAME_SETTINGS, x, y);
 	unregisterMouseEvents();
+	setDefaultWidth(CUSTOM_PANEL_DEFAULT_WIDTH);
 }
 
 void CustomPanel::add(ofxBaseGui *element) {
 	collection.push_back(element);
+}
+
+void CustomPanel::update() {
 	updateWidth();
 }
 

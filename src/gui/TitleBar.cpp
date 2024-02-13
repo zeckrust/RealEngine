@@ -1,5 +1,4 @@
 #include "TitleBar.h"
-#include "buttons/ButtonsDefinition.h"
 
 TitleBar::TitleBar() {
 	buttons[0] = &fileButton;
@@ -8,15 +7,6 @@ TitleBar::TitleBar() {
 	buttonNames[0] = "File";
 	buttonNames[1] = "View";
 	buttonNames[2] = "Window";
-
-	setup();
-
-	// Only for test purposes
-	testButton1.setup("import", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
-	testButton2.setup("export", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
-	testButton3.setup("test3", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
-	std::vector<CustomButton*> testSubButtons {&testButton1, &testButton2, &testButton3};
-	fileButton.setSubButtons(testSubButtons);
 }
 
 void TitleBar::setup() {
@@ -26,6 +16,13 @@ void TitleBar::setup() {
 	lineLimit.setSize(ofGetWindowWidth(), TITLE_BAR_LINE_LIMIT_HEIGHT);
 
 	setupButtons();
+
+	// Only for test purposes
+	testButton1.setup("import", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	testButton2.setup("export", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	testButton3.setup("test3", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	std::vector<CustomButton*> testSubButtons {&testButton1, &testButton2, &testButton3};
+	fileButton.setSubButtons(testSubButtons);
 }
 
 void TitleBar::setupButtons() {

@@ -1,12 +1,13 @@
 #include "Renderer.h"
 
-Renderer::Renderer(Gui* _gui, Camera2d* _camera2d) : gui(_gui), camera2d(_camera2d) {
+Renderer::Renderer(Camera2d* _camera2d) : camera2d(_camera2d) {
 
 }
 
 void Renderer::setup() {
-	ofSetFrameRate(FRAME_RATE);
+	gui = Gui::getInstance();
 	gui->setup();
+	ofSetFrameRate(FRAME_RATE);
 }
 
 void Renderer::update() {

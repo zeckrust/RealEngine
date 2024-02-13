@@ -133,7 +133,6 @@
     <ClCompile Include="src\Transformation\Camera2d.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\gui\buttons\ButtonsDefinition.h" />
     <ClInclude Include="src\gui\buttons\CustomButton.h" />
     <ClInclude Include="src\gui\buttons\TitleBarButton.h" />
     <ClInclude Include="src\gui\CustomPanel.h" />

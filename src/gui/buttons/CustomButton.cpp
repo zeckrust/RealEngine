@@ -1,6 +1,9 @@
 #include "CustomButton.h"
+#include "../Gui.h"
+
 
 CustomButton::CustomButton() : ofxLabel() {
+	gui = nullptr;
 	labelStr = "";
 	labelWidth = 0;
 	labelFont = ofTrueTypeFont();
@@ -9,6 +12,7 @@ CustomButton::CustomButton() : ofxLabel() {
 }
 
 void CustomButton::setup(std::string label, std::string font, int x, int y, int height) {
+	gui = Gui::getInstance();
 	setupFont(label, font);
 	setDefaultHeight(height);
 	setDefaultWidth(labelWidth);
@@ -36,7 +40,7 @@ bool CustomButton::mousePressed(ofMouseEventArgs& args) {
 		setBackgroundColor(BUTTON_PRESSED_COLOR);
 		isPressed = true;
 		if (pressedFunction != nullptr) {
-			pressedFunction();
+			(gui->*pressedFunction)();
 		}
 		return true;
 	}
@@ -67,7 +71,7 @@ void CustomButton::setWidth(float width) {
 	labelWidth = width;
 }
 
-void CustomButton::setPressedFunction(void (*_pressedFunction)()) {
+void CustomButton::setPressedFunction(void (Gui::*_pressedFunction)()) {
 	pressedFunction = _pressedFunction;
 }
 

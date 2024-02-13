@@ -3,6 +3,8 @@
 #include "ofxGui.h"
 #include "../GuiConst.h"
 
+class Gui; // Forward declaration
+
 class CustomButton : public ofxLabel
 {
 	public:
@@ -12,16 +14,18 @@ class CustomButton : public ofxLabel
 		bool mouseReleased(ofMouseEventArgs& args) override;
 		bool mouseMoved(ofMouseEventArgs& args) override;
 		void setWidth(float width);
-		void setPressedFunction(void (*_pressedFunction)());
+		void setPressedFunction(void (Gui::*_pressedFunction)());
 		float getWidth() const;
 
 	private:
 		void setupLabel(std::string label);
 		void setupFont(std::string label, std::string font);
 
+		Gui* gui;
+
 		bool isPressed;
 		float labelWidth;
-		void (*pressedFunction)();
+		void (Gui::*pressedFunction)();
 		ofTrueTypeFont labelFont;
 		std::string labelStr;
 };

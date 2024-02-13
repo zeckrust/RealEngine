@@ -1,8 +1,21 @@
 #include "Gui.h"
 
-Gui::Gui() {}
+Gui::Gui() {
+
+}
+
+Gui* Gui::getInstance() {
+	if (instancePtr == nullptr) {
+		instancePtr = new Gui();
+		return instancePtr;
+	}
+	else {
+		return instancePtr;
+	}
+}
 
 void Gui::setup() {
+	titleBar.setup();
 	setupPanels();
 	updateScenesSize();
 }
@@ -10,16 +23,11 @@ void Gui::setup() {
 void Gui::setupPanels() {
 	sceneHierarchyPanel.setup(RIGHT_PANEL_NAME, 0, titleBar.getHeight());
 	leftPanel.setup(LEFT_PANEL_NAME, 0, titleBar.getHeight());
-
-	element12.addChildren(&element121);
-	element1.addChildren(&element11);
-	element1.addChildren(&element12);
-
-	sceneHierarchyPanel.add(&element1);
-	sceneHierarchyPanel.add(&element2);
 }
 
 void Gui::update() {
+	sceneHierarchyPanel.update();
+	leftPanel.update();
 	updateScenesSize();
 	sceneHierarchyPanel.setPosition(ofGetWidth() - sceneHierarchyPanel.getWidth(), sceneHierarchyPanel.getPosition().y);
 }
