@@ -1,20 +1,40 @@
 #include "Gui.h"
 
-Gui::Gui() {}
+Gui::Gui() {
+
+}
+
+Gui* Gui::getInstance() {
+	if (instancePtr == nullptr) {
+		instancePtr = new Gui();
+		return instancePtr;
+	}
+	else {
+		return instancePtr;
+	}
+}
 
 void Gui::setup() {
+	titleBar.setup();
 	setupPanels();
-	setupScenes();
+	updateScenesSize();
 }
 
 void Gui::setupPanels() {
-	rightPanel.setup(RIGHT_PANEL_NAME, 0, titleBar.getHeight());
+	sceneHierarchyPanel.setup(RIGHT_PANEL_NAME, 0, titleBar.getHeight());
 	leftPanel.setup(LEFT_PANEL_NAME, 0, titleBar.getHeight());
 }
 
-void Gui::setupScenes() {
+void Gui::update() {
+	sceneHierarchyPanel.update();
+	leftPanel.update();
+	updateScenesSize();
+	sceneHierarchyPanel.setPosition(ofGetWidth() - sceneHierarchyPanel.getWidth(), sceneHierarchyPanel.getPosition().y);
+}
+
+void Gui::updateScenesSize() {
 	float scenesPosX = leftPanel.getPosition().x + leftPanel.getWidth() + SCENE_PADDING;
-	float scenesWidth = ofGetWidth() - rightPanel.getWidth() - leftPanel.getWidth() - (2*SCENE_PADDING);
+	float scenesWidth = ofGetWidth() - sceneHierarchyPanel.getWidth() - leftPanel.getWidth() - (2*SCENE_PADDING);
 	float scenesHeight = (ofGetHeight() - TITLE_BAR_HEIGHT - TITLE_BAR_LINE_LIMIT_HEIGHT - (3*SCENE_PADDING)) / 2;
 
 	float scene2dPosY = TITLE_BAR_HEIGHT + TITLE_BAR_LINE_LIMIT_HEIGHT + SCENE_PADDING;
@@ -24,41 +44,37 @@ void Gui::setupScenes() {
 	scene3d.setup(scenesPosX, scene3dPosY, scenesWidth, scenesHeight);
 }
 
-void Gui::update() {
-	rightPanel.setPosition(ofGetWidth() - rightPanel.getWidth(), rightPanel.getPosition().y);
-}
-
-void Gui::updateTitleBarWidth(int width) {
-	titleBar.updateWidth(width);
-}
-
 void Gui::draw() {
 	scene2d.draw();
 	scene3d.draw();
-	rightPanel.draw();
+	sceneHierarchyPanel.draw();
 	leftPanel.draw();
 	titleBar.draw();
 }
 
 void Gui::mouseMoved(ofMouseEventArgs& args) {
 	if (!titleBar.mouseMoved(args)) {
-		rightPanel.mouseMoved(args);
+		sceneHierarchyPanel.mouseMoved(args);
 		leftPanel.mouseMoved(args);
 	}
 }
 
 void Gui::mousePressed(ofMouseEventArgs& args) {
 	if (!titleBar.mousePressed(args)) {
-		rightPanel.mousePressed(args);
+		sceneHierarchyPanel.mousePressed(args);
 		leftPanel.mousePressed(args);
 	}
 }
 
 void Gui::mouseReleased(ofMouseEventArgs& args) {
 	if (!titleBar.mouseReleased(args)) {
-		rightPanel.mouseReleased(args);
+		sceneHierarchyPanel.mouseReleased(args);
 		leftPanel.mouseReleased(args);
 	}
+}
+
+void Gui::windowResized(int width, int height) {
+	titleBar.updateWidth(ofGetScreenWidth());
 }
 
 Scene Gui::getScene2d() {

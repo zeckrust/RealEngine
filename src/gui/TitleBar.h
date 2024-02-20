@@ -9,7 +9,6 @@ class TitleBar
 	public:
 		TitleBar();
 		void setup();
-		void setupButtons();
 		void draw();
 		void updateWidth(int width);
 		bool mousePressed(ofMouseEventArgs& args);
@@ -21,6 +20,7 @@ class TitleBar
 		std::array<TitleBarButton*, MAX_NB_BUTTONS> getButtons();
 
 	private:
+		void setupButtons();
 		void drawBar();
 		void drawButtons();
 

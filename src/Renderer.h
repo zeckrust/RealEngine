@@ -2,11 +2,12 @@
 
 #include "ofMain.h"
 #include "gui/Gui.h"
+#include "Transformation/Camera2d.h"
 
 class Renderer
 {
 	public:
-		Renderer(Gui* _gui, Camera2d* _camera2d);
+		Renderer(Camera2d* _camera2d);
 		void setup();
 		void update();
 		void draw();

@@ -22,16 +22,17 @@ const ofColor BUTTON_HOVER_COLOR = ofColor(120, 120, 120, 255);
 const ofColor BUTTON_LABEL_COLOR = ofColor(255, 255, 255, 255);
 const int BUTTON_PRESSED_DURATION_MS = 100;
 const int BUTTON_CLOSE_EXTENSION_THRESHOLD_MS = 1000;
-const int BUTTON_FONT_SIZE = 11;
 
 // Custom panel
 const int PANEL_TITLE_HEIGHT = 20;
 const ofColor PANEL_TITLE_COLOR = TITLE_BAR_COLOR;
 const ofColor PANEL_BACKGROUND_COLOR = ofColor(20, 20, 20, 255);
-const std::string RIGHT_PANEL_NAME = "Right Panel";
+const std::string RIGHT_PANEL_NAME = "Scene Elements";
 const std::string LEFT_PANEL_NAME = "Left Panel";
+const int CUSTOM_PANEL_DEFAULT_WIDTH = 150;
 
 // Fonts
+const int FONT_SIZE = 11;
 const std::string REGULAR_FONT = "../src/gui/fonts/OpenSans-Regular.ttf";
 const std::string BOLD_FONT = "../src/gui/fonts/OpenSans-Bold.ttf";
 const float FONT_WIDTH_ERROR = 8.0f;
