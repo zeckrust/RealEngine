@@ -1,4 +1,5 @@
 #include "TitleBar.h"
+#include "Gui.h"
 
 TitleBar::TitleBar() {
 	buttons[0] = &fileButton;
@@ -18,11 +19,11 @@ void TitleBar::setup() {
 	setupButtons();
 
 	// Only for test purposes
-	testButton1.setup("import", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
-	testButton2.setup("export", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
-	testButton3.setup("test3", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
-	std::vector<CustomButton*> testSubButtons {&testButton1, &testButton2, &testButton3};
-	fileButton.setSubButtons(testSubButtons);
+	importButton.setup("Import", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	exportButton.setup("Export", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	exportButton.setPressedFunction(&Gui::saveScenes);
+	std::vector<CustomButton*> fileSubButtons {&importButton, &exportButton};
+	fileButton.setSubButtons(fileSubButtons);
 }
 
 void TitleBar::setupButtons() {
@@ -97,3 +98,4 @@ float TitleBar::getHeight() {
 std::array<TitleBarButton*, TitleBar::MAX_NB_BUTTONS> TitleBar::getButtons() {
 	return buttons;
 }
+

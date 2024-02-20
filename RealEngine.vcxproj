@@ -104,6 +104,7 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="src\gui\buttons\CustomButton.cpp" />
     <ClCompile Include="src\gui\buttons\TitleBarButton.cpp" />
     <ClCompile Include="src\gui\CustomPanel.cpp" />
@@ -133,6 +134,7 @@
     <ClCompile Include="src\Transformation\Camera2d.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cursor.h" />
     <ClInclude Include="src\gui\buttons\CustomButton.h" />
     <ClInclude Include="src\gui\buttons\TitleBarButton.h" />
     <ClInclude Include="src\gui\CustomPanel.h" />

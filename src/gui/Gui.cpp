@@ -84,3 +84,20 @@ Scene Gui::getScene2d() {
 Scene Gui::getScene3d() {
 	return scene3d;
 }
+
+void Gui::saveScenes() {
+	ofFileDialogResult result = ofSystemLoadDialog("Where to save 2d and 3d scenes", true, "");
+	saveScene(getScene2d(), result.getPath() + "\\scene2d.png");
+	saveScene(getScene3d(), result.getPath() + "\\scene3d.png");
+}
+
+void Gui::saveScene(Scene & scene, std::string filePath) {
+	ofImage imageScene;
+	ofLog() << filePath;
+	imageScene.grabScreen(scene.getX(), scene.getY(), scene.getWidth(), scene.getHeight());
+	imageScene.save(filePath);
+}
+
+void Gui::importFile() {
+	ofLog() << "## NOT IMPLEMENTED ##";
+}

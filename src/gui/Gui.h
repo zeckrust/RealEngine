@@ -19,6 +19,8 @@ class Gui
 		void mousePressed(ofMouseEventArgs& args);
 		void mouseReleased(ofMouseEventArgs& args);
 		void windowResized(int width, int height);
+		void saveScenes();
+		void importFile();
 
 		Scene getScene2d();
 		Scene getScene3d();
@@ -31,6 +33,7 @@ class Gui
 		Gui();
 		void setupPanels();
 		void updateScenesSize();
+		void saveScene(Scene& scene, std::string filePath);
 
 		static Gui* instancePtr;
 
