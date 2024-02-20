@@ -39,6 +39,11 @@ class Gui
 		CustomPanel leftPanel;
 		Scene scene2d;
 		Scene scene3d;
+
+		//Tests
+		SceneElement element1 = SceneElement("element1");
+		SceneElement element2= SceneElement("element2");
+		SceneElement element3= SceneElement("element3");
 };
 
 Gui* Gui::instancePtr = nullptr;

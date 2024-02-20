@@ -5,6 +5,10 @@ SceneElement::SceneElement(std::string _labelName) : ofxLabel(_labelName), label
 	setupFont();
 }
 
+void SceneElement::setupExtension(void) {
+	extension.setup();
+}
+
 void SceneElement::setupFont() {
 	std::string executablePath = ofFilePath::getCurrentExeDir();
 	std::string fontPath = ofFilePath::join(executablePath, REGULAR_FONT);
@@ -24,6 +28,10 @@ void SceneElement::update(uint32_t newDepth) {
 	label = newLabel;
 	setSize(labelFont.stringWidth(newLabel) + FONT_WIDTH_ERROR, getHeight());
 	updateChildren();
+}
+
+void SceneElement::drawExtension(void) {
+	extension.draw();
 }
 
 void SceneElement::addChildren(SceneElement *element) {
@@ -48,11 +56,25 @@ void SceneElement::removeChildren(SceneElement *element) {
 
 
 bool SceneElement::mousePressed(ofMouseEventArgs& args) {
-	return getShape().inside(args.x, args.y);
+	bool isClickInside = getShape().inside(args.x, args.y);
+	if (isClickInside && args.button == OF_MOUSE_BUTTON_RIGHT) {
+		extension.show();
+	}
+	//else {
+		//extension.hide();
+	//}
+
+	extension.mousePressed(args);
+	return isClickInside && args.button == OF_MOUSE_BUTTON_LEFT;
 }
 
 bool SceneElement::mouseReleased(ofMouseEventArgs &args) {
+	extension.mouseReleased(args);
 	return getShape().inside(args.x, args.y);
+}
+
+bool SceneElement::mouseMoved(ofMouseEventArgs &args) {
+	return extension.mouseMoved(args);
 }
 
 std::vector<SceneElement*> SceneElement::getChildren() {
