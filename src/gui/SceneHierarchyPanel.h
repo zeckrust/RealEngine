@@ -7,7 +7,8 @@ class SceneHierarchyPanel : public CustomPanel
 {
 	public: 
 		SceneHierarchyPanel();
-		void draw();
+		void update(void);
+		void draw(void);
 		void add(ofxBaseGui *element) override;
 		void remove(ofxBaseGui *element);
 		virtual bool mousePressed(ofMouseEventArgs &args) override;

@@ -5,15 +5,25 @@ SceneHierarchyPanel::SceneHierarchyPanel() : CustomPanel() {
 
 }
 
+void SceneHierarchyPanel::update(void) {
+	CustomPanel::update();
+	for (int i = 0; i < std::size(collection); i++) {
+		if (collection[i] != nullptr) {
+			SceneElement* sceneElement = (SceneElement*)collection[i];
+			sceneElement->update();
+		}
+	}
+}
+
 // ********************************************************************************************************************
 // DISCLAMER : Cast from ofxBaseGui to SceneElement (only SceneElement objects can be added to a SceneHierarchyPanel)
 // ********************************************************************************************************************
-void SceneHierarchyPanel::draw() {
+void SceneHierarchyPanel::draw(void) {
 	ofxGuiGroup::draw();
 	for (int i = 0; i < std::size(collection); i++) {
 		if (collection[i] != nullptr) {
 			SceneElement* sceneElement = (SceneElement*)collection[i];
-			sceneElement->drawExtension();
+			sceneElement->draw();
 		}
 	}
 }
@@ -97,11 +107,9 @@ bool SceneHierarchyPanel::mouseReleased(ofMouseEventArgs &args) {
 
 bool SceneHierarchyPanel::mouseMoved(ofMouseEventArgs& args) {
 	bool isMoved = false;
-	if (getShape().inside(args.x, args.y)) {
-		for (int i = 0; i < std::size(collection); i++) {
-			if (collection[i] != nullptr) {
-				isMoved |= collection[i]->mouseMoved(args);
-			}
+	for (int i = 0; i < std::size(collection); i++) {
+		if (collection[i] != nullptr) {
+			isMoved |= collection[i]->mouseMoved(args);
 		}
 	}
 	return isMoved;
@@ -125,7 +133,7 @@ void SceneHierarchyPanel::handleMouseReleased() {
 	else if (pressedSceneElement->getDepth() != 0) {
 		remove(pressedSceneElement);
 		add(pressedSceneElement);
-		pressedSceneElement->update(0);
+		pressedSceneElement->updateElement(0);
 	}
 }
 
@@ -136,7 +144,7 @@ void SceneHierarchyPanel::updateDisplay() {
 		SceneElement* sceneElement = (SceneElement*)sceneElementsCopy[i];
 		if (sceneElementsCopy[i] != nullptr && sceneElement->getDepth() == 0) {
 			add(sceneElementsCopy[i]);
-			sceneElement->update(0);
+			sceneElement->updateElement(0);
 		}
 	}
 }

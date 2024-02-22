@@ -9,8 +9,9 @@ class SceneElement : public ofxLabel
 	public:
 		SceneElement(std::string _labelName);
 		void setupExtension(void);
-		void update(uint32_t newDepth);
-		void drawExtension(void);
+		void update(void);
+		void updateElement(uint32_t newDepth);
+		void draw(void);
 		void addChildren(SceneElement *element);
 		void removeChildren(SceneElement *element);
 		virtual bool mousePressed(ofMouseEventArgs &args) override;
@@ -31,3 +32,6 @@ class SceneElement : public ofxLabel
 		uint32_t depth = 0;
 		SceneElementExtension extension;
 };
+
+const ofColor DEFAULT_COLOR = ofColor(0, 0, 0, 0);
+const ofColor SELECTED_COLOR = ofColor(0, 0, 0, 100);

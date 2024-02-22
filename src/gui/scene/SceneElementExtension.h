@@ -14,10 +14,15 @@ class SceneElementExtension {
 		bool mousePressed(ofMouseEventArgs& args);
 		bool mouseReleased(ofMouseEventArgs& args);
 		bool mouseMoved(ofMouseEventArgs& args);
+		bool isSelected(void);
 
 	private:
 		void updatePosition(float x, float y);
+		void handleSelectPressed(void);
+		void handleDeletePressed(void);
+
 		bool isDisplayed = false;
+		bool isElementSelected = false;
 
 		ofRectangle extensionRect;
 		CustomButton selectButton;
@@ -25,7 +30,7 @@ class SceneElementExtension {
 };
 
 const std::string SELECT_STR = "Select";
-const std::string DESELECTE_STR = "Deselect";
+const std::string DESELECT_STR = "Deselect";
 const std::string DELETE_STR = "Delete";
 const int DEFAULT_BUTTON_HEIGHT = 30;
 const int DEFAULT_EXTENSION_WIDTH = 80;

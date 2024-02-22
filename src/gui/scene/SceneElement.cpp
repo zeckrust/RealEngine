@@ -1,7 +1,7 @@
 #include "SceneElement.h"
 
 SceneElement::SceneElement(std::string _labelName) : ofxLabel(_labelName), labelName(_labelName), label(_labelName){
-	setBackgroundColor(ofColor(0, 0, 0, 0));
+	setBackgroundColor(DEFAULT_COLOR);
 	setupFont();
 }
 
@@ -16,7 +16,16 @@ void SceneElement::setupFont() {
 	labelFont.load(fontPath, FONT_SIZE);
 }
 
-void SceneElement::update(uint32_t newDepth) {
+void SceneElement::update() {
+	if (extension.isSelected()) {
+		setBackgroundColor(SELECTED_COLOR);
+	}
+	else {
+		setBackgroundColor(DEFAULT_COLOR);
+	}
+}
+
+void SceneElement::updateElement(uint32_t newDepth) {
 	depth = newDepth;
 	std::string newLabel;
 	for (uint32_t i = 0; i < depth; ++i) {
@@ -30,7 +39,7 @@ void SceneElement::update(uint32_t newDepth) {
 	updateChildren();
 }
 
-void SceneElement::drawExtension(void) {
+void SceneElement::draw(void) {
 	extension.draw();
 }
 
@@ -38,7 +47,7 @@ void SceneElement::addChildren(SceneElement *element) {
 	auto child_it = std::find(children.begin(), children.end(), element);
 	if (element != nullptr && element != this && child_it == children.end()) {
 		children.push_back(element);
-		element->update(depth + 1);
+		element->updateElement(depth + 1);
 	}
 }
 
@@ -57,14 +66,15 @@ void SceneElement::removeChildren(SceneElement *element) {
 
 bool SceneElement::mousePressed(ofMouseEventArgs& args) {
 	bool isClickInside = getShape().inside(args.x, args.y);
+	extension.mousePressed(args);
+
 	if (isClickInside && args.button == OF_MOUSE_BUTTON_RIGHT) {
 		extension.show();
 	}
-	//else {
-		//extension.hide();
-	//}
+	else {
+		extension.hide();
+	}
 
-	extension.mousePressed(args);
 	return isClickInside && args.button == OF_MOUSE_BUTTON_LEFT;
 }
 
@@ -88,7 +98,7 @@ uint32_t SceneElement::getDepth() {
 void SceneElement::updateChildren() {
 	for (int i = 0; i < std::size(children); i++) {
 		if (children[i] != nullptr) {
-			children[i]->update(depth + 1);
+			children[i]->updateElement(depth + 1);
 		}
 	}
 }

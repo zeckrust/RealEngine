@@ -44,10 +44,16 @@ bool SceneElementExtension::mousePressed(ofMouseEventArgs& args) {
 		updatePosition(args.x, args.y);
 		return false;
 	}
-	else if (isClickInside && args.button == OF_MOUSE_BUTTON_LEFT) {
-		bool isClickInSelect = selectButton.mousePressed(args);
-		bool isClickInDelete = deleteButton.mousePressed(args);
-		return isClickInSelect || isClickInDelete;
+	else if (isClickInside && args.button == OF_MOUSE_BUTTON_LEFT && isDisplayed) {
+		bool isSelectClicked = selectButton.mousePressed(args);
+		if (isSelectClicked) {
+			handleSelectPressed();
+		}
+		bool isDeleteClicked = deleteButton.mousePressed(args);
+		if (isDeleteClicked) {
+			handleDeletePressed();
+		}
+		return isSelectClicked || isDeleteClicked;
 	}
 	return false;
 }
@@ -63,9 +69,27 @@ bool SceneElementExtension::mouseReleased(ofMouseEventArgs& args) {
 
 bool SceneElementExtension::mouseMoved(ofMouseEventArgs& args) {
 	bool isMouseInside = false;
-	if (extensionRect.inside(args.x, args.y)) {
-		isMouseInside |= selectButton.mouseMoved(args);
-		isMouseInside |= deleteButton.mouseMoved(args);
-	}
+	isMouseInside |= selectButton.mouseMoved(args);
+	isMouseInside |= deleteButton.mouseMoved(args);
 	return isMouseInside;
+}
+
+bool SceneElementExtension::isSelected(void) {
+	return isElementSelected;
+}
+
+void SceneElementExtension::handleSelectPressed(void) {
+	if (isElementSelected) {
+		selectButton.setup(SELECT_STR, REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
+		isElementSelected = false;
+	}
+	else {
+		selectButton.setup(DESELECT_STR, REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
+		isElementSelected = true;
+	}
+	selectButton.setWidth(DEFAULT_EXTENSION_WIDTH);
+}
+
+void SceneElementExtension::handleDeletePressed(void) {
+
 }
