@@ -35,7 +35,6 @@ class TitleBar
 		TitleBarButton windowButton;
 
 		// Only for test purposes
-		CustomButton testButton1;
-		CustomButton testButton2;
-		CustomButton testButton3;
+		CustomButton importButton;
+		CustomButton exportButton;
 };

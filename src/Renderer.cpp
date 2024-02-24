@@ -8,6 +8,7 @@ void Renderer::setup() {
 	gui = Gui::getInstance();
 	gui->setup();
 	ofSetFrameRate(FRAME_RATE);
+	cursors.setup();
 }
 
 void Renderer::update() {
@@ -17,6 +18,7 @@ void Renderer::update() {
 void Renderer::draw() {
 	ofSetBackgroundColor(BACKGROUND_COLOR);
 	gui->draw();
+	cursors.draw();
 }
 
 void Renderer::mousePressed(ofMouseEventArgs& args) {
@@ -30,10 +32,15 @@ void Renderer::mouseReleased(ofMouseEventArgs& args) {
 
 void Renderer::mouseMoved(ofMouseEventArgs& args) {
 	gui->mouseMoved(args);
+	cursors.setCursorPosition(args.x, args.y);
 }
 
 void Renderer::mouseDragged(ofMouseEventArgs& args) {
 	camera2d->moveCamera(args.x, args.y);
+}
+
+void Renderer::mouseExited() {
+	cursors.setCursorPosition(-100, -100); // set position outside of screen
 }
 
 void Renderer::windowResized(int width, int height) {
@@ -49,8 +56,8 @@ void Renderer::keyPressed(ofKeyEventArgs& args) {
 }
 
 void Renderer::saveScene(Scene& scene, std::string filePath) {
-	ofImage imageScene2d;
+	ofImage imageScene;
 	ofLog() << filePath;
-	imageScene2d.grabScreen(scene.getX(), scene.getY(), scene.getWidth(), scene.getHeight());
-	imageScene2d.save(filePath);
+	imageScene.grabScreen(scene.getX(), scene.getY(), scene.getWidth(), scene.getHeight());
+	imageScene.save(filePath);
 }
