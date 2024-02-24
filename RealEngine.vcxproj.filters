@@ -85,6 +85,9 @@
     <ClCompile Include="src\gui\scene\SceneElementExtension.cpp">
       <Filter>src\gui\scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Image\Cursor.cpp">
+      <Filter>src\Image</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -490,6 +493,9 @@
     </ClInclude>
     <ClInclude Include="src\gui\scene\SceneElementExtension.h">
       <Filter>src\gui\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Image\Cursor.h">
+      <Filter>src\Image</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
