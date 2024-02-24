@@ -104,7 +104,6 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="src\gui\buttons\CustomButton.cpp" />
     <ClCompile Include="src\gui\buttons\TitleBarButton.cpp" />
     <ClCompile Include="src\gui\CustomPanel.cpp" />
@@ -113,6 +112,7 @@
     <ClCompile Include="src\gui\scene\Scene.cpp" />
     <ClCompile Include="src\gui\scene\SceneElement.cpp" />
     <ClCompile Include="src\gui\TitleBar.cpp" />
+    <ClCompile Include="src\Image\Cursor.cpp" />
     <ClCompile Include="src\Image\Object2d.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
@@ -134,7 +134,6 @@
     <ClCompile Include="src\Transformation\Camera2d.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cursor.h" />
     <ClInclude Include="src\gui\buttons\CustomButton.h" />
     <ClInclude Include="src\gui\buttons\TitleBarButton.h" />
     <ClInclude Include="src\gui\CustomPanel.h" />
@@ -144,6 +143,7 @@
     <ClInclude Include="src\gui\scene\Scene.h" />
     <ClInclude Include="src\gui\scene\SceneElement.h" />
     <ClInclude Include="src\gui\TitleBar.h" />
+    <ClInclude Include="src\Image\Cursor.h" />
     <ClInclude Include="src\Image\Object2d.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="..\..\addons\ofxAssimpModelLoader\src\ofxAssimpAnimation.h" />

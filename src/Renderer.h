@@ -4,7 +4,6 @@
 #include "gui/Gui.h"
 #include "Transformation/Camera2d.h"
 #include "Image/Cursor.h"
-#include "../Cursor.h"
 
 class Renderer
 {
