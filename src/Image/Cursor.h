@@ -17,12 +17,17 @@ class Cursor
 	public:
 		Cursor();
 		void setup();
-		void changeCurrentCursor(CursorType cursorChange);
+		void update();
 		void draw();
-		void setCursorPosition(int x, int y);
+		void mouseExited();
+		void mouseEntered();
+		void changeCurrentCursor(CursorType cursorChange);
+
 	private:
+		void setCursorPosition();
 		void loadCursors();
 
+		bool isMouseExited = false;
 		std::map<CursorType, std::string> cursorsMap;
 		ofImage currentCursor;
 		glm::vec2 cursorPosition;

@@ -10,6 +10,38 @@ void Cursor::setup() {
 	changeCurrentCursor(CursorType::Normal);
 }
 
+void Cursor::update() {
+	setCursorPosition();
+}
+
+void Cursor::draw() {
+	ofHideCursor();
+	currentCursor.draw(cursorPosition);
+}
+
+void Cursor::mouseExited() {
+	isMouseExited = true;
+}
+
+void Cursor::mouseEntered() {
+	isMouseExited = false;
+}
+
+// algorithm to switch between cursors
+void Cursor::changeCurrentCursor(CursorType newCursor) {
+	currentCursor.clear();
+	currentCursor.load(cursorsMap[newCursor]);
+}
+
+void Cursor::setCursorPosition() {
+	if (isMouseExited) {
+		cursorPosition = glm::vec2(-100, -100);
+	}
+	else {
+		cursorPosition = glm::vec2(ofGetMouseX(), ofGetMouseY());
+	}
+}
+
 void Cursor::loadCursors() {
 	cursorsMap = {
 		{ CursorType::Normal,		"cursors/normal-select.png" },
@@ -19,19 +51,4 @@ void Cursor::loadCursors() {
 		{ CursorType::Draw,			"cursors/handwriting.png" },
 		{ CursorType::CrossAir,		"cursors/precision-select.png" }
 	};
-}
-
-// algorithm to switch between cursors
-void Cursor::changeCurrentCursor(CursorType newCursor) {
-	currentCursor.clear();
-	currentCursor.load(cursorsMap[newCursor]);
-}
-
-void Cursor::draw() {
-	ofHideCursor();
-	currentCursor.draw(cursorPosition);
-}
-
-void Cursor::setCursorPosition(int x, int y) {
-	cursorPosition = glm::vec2(x, y);
 }
