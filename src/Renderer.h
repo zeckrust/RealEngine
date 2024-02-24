@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "gui/Gui.h"
 #include "Transformation/Camera2d.h"
+#include "Image/Cursor.h"
 
 class Renderer
 {
@@ -17,6 +18,7 @@ class Renderer
 		void mouseReleased(ofMouseEventArgs& args);
 		void mouseMoved(ofMouseEventArgs& args);
 		void mouseDragged(ofMouseEventArgs& args);
+		void mouseExited();
 		void keyPressed(ofKeyEventArgs& args);
 
 	private:
@@ -24,7 +26,7 @@ class Renderer
 
 		Gui* gui;
 		Camera2d* camera2d;
-
+		Cursor cursors;
 };
 
 const int FRAME_RATE = 60;

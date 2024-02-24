@@ -113,6 +113,7 @@
     <ClCompile Include="src\gui\scene\SceneElement.cpp" />
     <ClCompile Include="src\gui\scene\SceneElementExtension.cpp" />
     <ClCompile Include="src\gui\TitleBar.cpp" />
+    <ClCompile Include="src\Image\Cursor.cpp" />
     <ClCompile Include="src\Image\Object2d.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="src\gui\scene\SceneElement.h" />
     <ClInclude Include="src\gui\scene\SceneElementExtension.h" />
     <ClInclude Include="src\gui\TitleBar.h" />
+    <ClInclude Include="src\Image\Cursor.h" />
     <ClInclude Include="src\Image\Object2d.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="..\..\addons\ofxAssimpModelLoader\src\ofxAssimpAnimation.h" />

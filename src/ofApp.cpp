@@ -32,8 +32,8 @@ void ofApp::keyReleased(int key) {
 }
 
 //--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y) {
-	ofMouseEventArgs& mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Moved, x, y);
+void ofApp::mouseMoved(ofMouseEventArgs& mouse) {
+	ofMouseEventArgs& mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Moved, mouse.x, mouse.y);
 	renderer.mouseMoved(mouseEvent);
 }
 
@@ -62,7 +62,7 @@ void ofApp::mouseEntered(int x, int y) {
 
 //--------------------------------------------------------------
 void ofApp::mouseExited(int x, int y) {
-
+	renderer.mouseExited();
 }
 
 //--------------------------------------------------------------
