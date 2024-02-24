@@ -20,6 +20,8 @@ class SceneElement : public ofxLabel
 		std::vector<SceneElement*> getChildren();
 		uint32_t getDepth();
 		bool isElementAlreadyChild(SceneElement *element);
+		bool isSelected(void);
+		bool isDeleteRequested(void);
 
 	private:
 		void setupFont();

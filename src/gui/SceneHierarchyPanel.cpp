@@ -5,19 +5,24 @@ SceneHierarchyPanel::SceneHierarchyPanel() : CustomPanel() {
 
 }
 
+// ********************************************************************************************************************
+// DISCLAMER : Cast from ofxBaseGui to SceneElement (only SceneElement objects can be added to a SceneHierarchyPanel)
+// ********************************************************************************************************************
 void SceneHierarchyPanel::update(void) {
 	CustomPanel::update();
 	for (int i = 0; i < std::size(collection); i++) {
 		if (collection[i] != nullptr) {
 			SceneElement* sceneElement = (SceneElement*)collection[i];
-			sceneElement->update();
+			if (sceneElement->isDeleteRequested()) {
+				deleteRequestedSceneElement = sceneElement;
+			}
+			else {
+				sceneElement->update();
+			}
 		}
 	}
 }
 
-// ********************************************************************************************************************
-// DISCLAMER : Cast from ofxBaseGui to SceneElement (only SceneElement objects can be added to a SceneHierarchyPanel)
-// ********************************************************************************************************************
 void SceneHierarchyPanel::draw(void) {
 	ofxGuiGroup::draw();
 	for (int i = 0; i < std::size(collection); i++) {
@@ -26,6 +31,11 @@ void SceneHierarchyPanel::draw(void) {
 			sceneElement->draw();
 		}
 	}
+}
+
+void SceneHierarchyPanel::createSceneElement(std::string sceneElementName) {
+	SceneElement *newSceneElement = new SceneElement(sceneElementName);
+	add(newSceneElement);
 }
 
 void SceneHierarchyPanel::add(ofxBaseGui* element) {
@@ -102,6 +112,7 @@ bool SceneHierarchyPanel::mouseReleased(ofMouseEventArgs &args) {
 		pressedSceneElement = nullptr;
 		releasedSceneElement = nullptr;
 	}
+	handleDeleteRequest();
 	return isReleased;
 }
 
@@ -115,7 +126,7 @@ bool SceneHierarchyPanel::mouseMoved(ofMouseEventArgs& args) {
 	return isMoved;
 }
 
-void SceneHierarchyPanel::handleMouseReleased() {
+void SceneHierarchyPanel::handleMouseReleased(void) {
 	SceneElement* releasedElement = (SceneElement*)releasedSceneElement;
 	SceneElement* pressedElement = (SceneElement*)pressedSceneElement;
 
@@ -134,6 +145,13 @@ void SceneHierarchyPanel::handleMouseReleased() {
 		remove(pressedSceneElement);
 		add(pressedSceneElement);
 		pressedSceneElement->updateElement(0);
+	}
+}
+
+void SceneHierarchyPanel::handleDeleteRequest(void) {
+	if (deleteRequestedSceneElement != nullptr) {
+		remove(deleteRequestedSceneElement);
+		deleteRequestedSceneElement = nullptr;
 	}
 }
 

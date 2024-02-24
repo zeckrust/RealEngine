@@ -17,7 +17,7 @@ void SceneElement::setupFont() {
 }
 
 void SceneElement::update() {
-	if (extension.isSelected()) {
+	if (isSelected()) {
 		setBackgroundColor(SELECTED_COLOR);
 	}
 	else {
@@ -114,4 +114,12 @@ bool SceneElement::isElementAlreadyChild(SceneElement *element) {
 		}
 	}
 	return false;
+}
+
+bool SceneElement::isSelected(void) {
+	return extension.isSelected();
+}
+
+bool SceneElement::isDeleteRequested(void) {
+	return extension.isDeleteRequested();
 }

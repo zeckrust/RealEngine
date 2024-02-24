@@ -78,6 +78,10 @@ bool SceneElementExtension::isSelected(void) {
 	return isElementSelected;
 }
 
+bool SceneElementExtension::isDeleteRequested(void) {
+	return isDeleteNeeded;
+}
+
 void SceneElementExtension::handleSelectPressed(void) {
 	if (isElementSelected) {
 		selectButton.setup(SELECT_STR, REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
@@ -91,5 +95,5 @@ void SceneElementExtension::handleSelectPressed(void) {
 }
 
 void SceneElementExtension::handleDeletePressed(void) {
-
+	isDeleteNeeded = true;
 }

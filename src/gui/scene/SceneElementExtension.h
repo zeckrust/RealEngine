@@ -15,6 +15,7 @@ class SceneElementExtension {
 		bool mouseReleased(ofMouseEventArgs& args);
 		bool mouseMoved(ofMouseEventArgs& args);
 		bool isSelected(void);
+		bool isDeleteRequested(void);
 
 	private:
 		void updatePosition(float x, float y);
@@ -23,6 +24,7 @@ class SceneElementExtension {
 
 		bool isDisplayed = false;
 		bool isElementSelected = false;
+		bool isDeleteNeeded = false;
 
 		ofRectangle extensionRect;
 		CustomButton selectButton;
