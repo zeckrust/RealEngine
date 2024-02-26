@@ -8,11 +8,42 @@ SceneHierarchyPanel::SceneHierarchyPanel() : CustomPanel() {
 // ********************************************************************************************************************
 // DISCLAMER : Cast from ofxBaseGui to SceneElement (only SceneElement objects can be added to a SceneHierarchyPanel)
 // ********************************************************************************************************************
+void SceneHierarchyPanel::update(void) {
+	CustomPanel::update();
+	for (int i = 0; i < std::size(collection); i++) {
+		if (collection[i] != nullptr) {
+			SceneElement* sceneElement = (SceneElement*)collection[i];
+			if (sceneElement->isDeleteRequested()) {
+				deleteRequestedSceneElement = sceneElement;
+			}
+			else {
+				sceneElement->update();
+			}
+		}
+	}
+}
+
+void SceneHierarchyPanel::draw(void) {
+	ofxGuiGroup::draw();
+	for (int i = 0; i < std::size(collection); i++) {
+		if (collection[i] != nullptr) {
+			SceneElement* sceneElement = (SceneElement*)collection[i];
+			sceneElement->draw();
+		}
+	}
+}
+
+void SceneHierarchyPanel::createSceneElement(std::string sceneElementName) {
+	SceneElement *newSceneElement = new SceneElement(sceneElementName);
+	add(newSceneElement);
+}
+
 void SceneHierarchyPanel::add(ofxBaseGui* element) {
 	auto collection_it = std::find(collection.begin(), collection.end(), element);
 	if (element != nullptr && collection_it == collection.end()) {
 		CustomPanel::add(element);
 		SceneElement* sceneElement = (SceneElement*) element;
+		sceneElement->setupExtension();
 		std::vector<SceneElement*> sceneElementsChildren = sceneElement->getChildren();
 
 		for (int i = 0; i < std::size(sceneElementsChildren); i++) {
@@ -45,9 +76,18 @@ void SceneHierarchyPanel::removeElementChildren(ofxBaseGui *element) {
 
 bool SceneHierarchyPanel::mousePressed(ofMouseEventArgs &args) {
 	bool isPressed = ofxGuiGroup::mousePressed(args);
-	for (int i = 0; i < std::size(collection); i++) {
-		if (collection[i] != nullptr && collection[i]->mousePressed(args)) {
-			pressedSceneElement = (SceneElement*)collection[i];
+	if (args.button == OF_MOUSE_BUTTON_RIGHT) {
+		for (int i = 0; i < std::size(collection); i++) {
+			if (collection[i] != nullptr) {
+				collection[i]->mousePressed(args);
+			}
+		}
+	}
+	else {
+		for (int i = 0; i < std::size(collection); i++) {
+			if (collection[i] != nullptr && collection[i]->mousePressed(args)) {
+				pressedSceneElement = (SceneElement*)collection[i];
+			}
 		}
 	}
 	return isPressed;
@@ -55,8 +95,14 @@ bool SceneHierarchyPanel::mousePressed(ofMouseEventArgs &args) {
 
 bool SceneHierarchyPanel::mouseReleased(ofMouseEventArgs &args) {
 	bool isReleased = ofxGuiGroup::mouseReleased(args);
-	
-	if (pressedSceneElement != nullptr) {
+	if (args.button == OF_MOUSE_BUTTON_RIGHT) {
+		for (int i = 0; i < std::size(collection); i++) {
+			if (collection[i] != nullptr) {
+				collection[i]->mouseReleased(args);
+			}
+		}
+	}
+	else if (pressedSceneElement != nullptr) {
 		for (int i = 0; i < std::size(collection); i++) {
 			if (collection[i] != nullptr && collection[i]->mouseReleased(args)) {
 				releasedSceneElement = (SceneElement*)collection[i];
@@ -66,10 +112,21 @@ bool SceneHierarchyPanel::mouseReleased(ofMouseEventArgs &args) {
 		pressedSceneElement = nullptr;
 		releasedSceneElement = nullptr;
 	}
+	handleDeleteRequest();
 	return isReleased;
 }
 
-void SceneHierarchyPanel::handleMouseReleased() {
+bool SceneHierarchyPanel::mouseMoved(ofMouseEventArgs& args) {
+	bool isMoved = false;
+	for (int i = 0; i < std::size(collection); i++) {
+		if (collection[i] != nullptr) {
+			isMoved |= collection[i]->mouseMoved(args);
+		}
+	}
+	return isMoved;
+}
+
+void SceneHierarchyPanel::handleMouseReleased(void) {
 	SceneElement* releasedElement = (SceneElement*)releasedSceneElement;
 	SceneElement* pressedElement = (SceneElement*)pressedSceneElement;
 
@@ -87,7 +144,14 @@ void SceneHierarchyPanel::handleMouseReleased() {
 	else if (pressedSceneElement->getDepth() != 0) {
 		remove(pressedSceneElement);
 		add(pressedSceneElement);
-		pressedSceneElement->update(0);
+		pressedSceneElement->updateElement(0);
+	}
+}
+
+void SceneHierarchyPanel::handleDeleteRequest(void) {
+	if (deleteRequestedSceneElement != nullptr) {
+		remove(deleteRequestedSceneElement);
+		deleteRequestedSceneElement = nullptr;
 	}
 }
 
@@ -98,7 +162,7 @@ void SceneHierarchyPanel::updateDisplay() {
 		SceneElement* sceneElement = (SceneElement*)sceneElementsCopy[i];
 		if (sceneElementsCopy[i] != nullptr && sceneElement->getDepth() == 0) {
 			add(sceneElementsCopy[i]);
-			sceneElement->update(0);
+			sceneElement->updateElement(0);
 		}
 	}
 }

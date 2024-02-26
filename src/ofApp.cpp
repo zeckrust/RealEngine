@@ -39,25 +39,25 @@ void ofApp::mouseMoved(ofMouseEventArgs& mouse) {
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button) {
-	ofMouseEventArgs& mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Dragged, x, y);
+	ofMouseEventArgs& mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Dragged, x, y, button);
 	renderer.mouseDragged(mouseEvent);
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button) {
-	ofMouseEventArgs& mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Pressed, x, y);
+	ofMouseEventArgs& mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Pressed, x, y, button);
 	renderer.mousePressed(mouseEvent);
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button) {
-	ofMouseEventArgs& mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Released, x, y);
+	ofMouseEventArgs& mouseEvent = ofMouseEventArgs(ofMouseEventArgs::Released, x, y, button);
 	renderer.mouseReleased(mouseEvent);
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseEntered(int x, int y) {
-
+	renderer.mouseEntered();
 }
 
 //--------------------------------------------------------------

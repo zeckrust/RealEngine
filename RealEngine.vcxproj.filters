@@ -82,6 +82,9 @@
     <ClCompile Include="src\gui\SceneHierarchyPanel.cpp">
       <Filter>src\gui</Filter>
     </ClCompile>
+    <ClCompile Include="src\gui\scene\SceneElementExtension.cpp">
+      <Filter>src\gui\scene</Filter>
+    </ClCompile>
     <ClCompile Include="src\Image\Cursor.cpp">
       <Filter>src\Image</Filter>
     </ClCompile>
@@ -487,6 +490,9 @@
     </ClInclude>
     <ClInclude Include="src\gui\SceneHierarchyPanel.h">
       <Filter>src\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\scene\SceneElementExtension.h">
+      <Filter>src\gui\scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Image\Cursor.h">
       <Filter>src\Image</Filter>

@@ -1,8 +1,12 @@
 #include "SceneElement.h"
 
 SceneElement::SceneElement(std::string _labelName) : ofxLabel(_labelName), labelName(_labelName), label(_labelName){
-	setBackgroundColor(ofColor(0, 0, 0, 0));
+	setBackgroundColor(DEFAULT_COLOR);
 	setupFont();
+}
+
+void SceneElement::setupExtension(void) {
+	extension.setup();
 }
 
 void SceneElement::setupFont() {
@@ -12,7 +16,16 @@ void SceneElement::setupFont() {
 	labelFont.load(fontPath, FONT_SIZE);
 }
 
-void SceneElement::update(uint32_t newDepth) {
+void SceneElement::update() {
+	if (isSelected()) {
+		setBackgroundColor(SELECTED_COLOR);
+	}
+	else {
+		setBackgroundColor(DEFAULT_COLOR);
+	}
+}
+
+void SceneElement::updateElement(uint32_t newDepth) {
 	depth = newDepth;
 	std::string newLabel;
 	for (uint32_t i = 0; i < depth; ++i) {
@@ -26,11 +39,15 @@ void SceneElement::update(uint32_t newDepth) {
 	updateChildren();
 }
 
+void SceneElement::draw(void) {
+	extension.draw();
+}
+
 void SceneElement::addChildren(SceneElement *element) {
 	auto child_it = std::find(children.begin(), children.end(), element);
 	if (element != nullptr && element != this && child_it == children.end()) {
 		children.push_back(element);
-		element->update(depth + 1);
+		element->updateElement(depth + 1);
 	}
 }
 
@@ -48,11 +65,26 @@ void SceneElement::removeChildren(SceneElement *element) {
 
 
 bool SceneElement::mousePressed(ofMouseEventArgs& args) {
-	return getShape().inside(args.x, args.y);
+	bool isClickInside = getShape().inside(args.x, args.y);
+	extension.mousePressed(args);
+
+	if (isClickInside && args.button == OF_MOUSE_BUTTON_RIGHT) {
+		extension.show();
+	}
+	else {
+		extension.hide();
+	}
+
+	return isClickInside && args.button == OF_MOUSE_BUTTON_LEFT;
 }
 
 bool SceneElement::mouseReleased(ofMouseEventArgs &args) {
+	extension.mouseReleased(args);
 	return getShape().inside(args.x, args.y);
+}
+
+bool SceneElement::mouseMoved(ofMouseEventArgs &args) {
+	return extension.mouseMoved(args);
 }
 
 std::vector<SceneElement*> SceneElement::getChildren() {
@@ -66,7 +98,7 @@ uint32_t SceneElement::getDepth() {
 void SceneElement::updateChildren() {
 	for (int i = 0; i < std::size(children); i++) {
 		if (children[i] != nullptr) {
-			children[i]->update(depth + 1);
+			children[i]->updateElement(depth + 1);
 		}
 	}
 }
@@ -82,4 +114,12 @@ bool SceneElement::isElementAlreadyChild(SceneElement *element) {
 		}
 	}
 	return false;
+}
+
+bool SceneElement::isSelected(void) {
+	return extension.isSelected();
+}
+
+bool SceneElement::isDeleteRequested(void) {
+	return extension.isDeleteRequested();
 }

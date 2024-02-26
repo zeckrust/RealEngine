@@ -13,6 +13,7 @@ void Renderer::setup() {
 
 void Renderer::update() {
 	gui->update();
+	cursors.update();
 }
 
 void Renderer::draw() {
@@ -32,7 +33,6 @@ void Renderer::mouseReleased(ofMouseEventArgs& args) {
 
 void Renderer::mouseMoved(ofMouseEventArgs& args) {
 	gui->mouseMoved(args);
-	cursors.setCursorPosition(args.x, args.y);
 }
 
 void Renderer::mouseDragged(ofMouseEventArgs& args) {
@@ -40,7 +40,11 @@ void Renderer::mouseDragged(ofMouseEventArgs& args) {
 }
 
 void Renderer::mouseExited() {
-	cursors.setCursorPosition(-100, -100); // set position outside of screen
+	cursors.mouseExited();
+}
+
+void Renderer::mouseEntered() {
+	cursors.mouseEntered();
 }
 
 void Renderer::windowResized(int width, int height) {

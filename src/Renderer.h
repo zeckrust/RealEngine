@@ -19,6 +19,7 @@ class Renderer
 		void mouseMoved(ofMouseEventArgs& args);
 		void mouseDragged(ofMouseEventArgs& args);
 		void mouseExited();
+		void mouseEntered();
 		void keyPressed(ofKeyEventArgs& args);
 
 	private:

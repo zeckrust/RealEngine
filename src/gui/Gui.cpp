@@ -23,6 +23,11 @@ void Gui::setup() {
 void Gui::setupPanels() {
 	sceneHierarchyPanel.setup(RIGHT_PANEL_NAME, 0, titleBar.getHeight());
 	leftPanel.setup(LEFT_PANEL_NAME, 0, titleBar.getHeight());
+
+	// Tests
+	sceneHierarchyPanel.createSceneElement("element1");
+	sceneHierarchyPanel.createSceneElement("element2");
+	sceneHierarchyPanel.createSceneElement("element3");
 }
 
 void Gui::update() {

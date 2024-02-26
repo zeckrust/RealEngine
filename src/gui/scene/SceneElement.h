@@ -2,19 +2,26 @@
 
 #include "ofxGui.h"
 #include "../GuiConst.h"
+#include "SceneElementExtension.h"
 
 class SceneElement : public ofxLabel
 {
 	public:
 		SceneElement(std::string _labelName);
-		void update(uint32_t newDepth);
+		void setupExtension(void);
+		void update(void);
+		void updateElement(uint32_t newDepth);
+		void draw(void);
 		void addChildren(SceneElement *element);
 		void removeChildren(SceneElement *element);
 		virtual bool mousePressed(ofMouseEventArgs &args) override;
 		virtual bool mouseReleased(ofMouseEventArgs &args) override;
+		virtual bool mouseMoved(ofMouseEventArgs &args) override;
 		std::vector<SceneElement*> getChildren();
 		uint32_t getDepth();
 		bool isElementAlreadyChild(SceneElement *element);
+		bool isSelected(void);
+		bool isDeleteRequested(void);
 
 	private:
 		void setupFont();
@@ -25,4 +32,8 @@ class SceneElement : public ofxLabel
 		ofTrueTypeFont labelFont;
 		std::vector<SceneElement*> children;
 		uint32_t depth = 0;
+		SceneElementExtension extension;
 };
+
+const ofColor DEFAULT_COLOR = ofColor(0, 0, 0, 0);
+const ofColor SELECTED_COLOR = ofColor(0, 0, 0, 100);
