@@ -7,7 +7,7 @@
 #include "SceneHierarchyPanel.h"
 #include "scene/Scene.h"
 #include "scene/SceneElement.h"
-#include "../Image/Histogramme.h"
+#include "Histogram.h"
 
 class Gui
 {
@@ -41,8 +41,8 @@ class Gui
 		CustomPanel leftPanel;
 		Scene scene2d;
 		Scene scene3d;
-		Histogramme histogramOrthogonal;
-		Histogramme histogramPerspective;
+		Histogram histogramOrthogonal;
+		Histogram histogramPerspective;
 
 		bool isHistogramShowing;
 };

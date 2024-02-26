@@ -1,7 +1,7 @@
-#include "Histogramme.h"
+#include "Histogram.h"
 
 //--------------------------------------------------------------
-void Histogramme::setup(string _sceneName, int _grab_x, int _grab_y, int _grab_w, int _grab_h) {
+void Histogram::setup(string _sceneName, int _grab_x, int _grab_y, int _grab_w, int _grab_h) {
 	grab_x = _grab_x;
 	grab_y = _grab_y;
 	grab_w = _grab_w;
@@ -16,7 +16,7 @@ void Histogramme::setup(string _sceneName, int _grab_x, int _grab_y, int _grab_w
 	}
 }
 
-void Histogramme::draw() {
+void Histogram::draw() {
 	ofPushStyle();
 	glm::vec2 topLeft = glm::vec2((ofGetWidth() * 0.5) - (NUMBER_OF_COLOR_VALUE * 0.5) - HISTOGRAM_PADDING, HISTOGRAM_UPPER_POS - HISTOGRAM_PADDING + Y_OFFSET);
 	glm::vec2 bottomRight = glm::vec2((ofGetWidth() * 0.5) + (NUMBER_OF_COLOR_VALUE * 0.5) + HISTOGRAM_PADDING, HISTOGRAM_UPPER_POS + HISTOGRAM_HEIGHT + HISTOGRAM_PADDING + Y_OFFSET);
@@ -36,7 +36,7 @@ void Histogramme::draw() {
 	ofPopStyle();
 }
 
-int Histogramme::arrayMax(int* arr, int sizeArray) {
+int Histogram::arrayMax(int* arr, int sizeArray) {
 	int max = 0;
 	for (int i = 0; i < sizeArray; i++) {
 		int value = *(arr + i);
@@ -47,17 +47,17 @@ int Histogramme::arrayMax(int* arr, int sizeArray) {
 	return max;
 }
 
-int Histogramme::convertNbPixels2HistoRect(int nbPixel, int maxPixelValue) {
+int Histogram::convertNbPixels2HistoRect(int nbPixel, int maxPixelValue) {
 	return (nbPixel * HISTOGRAM_HEIGHT) / maxPixelValue;
 }
 
-void Histogramme::clearArray(int arr[], int sizeArray) {
+void Histogram::clearArray(int arr[], int sizeArray) {
 	for (int i = 0; i < sizeArray; i++) {
 		*(arr + i) = 0;
 	}
 }
 
-void Histogramme::calculatePixelValues() {
+void Histogram::calculatePixelValues() {
 	clearArray(red, NUMBER_OF_COLOR_VALUE);
 	clearArray(green, NUMBER_OF_COLOR_VALUE);
 	clearArray(blue, NUMBER_OF_COLOR_VALUE);
@@ -72,13 +72,13 @@ void Histogramme::calculatePixelValues() {
 	}
 }
 
-void Histogramme::calculateLinesPos() {
+void Histogram::calculateLinesPos() {
 	calculateLinePos(red, sizeof(red) / sizeof(int), redLinesStart, redLinesEnd);
 	calculateLinePos(green, sizeof(green) / sizeof(int), greenLinesStart, greenLinesEnd);
 	calculateLinePos(blue, sizeof(blue) / sizeof(int), blueLinesStart, blueLinesEnd);
 }
 
-void Histogramme::calculateLinePos(int colorArray[], int sizeArray, glm::vec2 linesStart[], glm::vec2 linesEnd[]) {
+void Histogram::calculateLinePos(int colorArray[], int sizeArray, glm::vec2 linesStart[], glm::vec2 linesEnd[]) {
 	int max = arrayMax(colorArray, sizeArray);
 	for (int i = 0; i < sizeArray; i++) {
 		*(linesStart + i) = glm::vec2((ofGetWidth() * 0.5) + i - (sizeArray * 0.5), HISTOGRAM_UPPER_POS + HISTOGRAM_HEIGHT + Y_OFFSET);
@@ -86,7 +86,7 @@ void Histogramme::calculateLinePos(int colorArray[], int sizeArray, glm::vec2 li
 	}
 }
 
-void Histogramme::drawColoredLines(ofColor color, int sizeArray, glm::vec2 linesStart[], glm::vec2 linesEnd[]) {
+void Histogram::drawColoredLines(ofColor color, int sizeArray, glm::vec2 linesStart[], glm::vec2 linesEnd[]) {
 	ofSetColor(color);
 	for (int i = 0; i < sizeArray; i++) {
 		ofDrawLine(*(linesStart + i), *(linesEnd + i));

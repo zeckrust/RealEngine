@@ -7,7 +7,7 @@ const int HISTOGRAM_HEIGHT = 256;
 const int HISTOGRAM_UPPER_POS = 100;
 const int HISTOGRAM_PADDING = 20;
 
-class Histogramme {
+class Histogram {
 public:
 	void draw();
 	void setup(string _sceneName, int _grab_x, int _grab_y, int _grab_w, int _grab_h);
