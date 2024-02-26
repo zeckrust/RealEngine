@@ -88,6 +88,9 @@
     <ClCompile Include="src\Image\Cursor.cpp">
       <Filter>src\Image</Filter>
     </ClCompile>
+    <ClCompile Include="src\Image\Histogramme.cpp">
+      <Filter>src\Image</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -495,6 +498,9 @@
       <Filter>src\gui\scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Image\Cursor.h">
+      <Filter>src\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Image\Histogramme.h">
       <Filter>src\Image</Filter>
     </ClInclude>
   </ItemGroup>
