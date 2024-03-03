@@ -22,7 +22,7 @@ void Gui::setup() {
 
 void Gui::setupPanels() {
 	sceneHierarchyPanel.setup(RIGHT_PANEL_NAME, 0, titleBar.getHeight());
-	leftPanel.setup(LEFT_PANEL_NAME, 0, titleBar.getHeight());
+	drawingPanel.setup(LEFT_PANEL_NAME, 0, titleBar.getHeight());
 
 	// Tests
 	sceneHierarchyPanel.createSceneElement("element1");
@@ -32,14 +32,14 @@ void Gui::setupPanels() {
 
 void Gui::update() {
 	sceneHierarchyPanel.update();
-	leftPanel.update();
+	drawingPanel.update();
 	updateScenesSize();
 	sceneHierarchyPanel.setPosition(ofGetWidth() - sceneHierarchyPanel.getWidth(), sceneHierarchyPanel.getPosition().y);
 }
 
 void Gui::updateScenesSize() {
-	float scenesPosX = leftPanel.getPosition().x + leftPanel.getWidth() + SCENE_PADDING;
-	float scenesWidth = ofGetWidth() - sceneHierarchyPanel.getWidth() - leftPanel.getWidth() - (2*SCENE_PADDING);
+	float scenesPosX = drawingPanel.getPosition().x + drawingPanel.getWidth() + SCENE_PADDING;
+	float scenesWidth = ofGetWidth() - sceneHierarchyPanel.getWidth() - drawingPanel.getWidth() - (2*SCENE_PADDING);
 	float scenesHeight = (ofGetHeight() - TITLE_BAR_HEIGHT - TITLE_BAR_LINE_LIMIT_HEIGHT - (3*SCENE_PADDING)) / 2;
 
 	float scene2dPosY = TITLE_BAR_HEIGHT + TITLE_BAR_LINE_LIMIT_HEIGHT + SCENE_PADDING;
@@ -53,28 +53,28 @@ void Gui::draw() {
 	scene2d.draw();
 	scene3d.draw();
 	sceneHierarchyPanel.draw();
-	leftPanel.draw();
+	drawingPanel.draw();
 	titleBar.draw();
 }
 
 void Gui::mouseMoved(ofMouseEventArgs& args) {
 	if (!titleBar.mouseMoved(args)) {
 		sceneHierarchyPanel.mouseMoved(args);
-		leftPanel.mouseMoved(args);
+		drawingPanel.mouseMoved(args);
 	}
 }
 
 void Gui::mousePressed(ofMouseEventArgs& args) {
 	if (!titleBar.mousePressed(args)) {
 		sceneHierarchyPanel.mousePressed(args);
-		leftPanel.mousePressed(args);
+		drawingPanel.mousePressed(args);
 	}
 }
 
 void Gui::mouseReleased(ofMouseEventArgs& args) {
 	if (!titleBar.mouseReleased(args)) {
 		sceneHierarchyPanel.mouseReleased(args);
-		leftPanel.mouseReleased(args);
+		drawingPanel.mouseReleased(args);
 	}
 }
 

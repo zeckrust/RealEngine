@@ -106,9 +106,10 @@
   <ItemGroup>
     <ClCompile Include="src\gui\buttons\CustomButton.cpp" />
     <ClCompile Include="src\gui\buttons\TitleBarButton.cpp" />
-    <ClCompile Include="src\gui\CustomPanel.cpp" />
     <ClCompile Include="src\gui\Gui.cpp" />
-    <ClCompile Include="src\gui\SceneHierarchyPanel.cpp" />
+    <ClCompile Include="src\gui\panels\CustomPanel.cpp" />
+    <ClCompile Include="src\gui\panels\DrawingToolsPanel.cpp" />
+    <ClCompile Include="src\gui\panels\SceneHierarchyPanel.cpp" />
     <ClCompile Include="src\gui\scene\Scene.cpp" />
     <ClCompile Include="src\gui\scene\SceneElement.cpp" />
     <ClCompile Include="src\gui\scene\SceneElementExtension.cpp" />
@@ -137,10 +138,11 @@
   <ItemGroup>
     <ClInclude Include="src\gui\buttons\CustomButton.h" />
     <ClInclude Include="src\gui\buttons\TitleBarButton.h" />
-    <ClInclude Include="src\gui\CustomPanel.h" />
     <ClInclude Include="src\gui\Gui.h" />
     <ClInclude Include="src\gui\GuiConst.h" />
-    <ClInclude Include="src\gui\SceneHierarchyPanel.h" />
+    <ClInclude Include="src\gui\panels\CustomPanel.h" />
+    <ClInclude Include="src\gui\panels\DrawingToolsPanel.h" />
+    <ClInclude Include="src\gui\panels\SceneHierarchyPanel.h" />
     <ClInclude Include="src\gui\scene\Scene.h" />
     <ClInclude Include="src\gui\scene\SceneElement.h" />
     <ClInclude Include="src\gui\scene\SceneElementExtension.h" />

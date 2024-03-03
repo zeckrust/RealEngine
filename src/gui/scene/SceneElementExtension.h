@@ -34,6 +34,5 @@ class SceneElementExtension {
 const std::string SELECT_STR = "Select";
 const std::string DESELECT_STR = "Deselect";
 const std::string DELETE_STR = "Delete";
-const int DEFAULT_BUTTON_HEIGHT = 30;
 const int DEFAULT_EXTENSION_WIDTH = 80;
 const ofColor EXTENSION_COLOR = ofColor(100, 100, 100, 255);
