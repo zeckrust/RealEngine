@@ -1,16 +1,13 @@
 #pragma once
 
 #include "ofMain.h"
-
-const int NUMBER_OF_COLOR_VALUE = 256;
-const int HISTOGRAM_HEIGHT = 256;
-const int HISTOGRAM_UPPER_POS = 100;
-const int HISTOGRAM_PADDING = 20;
+#include "GuiConst.h"
 
 class Histogram {
 public:
 	void draw();
-	void setup(string _sceneName, int _grab_x, int _grab_y, int _grab_w, int _grab_h);
+	void setup(int _grab_x, int _grab_y, int _grab_w, int _grab_h);
+	void update(int _grab_x, int _grab_y, int _grab_w, int _grab_h);
 
 private:
 	int arrayMax(int* arr, int sizeArray);
@@ -26,8 +23,6 @@ private:
 	int grab_w;
 	int grab_h;
 
-	int Y_OFFSET;
-	string sceneName;
 	vector<ofColor> colors;
 	vector<ofRectangle> rectangles;
 	int red[NUMBER_OF_COLOR_VALUE];

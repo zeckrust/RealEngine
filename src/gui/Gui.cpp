@@ -18,8 +18,8 @@ void Gui::setup() {
 	titleBar.setup();
 	setupPanels();
 	updateScenesSize();
-	histogramOrthogonal.setup("Vue orthogonale", scene3d.getX(), scene3d.getY(), scene3d.getWidth(), scene3d.getHeight());
-	histogramPerspective.setup("Vue perspective", scene2d.getX(), scene2d.getY(), scene2d.getWidth(), scene2d.getHeight());
+	histogramOrthogonal.setup(scene3d.getX(), scene3d.getY(), scene3d.getWidth(), scene3d.getHeight());
+	histogramPerspective.setup(scene2d.getX(), scene2d.getY(), scene2d.getWidth(), scene2d.getHeight());
 	isHistogramShowing = false;
 }
 
@@ -38,6 +38,8 @@ void Gui::update() {
 	leftPanel.update();
 	updateScenesSize();
 	sceneHierarchyPanel.setPosition(ofGetWidth() - sceneHierarchyPanel.getWidth(), sceneHierarchyPanel.getPosition().y);
+	histogramOrthogonal.update(scene3d.getX(), scene3d.getY(), scene3d.getWidth(), scene3d.getHeight());
+	histogramPerspective.update(scene2d.getX(), scene2d.getY(), scene2d.getWidth(), scene2d.getHeight());
 }
 
 void Gui::updateScenesSize() {

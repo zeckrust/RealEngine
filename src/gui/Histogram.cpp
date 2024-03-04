@@ -1,25 +1,27 @@
 #include "Histogram.h"
 
 //--------------------------------------------------------------
-void Histogram::setup(string _sceneName, int _grab_x, int _grab_y, int _grab_w, int _grab_h) {
-	grab_x = _grab_x;
-	grab_y = _grab_y;
-	grab_w = _grab_w;
-	grab_h = _grab_h;
+void Histogram::setup(int _grab_x, int _grab_y, int _grab_w, int _grab_h) {
+	update(_grab_x, _grab_y, _grab_w, _grab_h);
+}
 
-	calculatePixelValues();
-	calculateLinesPos();
-	sceneName = _sceneName;
-	Y_OFFSET = 0;
-	if (sceneName == "Vue perspective") {
-		Y_OFFSET = ofGetHeight() * 0.46;
+
+void Histogram::update(int _grab_x, int _grab_y, int _grab_w, int _grab_h) {
+	if (grab_x != _grab_x || grab_y != _grab_y) {
+		grab_x = _grab_x;
+		grab_y = _grab_y;
+		grab_w = _grab_w;
+		grab_h = _grab_h;
+
+		calculatePixelValues();
+		calculateLinesPos();
 	}
 }
 
 void Histogram::draw() {
 	ofPushStyle();
-	glm::vec2 topLeft = glm::vec2((ofGetWidth() * 0.5) - (NUMBER_OF_COLOR_VALUE * 0.5) - HISTOGRAM_PADDING, HISTOGRAM_UPPER_POS - HISTOGRAM_PADDING + Y_OFFSET);
-	glm::vec2 bottomRight = glm::vec2((ofGetWidth() * 0.5) + (NUMBER_OF_COLOR_VALUE * 0.5) + HISTOGRAM_PADDING, HISTOGRAM_UPPER_POS + HISTOGRAM_HEIGHT + HISTOGRAM_PADDING + Y_OFFSET);
+	glm::vec2 topLeft = glm::vec2((ofGetWidth() - NUMBER_OF_COLOR_VALUE) * 0.5 - HISTOGRAM_PADDING, grab_y + HISTOGRAM_PADDING);
+	glm::vec2 bottomRight = glm::vec2((ofGetWidth() + NUMBER_OF_COLOR_VALUE) * 0.5 + HISTOGRAM_PADDING, grab_y + grab_h - HISTOGRAM_PADDING);
 
 	ofRectangle background = ofRectangle(topLeft, bottomRight);
 	ofSetColor(ofColor::black);
@@ -81,8 +83,8 @@ void Histogram::calculateLinesPos() {
 void Histogram::calculateLinePos(int colorArray[], int sizeArray, glm::vec2 linesStart[], glm::vec2 linesEnd[]) {
 	int max = arrayMax(colorArray, sizeArray);
 	for (int i = 0; i < sizeArray; i++) {
-		*(linesStart + i) = glm::vec2((ofGetWidth() * 0.5) + i - (sizeArray * 0.5), HISTOGRAM_UPPER_POS + HISTOGRAM_HEIGHT + Y_OFFSET);
-		*(linesEnd + i) = glm::vec2((ofGetWidth() * 0.5) + i - (sizeArray * 0.5), HISTOGRAM_UPPER_POS + HISTOGRAM_HEIGHT - convertNbPixels2HistoRect(*(colorArray + i), max) + Y_OFFSET);
+		*(linesStart + i) = glm::vec2((ofGetWidth() * 0.5) + i - (sizeArray * 0.5), grab_y + HISTOGRAM_HEIGHT + 2*HISTOGRAM_PADDING);
+		*(linesEnd + i) = glm::vec2((ofGetWidth() * 0.5) + i - (sizeArray * 0.5), grab_y + HISTOGRAM_HEIGHT - convertNbPixels2HistoRect(*(colorArray + i), max) + 2*HISTOGRAM_PADDING);
 	}
 }
 
