@@ -23,7 +23,6 @@ class Renderer
 		void keyPressed(ofKeyEventArgs& args);
 
 	private:
-		void saveScene(Scene& scene, std::string filePath);
 
 		Gui* gui;
 		Camera2d* camera2d;

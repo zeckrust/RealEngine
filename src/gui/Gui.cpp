@@ -18,6 +18,9 @@ void Gui::setup() {
 	titleBar.setup();
 	setupPanels();
 	updateScenesSize();
+	histogramOrthogonal.setup(scene3d.getX(), scene3d.getY(), scene3d.getWidth(), scene3d.getHeight());
+	histogramPerspective.setup(scene2d.getX(), scene2d.getY(), scene2d.getWidth(), scene2d.getHeight());
+	isHistogramShowing = false;
 }
 
 void Gui::setupPanels() {
@@ -35,6 +38,8 @@ void Gui::update() {
 	leftPanel.update();
 	updateScenesSize();
 	sceneHierarchyPanel.setPosition(ofGetWidth() - sceneHierarchyPanel.getWidth(), sceneHierarchyPanel.getPosition().y);
+	histogramOrthogonal.update(scene3d.getX(), scene3d.getY(), scene3d.getWidth(), scene3d.getHeight());
+	histogramPerspective.update(scene2d.getX(), scene2d.getY(), scene2d.getWidth(), scene2d.getHeight());
 }
 
 void Gui::updateScenesSize() {
@@ -55,6 +60,10 @@ void Gui::draw() {
 	sceneHierarchyPanel.draw();
 	leftPanel.draw();
 	titleBar.draw();
+	if (isHistogramShowing) {
+		histogramOrthogonal.draw();
+		histogramPerspective.draw();
+	}
 }
 
 void Gui::mouseMoved(ofMouseEventArgs& args) {
@@ -82,18 +91,10 @@ void Gui::windowResized(int width, int height) {
 	titleBar.updateWidth(ofGetScreenWidth());
 }
 
-Scene Gui::getScene2d() {
-	return scene2d;
-}
-
-Scene Gui::getScene3d() {
-	return scene3d;
-}
-
 void Gui::saveScenes() {
 	ofFileDialogResult result = ofSystemLoadDialog("Where to save 2d and 3d scenes", true, "");
-	saveScene(getScene2d(), result.getPath() + "\\scene2d.png");
-	saveScene(getScene3d(), result.getPath() + "\\scene3d.png");
+	saveScene(scene2d, result.getPath() + "\\scene2d.png");
+	saveScene(scene2d, result.getPath() + "\\scene3d.png");
 }
 
 void Gui::saveScene(Scene & scene, std::string filePath) {
@@ -105,4 +106,9 @@ void Gui::saveScene(Scene & scene, std::string filePath) {
 
 void Gui::importFile() {
 	ofLog() << "## NOT IMPLEMENTED ##";
+}
+
+void Gui::showHistogram() {
+	// ofLog() << "## NOT IMPLEMENTED ##";
+	isHistogramShowing = !isHistogramShowing;
 }

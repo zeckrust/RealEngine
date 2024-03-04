@@ -108,6 +108,7 @@
     <ClCompile Include="src\gui\buttons\TitleBarButton.cpp" />
     <ClCompile Include="src\gui\CustomPanel.cpp" />
     <ClCompile Include="src\gui\Gui.cpp" />
+    <ClCompile Include="src\gui\Histogram.cpp" />
     <ClCompile Include="src\gui\SceneHierarchyPanel.cpp" />
     <ClCompile Include="src\gui\scene\Scene.cpp" />
     <ClCompile Include="src\gui\scene\SceneElement.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="src\gui\CustomPanel.h" />
     <ClInclude Include="src\gui\Gui.h" />
     <ClInclude Include="src\gui\GuiConst.h" />
+    <ClInclude Include="src\gui\Histogram.h" />
     <ClInclude Include="src\gui\SceneHierarchyPanel.h" />
     <ClInclude Include="src\gui\scene\Scene.h" />
     <ClInclude Include="src\gui\scene\SceneElement.h" />

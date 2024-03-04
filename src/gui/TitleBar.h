@@ -16,7 +16,7 @@ class TitleBar
 		bool mouseMoved(ofMouseEventArgs& args);
 		float getHeight();
 
-		static const size_t MAX_NB_BUTTONS = 3;
+		static const size_t MAX_NB_BUTTONS = 4;
 		std::array<TitleBarButton*, MAX_NB_BUTTONS> getButtons();
 
 	private:
@@ -33,8 +33,10 @@ class TitleBar
 		TitleBarButton fileButton;
 		TitleBarButton viewButton;
 		TitleBarButton windowButton;
+		TitleBarButton showButton;
 
 		// Only for test purposes
 		CustomButton importButton;
 		CustomButton exportButton;
+		CustomButton histogramButton;
 };

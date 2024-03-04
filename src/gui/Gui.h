@@ -7,6 +7,7 @@
 #include "SceneHierarchyPanel.h"
 #include "scene/Scene.h"
 #include "scene/SceneElement.h"
+#include "Histogram.h"
 
 class Gui
 {
@@ -21,9 +22,7 @@ class Gui
 		void windowResized(int width, int height);
 		void saveScenes();
 		void importFile();
-
-		Scene getScene2d();
-		Scene getScene3d();
+		void showHistogram();
 		
 		// Singleton
 		static Gui* getInstance();
@@ -42,6 +41,10 @@ class Gui
 		CustomPanel leftPanel;
 		Scene scene2d;
 		Scene scene3d;
+		Histogram histogramOrthogonal;
+		Histogram histogramPerspective;
+
+		bool isHistogramShowing;
 };
 
 Gui* Gui::instancePtr = nullptr;
