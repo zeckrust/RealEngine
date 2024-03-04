@@ -5,9 +5,11 @@ TitleBar::TitleBar() {
 	buttons[0] = &fileButton;
 	buttons[1] = &viewButton;
 	buttons[2] = &windowButton;
+	buttons[3] = &showButton;
 	buttonNames[0] = "File";
 	buttonNames[1] = "View";
 	buttonNames[2] = "Window";
+	buttonNames[3] = "Show";
 }
 
 void TitleBar::setup() {
@@ -18,12 +20,18 @@ void TitleBar::setup() {
 
 	setupButtons();
 
-	// Only for test purposes
+	// setup file sub-buttons
 	importButton.setup("Import", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
 	exportButton.setup("Export", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	importButton.setPressedFunction(&Gui::importFile);
 	exportButton.setPressedFunction(&Gui::saveScenes);
 	std::vector<CustomButton*> fileSubButtons {&importButton, &exportButton};
 	fileButton.setSubButtons(fileSubButtons);
+
+	histogramButton.setup("Histogram", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	histogramButton.setPressedFunction(&Gui::showHistogram);
+	std::vector<CustomButton*> showSubButtons{ &histogramButton };
+	showButton.setSubButtons(showSubButtons);
 }
 
 void TitleBar::setupButtons() {

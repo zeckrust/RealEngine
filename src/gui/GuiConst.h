@@ -43,3 +43,8 @@ const float SCENE_PADDING = 10.0f;
 const float SCENE_CORNER_RADIUS = 10.0f;
 const ofColor SCENE_BACKGROUND_COLOR = ofColor(69, 69, 69, 255);
 
+// Histogram
+const int NUMBER_OF_COLOR_VALUE = 256;
+const int HISTOGRAM_HEIGHT = 256;
+const int HISTOGRAM_UPPER_POS = 100;
+const int HISTOGRAM_PADDING = 20;
