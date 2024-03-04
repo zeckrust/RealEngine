@@ -9,6 +9,7 @@ CustomButton::CustomButton() : ofxLabel() {
 	labelFont = ofTrueTypeFont();
 	isPressed = false;
 	pressedFunction = nullptr;
+	backgroundColor = BUTTON_DEFAULT_COLOR;
 }
 
 void CustomButton::setup(std::string label, std::string font, int x, int y, int height) {
@@ -16,7 +17,7 @@ void CustomButton::setup(std::string label, std::string font, int x, int y, int 
 	setupFont(label, font);
 	setDefaultHeight(height);
 	setDefaultWidth(labelWidth);
-	setBackgroundColor(BUTTON_DEFAULT_COLOR);
+	setBackgroundColor(backgroundColor);
 
 	setupLabel(label);
 	setPosition(x, y);
@@ -49,7 +50,7 @@ bool CustomButton::mousePressed(ofMouseEventArgs& args) {
 
 bool CustomButton::mouseReleased(ofMouseEventArgs& args) {
 	if (isPressed) {
-		setBackgroundColor(BUTTON_DEFAULT_COLOR);
+		setBackgroundColor(backgroundColor);
 		isPressed = false;
 		return true;
 	}
@@ -61,7 +62,7 @@ bool CustomButton::mouseMoved(ofMouseEventArgs& args) {
 		setBackgroundColor(BUTTON_HOVER_COLOR);
 		return true;
 	}
-	setBackgroundColor(BUTTON_DEFAULT_COLOR);
+	setBackgroundColor(backgroundColor);
 	return false;
 }
 
@@ -77,4 +78,9 @@ void CustomButton::setPressedFunction(void (Gui::*_pressedFunction)()) {
 
 float CustomButton::getWidth() const {
 	return labelWidth;
+}
+
+void CustomButton::setBackground(ofColor color) {
+	backgroundColor = color;
+	setBackgroundColor(color);
 }

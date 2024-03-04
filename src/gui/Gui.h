@@ -3,8 +3,8 @@
 #include "ofMain.h"
 #include "ofxGui.h"
 #include "TitleBar.h"
-#include "CustomPanel.h"
-#include "SceneHierarchyPanel.h"
+#include "panels/DrawingToolsPanel.h"
+#include "panels/SceneHierarchyPanel.h"
 #include "scene/Scene.h"
 #include "scene/SceneElement.h"
 #include "Histogram.h"
@@ -38,7 +38,7 @@ class Gui
 
 		TitleBar titleBar;
 		SceneHierarchyPanel sceneHierarchyPanel;
-		CustomPanel leftPanel;
+		DrawingToolsPanel drawingPanel;
 		Scene scene2d;
 		Scene scene3d;
 		Histogram histogramOrthogonal;

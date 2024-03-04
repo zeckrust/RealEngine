@@ -36,4 +36,5 @@ private:
 	glm::vec2 blueLinesEnd[NUMBER_OF_COLOR_VALUE];
 
 	ofImage image1;
+	const ofColor BACKGROUND_COLOR = ofColor(0, 0, 0, 64);
 };

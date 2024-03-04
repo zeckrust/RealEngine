@@ -64,9 +64,6 @@
     <ClCompile Include="src\gui\buttons\TitleBarButton.cpp">
       <Filter>src\gui\buttons</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\CustomPanel.cpp">
-      <Filter>src\gui</Filter>
-    </ClCompile>
     <ClCompile Include="src\gui\Gui.cpp">
       <Filter>src\gui</Filter>
     </ClCompile>
@@ -79,14 +76,20 @@
     <ClCompile Include="src\gui\scene\Scene.cpp">
       <Filter>src\gui\scene</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\SceneHierarchyPanel.cpp">
-      <Filter>src\gui</Filter>
-    </ClCompile>
     <ClCompile Include="src\gui\scene\SceneElementExtension.cpp">
       <Filter>src\gui\scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Image\Cursor.cpp">
       <Filter>src\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\panels\CustomPanel.cpp">
+      <Filter>src\gui\panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\panels\DrawingToolsPanel.cpp">
+      <Filter>src\gui\panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\panels\SceneHierarchyPanel.cpp">
+      <Filter>src\gui\panels</Filter>
     </ClCompile>
     <ClCompile Include="src\gui\Histogram.cpp">
       <Filter>src\gui</Filter>
@@ -152,6 +155,9 @@
     </Filter>
     <Filter Include="src\gui\scene">
       <UniqueIdentifier>{6308404a-7031-4b84-af86-ba297e783b1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gui\panels">
+      <UniqueIdentifier>{641303bc-2169-417c-b23d-89eadbf6c18d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -476,9 +482,6 @@
     <ClInclude Include="src\gui\GuiConst.h">
       <Filter>src\gui</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\CustomPanel.h">
-      <Filter>src\gui</Filter>
-    </ClInclude>
     <ClInclude Include="src\gui\Gui.h">
       <Filter>src\gui</Filter>
     </ClInclude>
@@ -491,14 +494,20 @@
     <ClInclude Include="src\gui\scene\Scene.h">
       <Filter>src\gui\scene</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\SceneHierarchyPanel.h">
-      <Filter>src\gui</Filter>
-    </ClInclude>
     <ClInclude Include="src\gui\scene\SceneElementExtension.h">
       <Filter>src\gui\scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Image\Cursor.h">
       <Filter>src\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\panels\CustomPanel.h">
+      <Filter>src\gui\panels</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\panels\DrawingToolsPanel.h">
+      <Filter>src\gui\panels</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\panels\SceneHierarchyPanel.h">
+      <Filter>src\gui\panels</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\Histogram.h">
       <Filter>src\gui</Filter>

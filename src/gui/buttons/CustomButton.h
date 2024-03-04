@@ -16,6 +16,7 @@ class CustomButton : public ofxLabel
 		void setWidth(float width);
 		void setPressedFunction(void (Gui::*_pressedFunction)());
 		float getWidth() const;
+		void setBackground(ofColor color);
 
 	private:
 		void setupLabel(std::string label);
@@ -28,4 +29,5 @@ class CustomButton : public ofxLabel
 		void (Gui::*pressedFunction)();
 		ofTrueTypeFont labelFont;
 		std::string labelStr;
+		ofColor backgroundColor;
 };

@@ -24,7 +24,7 @@ void Histogram::draw() {
 	glm::vec2 bottomRight = glm::vec2((ofGetWidth() + NUMBER_OF_COLOR_VALUE) * 0.5 + HISTOGRAM_PADDING, grab_y + grab_h - HISTOGRAM_PADDING);
 
 	ofRectangle background = ofRectangle(topLeft, bottomRight);
-	ofSetColor(ofColor::black);
+	ofSetColor(BACKGROUND_COLOR);
 	ofDrawRectangle(background);
 	ofPopStyle();
 
