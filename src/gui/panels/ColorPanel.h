@@ -20,6 +20,7 @@ class ColorPanel : public CustomPanel
 
 	private:
 		void setupSliders(ofColor defaultColor);
+		void handleSliderChanged(int &value);
 
 		ofxIntSlider slider1;
 		ofxIntSlider slider2;
@@ -28,5 +29,8 @@ class ColorPanel : public CustomPanel
 		ColorMode currentColorMode;
 		ofColor currentColor;
 
-		const int BORDER_LINE_WIDTH = 3;
+		ofRectangle colorSampleRect;
+		bool showColorSample = false;
+
+		const int BORDER_LINE_WIDTH = 2;
 };

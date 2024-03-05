@@ -1,7 +1,9 @@
 #include "ColorPanel.h"
 
 ColorPanel::ColorPanel() : CustomPanel() {
-
+	slider1.addListener(this, &ColorPanel::handleSliderChanged);
+	slider2.addListener(this, &ColorPanel::handleSliderChanged);
+	slider3.addListener(this, &ColorPanel::handleSliderChanged);
 }
 
 void ColorPanel::setup(std::string panelName, float x, float y, ofColor defaultColor) {
@@ -9,26 +11,18 @@ void ColorPanel::setup(std::string panelName, float x, float y, ofColor defaultC
 	setupSliders(defaultColor);
 	currentColorMode = RGB;
 	currentColor = defaultColor;
+	minimize();
 }
 
 void ColorPanel::update(void) {
 	CustomPanel::update();
 
-	switch (currentColorMode) {
-		case RGB: {
-			currentColor.set(slider1, slider2, slider3);
-			break;
-		}
-		case HSB: {
-			currentColor.setHsb(slider1 / 360, slider2 / 100, slider3 / 100);
-			break;
-		}
-		default: {
-			break;
-		}
-	}
+	glm::vec3 pos = getPosition();
+	colorSampleRect = ofRectangle(pos.x, pos.y, getWidth(), DEFAULT_BUTTON_HEIGHT);
 
-	setBorderColor(currentColor);
+	if (!ofGetMousePressed()) {
+		showColorSample = false;
+	}
 }
 
 void ColorPanel::draw(void) {
@@ -38,6 +32,12 @@ void ColorPanel::draw(void) {
 		ofNoFill();
 		ofSetLineWidth(BORDER_LINE_WIDTH);
 		ofDrawRectangle(getShape());
+		ofPopStyle();
+	}
+	if (showColorSample) {
+		ofPushStyle();
+		ofSetColor(currentColor);
+		ofDrawRectangle(colorSampleRect);
 		ofPopStyle();
 	}
 }
@@ -76,4 +76,24 @@ void ColorPanel::setColorMode(ColorMode mode) {
 
 ofColor ColorPanel::getColor(void) {
 	return currentColor;
+}
+
+void ColorPanel::handleSliderChanged(int &_) {
+	showColorSample = true;
+
+	switch (currentColorMode) {
+		case RGB: {
+			currentColor.set(slider1, slider2, slider3);
+			break;
+		}
+		case HSB: {
+			currentColor.setHsb(slider1 / 360, slider2 / 100, slider3 / 100);
+			break;
+		}
+		default: {
+			break;
+		}
+	}
+
+	setBorderColor(currentColor);
 }
