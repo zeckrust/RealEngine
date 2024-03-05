@@ -35,21 +35,25 @@ void DrawingToolsPanel::setupFields(void) {
 }
 
 void DrawingToolsPanel::setupColorPanels(void) {
-	drawingColorPanel.setup("Drawing color", 0, 0, ofColor::black);
+	lineColorPanel.setup("Line color", 0, 0, ofColor::black);
+	fillColorPanel.setup("Fill color", 0, 0, ofColor::black);
 	backgroundColorPanel.setup("Background color", 0, 0, SCENE_BACKGROUND_COLOR);
-	add(&drawingColorPanel);
+	add(&lineColorPanel);
+	add(&fillColorPanel);
 	add(&backgroundColorPanel);
 }
 
 void DrawingToolsPanel::update(void) {
 	CustomPanel::update();
-	drawingColorPanel.update();
+	lineColorPanel.update();
+	fillColorPanel.update();
 	backgroundColorPanel.update();
 }
 
 void DrawingToolsPanel::draw(void) {
 	CustomPanel::draw();
-	drawingColorPanel.draw();
+	lineColorPanel.draw();
+	fillColorPanel.draw();
 	backgroundColorPanel.draw();
 }
 

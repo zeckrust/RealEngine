@@ -34,7 +34,8 @@ class DrawingToolsPanel : public CustomPanel
 		CustomButton drawRectButton;
 		
 		ofxInputField<int> lineWidthField;
-		ColorPanel drawingColorPanel;
+		ColorPanel lineColorPanel;
+		ColorPanel fillColorPanel;
 		ColorPanel backgroundColorPanel;
 };
 
