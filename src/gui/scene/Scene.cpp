@@ -1,16 +1,23 @@
 #include "Scene.h"
+#include "../Gui.h"
+
 
 Scene::Scene() : ofRectangle() {
 
 }
 
 void Scene::setup(float x, float y, float width, float height) {
+	gui = Gui::getInstance();
 	setPosition(x, y);
 	setSize(width, height);
 }
 
-void Scene::draw() {
+void Scene::update(void) {
+	backgroundColor = gui->getSceneBackgroundColor();
+}
+
+void Scene::draw(void) {
 	ofFill();
-	ofSetColor(SCENE_BACKGROUND_COLOR);
-	ofDrawRectRounded(*this, SCENE_CORNER_RADIUS);
+	ofSetColor(backgroundColor);
+	ofDrawRectangle(*this);
 }

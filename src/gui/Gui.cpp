@@ -17,7 +17,7 @@ Gui* Gui::getInstance() {
 void Gui::setup() {
 	titleBar.setup();
 	setupPanels();
-	updateScenesSize();
+	updateScenes();
 	histogramOrthogonal.setup(scene3d.getX(), scene3d.getY(), scene3d.getWidth(), scene3d.getHeight());
 	histogramPerspective.setup(scene2d.getX(), scene2d.getY(), scene2d.getWidth(), scene2d.getHeight());
 	isHistogramShowing = false;
@@ -36,13 +36,13 @@ void Gui::setupPanels() {
 void Gui::update() {
 	sceneHierarchyPanel.update();
 	drawingPanel.update();
-	updateScenesSize();
+	updateScenes();
 	sceneHierarchyPanel.setPosition(ofGetWidth() - sceneHierarchyPanel.getWidth(), sceneHierarchyPanel.getPosition().y);
 	histogramOrthogonal.update(scene3d.getX(), scene3d.getY(), scene3d.getWidth(), scene3d.getHeight());
 	histogramPerspective.update(scene2d.getX(), scene2d.getY(), scene2d.getWidth(), scene2d.getHeight());
 }
 
-void Gui::updateScenesSize() {
+void Gui::updateScenes() {
 	float scenesPosX = drawingPanel.getPosition().x + drawingPanel.getWidth() + SCENE_PADDING;
 	float scenesWidth = ofGetWidth() - sceneHierarchyPanel.getWidth() - drawingPanel.getWidth() - (2*SCENE_PADDING);
 	float scenesHeight = (ofGetHeight() - TITLE_BAR_HEIGHT - TITLE_BAR_LINE_LIMIT_HEIGHT - (3*SCENE_PADDING)) / 2;
@@ -52,6 +52,9 @@ void Gui::updateScenesSize() {
 
 	scene2d.setup(scenesPosX, scene2dPosY, scenesWidth, scenesHeight);
 	scene3d.setup(scenesPosX, scene3dPosY, scenesWidth, scenesHeight);
+
+	scene2d.update();
+	scene3d.update();
 }
 
 void Gui::draw() {
@@ -111,4 +114,8 @@ void Gui::importFile() {
 void Gui::showHistogram() {
 	// ofLog() << "## NOT IMPLEMENTED ##";
 	isHistogramShowing = !isHistogramShowing;
+}
+
+ofColor Gui::getSceneBackgroundColor(void) {
+	return drawingPanel.getSceneBackgroundColor();
 }

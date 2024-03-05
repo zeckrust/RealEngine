@@ -35,9 +35,9 @@ void DrawingToolsPanel::setupFields(void) {
 }
 
 void DrawingToolsPanel::setupColorPanels(void) {
-	lineColorPanel.setup("Line color", 0, 0, ofColor::black);
-	fillColorPanel.setup("Fill color", 0, 0, ofColor::black);
-	backgroundColorPanel.setup("Background color", 0, 0, SCENE_BACKGROUND_COLOR);
+	lineColorPanel.setup("Line color", 0, 0, ofColor::blue);
+	fillColorPanel.setup("Fill color", 0, 0, ofColor::blue);
+	backgroundColorPanel.setup("Background color", 0, 0, SCENE_DEFAULT_BACKGROUND_COLOR);
 	add(&lineColorPanel);
 	add(&fillColorPanel);
 	add(&backgroundColorPanel);
@@ -114,4 +114,20 @@ bool DrawingToolsPanel::isDrawingButton(ofxBaseGui* element) {
 		}
 	}
 	return false;
+}
+
+int DrawingToolsPanel::getLineWidth(void) {
+	return lineWidthField;
+}
+
+ofColor DrawingToolsPanel::getLineColor(void) {
+	return lineColorPanel.getColor();
+}
+
+ofColor DrawingToolsPanel::getFillColor(void) {
+	return fillColorPanel.getColor();
+}
+
+ofColor DrawingToolsPanel::getSceneBackgroundColor(void) {
+	return backgroundColorPanel.getColor();
 }

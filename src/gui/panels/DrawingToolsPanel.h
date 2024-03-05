@@ -18,6 +18,11 @@ class DrawingToolsPanel : public CustomPanel
 		void setSelectedDrawingTool(CustomButton* button);
 		bool isDrawingButton(ofxBaseGui* element);
 
+		int getLineWidth(void);
+		ofColor getLineColor(void);
+		ofColor getFillColor(void);
+		ofColor getSceneBackgroundColor(void);
+
 	private:
 		void setupButtons(void);
 		void setupFields(void);

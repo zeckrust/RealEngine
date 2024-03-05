@@ -24,6 +24,8 @@ class Gui
 		void importFile();
 		void showHistogram();
 		
+		ofColor getSceneBackgroundColor(void);
+
 		// Singleton
 		static Gui* getInstance();
 		Gui(const Gui& obj) = delete;
@@ -31,7 +33,7 @@ class Gui
 	private:
 		Gui();
 		void setupPanels();
-		void updateScenesSize();
+		void updateScenes();
 		void saveScene(Scene& scene, std::string filePath);
 
 		static Gui* instancePtr;
