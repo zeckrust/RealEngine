@@ -1,4 +1,5 @@
 #pragma once
+
 #include "ofxGui.h"
 #include <map>
 #include <string>
@@ -31,4 +32,6 @@ class Cursor
 		std::map<CursorType, std::string> cursorsMap;
 		ofImage currentCursor;
 		glm::vec2 cursorPosition;
+
+		const ofColor CURSOR_DEFAULT_COLOR = ofColor(78, 59, 255, 255);
 };

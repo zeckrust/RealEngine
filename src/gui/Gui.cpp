@@ -20,6 +20,7 @@ void Gui::setup() {
 	updateScenes();
 	histogramOrthogonal.setup(scene3d.getX(), scene3d.getY(), scene3d.getWidth(), scene3d.getHeight());
 	histogramPerspective.setup(scene2d.getX(), scene2d.getY(), scene2d.getWidth(), scene2d.getHeight());
+	currentUserMode = DRAWING;
 	isHistogramShowing = false;
 }
 

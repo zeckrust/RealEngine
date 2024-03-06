@@ -70,15 +70,17 @@ bool DrawingToolsPanel::mouseMoved(ofMouseEventArgs& args) {
 bool DrawingToolsPanel::mousePressed(ofMouseEventArgs& args) {
 	bool isPressed = CustomPanel::mousePressed(args);
 
-	for (int i = 0; i < std::size(collection); i++) {
-		if (collection[i] != nullptr) {
-			bool isInButton =  collection[i]->getShape().inside(args.x, args.y);
-			if (isInButton && isDrawingButton(collection[i])) {
-				if (collection[i] == selectedDrawingTool) {
-					setSelectedDrawingTool(nullptr);
-				}
-				else {
-					setSelectedDrawingTool((CustomButton*)collection[i]);
+	if (!isMinimized()) {
+		for (int i = 0; i < std::size(collection); i++) {
+			if (collection[i] != nullptr) {
+				bool isInButton = collection[i]->getShape().inside(args.x, args.y);
+				if (isInButton && isDrawingButton(collection[i])) {
+					if (collection[i] == selectedDrawingTool) {
+						setSelectedDrawingTool(nullptr);
+					}
+					else {
+						setSelectedDrawingTool((CustomButton*)collection[i]);
+					}
 				}
 			}
 		}

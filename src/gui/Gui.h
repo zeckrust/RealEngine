@@ -10,6 +10,11 @@
 #include "scene/SceneElement.h"
 #include "Histogram.h"
 
+enum UserMode {
+	DRAWING = 0,
+	TRANSFORM
+};
+
 class Gui
 {
 	public:
@@ -50,6 +55,7 @@ class Gui
 		Histogram histogramOrthogonal;
 		Histogram histogramPerspective;
 
+		UserMode currentUserMode;
 		bool isHistogramShowing;
 };
 

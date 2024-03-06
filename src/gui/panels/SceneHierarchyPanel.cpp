@@ -76,17 +76,19 @@ void SceneHierarchyPanel::removeElementChildren(ofxBaseGui *element) {
 
 bool SceneHierarchyPanel::mousePressed(ofMouseEventArgs &args) {
 	bool isPressed = ofxGuiGroup::mousePressed(args);
-	if (args.button == OF_MOUSE_BUTTON_RIGHT) {
-		for (int i = 0; i < std::size(collection); i++) {
-			if (collection[i] != nullptr) {
-				collection[i]->mousePressed(args);
+	if (!isMinimized()) {
+		if (args.button == OF_MOUSE_BUTTON_RIGHT) {
+			for (int i = 0; i < std::size(collection); i++) {
+				if (collection[i] != nullptr) {
+					collection[i]->mousePressed(args);
+				}
 			}
 		}
-	}
-	else {
-		for (int i = 0; i < std::size(collection); i++) {
-			if (collection[i] != nullptr && collection[i]->mousePressed(args)) {
-				pressedSceneElement = (SceneElement*)collection[i];
+		else {
+			for (int i = 0; i < std::size(collection); i++) {
+				if (collection[i] != nullptr && collection[i]->mousePressed(args)) {
+					pressedSceneElement = (SceneElement*)collection[i];
+				}
 			}
 		}
 	}
@@ -95,24 +97,26 @@ bool SceneHierarchyPanel::mousePressed(ofMouseEventArgs &args) {
 
 bool SceneHierarchyPanel::mouseReleased(ofMouseEventArgs &args) {
 	bool isReleased = ofxGuiGroup::mouseReleased(args);
-	if (args.button == OF_MOUSE_BUTTON_RIGHT) {
-		for (int i = 0; i < std::size(collection); i++) {
-			if (collection[i] != nullptr) {
-				collection[i]->mouseReleased(args);
+	if (!isMinimized()) {
+		if (args.button == OF_MOUSE_BUTTON_RIGHT) {
+			for (int i = 0; i < std::size(collection); i++) {
+				if (collection[i] != nullptr) {
+					collection[i]->mouseReleased(args);
+				}
 			}
 		}
-	}
-	else if (pressedSceneElement != nullptr) {
-		for (int i = 0; i < std::size(collection); i++) {
-			if (collection[i] != nullptr && collection[i]->mouseReleased(args)) {
-				releasedSceneElement = (SceneElement*)collection[i];
+		else if (pressedSceneElement != nullptr) {
+			for (int i = 0; i < std::size(collection); i++) {
+				if (collection[i] != nullptr && collection[i]->mouseReleased(args)) {
+					releasedSceneElement = (SceneElement*)collection[i];
+				}
 			}
+			handleMouseReleased();
+			pressedSceneElement = nullptr;
+			releasedSceneElement = nullptr;
 		}
-		handleMouseReleased();
-		pressedSceneElement = nullptr;
-		releasedSceneElement = nullptr;
+		handleDeleteRequest();
 	}
-	handleDeleteRequest();
 	return isReleased;
 }
 

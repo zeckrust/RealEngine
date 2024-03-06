@@ -16,7 +16,10 @@ void Cursor::update() {
 
 void Cursor::draw() {
 	ofHideCursor();
+	ofPushStyle();
+	ofSetColor(CURSOR_DEFAULT_COLOR);
 	currentCursor.draw(cursorPosition);
+	ofPopStyle();
 }
 
 void Cursor::mouseExited() {
