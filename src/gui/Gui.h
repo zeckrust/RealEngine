@@ -35,6 +35,11 @@ class Gui
 		void setUserModeTransform(void);
 		
 		ofColor getSceneBackgroundColor(void);
+		ofRectangle getScene2DShape(void);
+		ofRectangle getScene3DShape(void);
+		UserMode getSelectedUserMode(void);
+		TransformTool getSelectedTransformTool(void);
+
 		ofRectangle getDrawingPanelShape(void);
 		ofRectangle getTransformPanelShape(void);
 
@@ -61,7 +66,7 @@ class Gui
 		Histogram histogramOrthogonal;
 		Histogram histogramPerspective;
 
-		UserMode currentUserMode;
+		UserMode selectedUserMode;
 		bool isHistogramShowing;
 };
 

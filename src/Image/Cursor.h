@@ -4,6 +4,8 @@
 #include <map>
 #include <string>
 
+class Gui;
+
 enum CursorType {
 	Normal = 1,
 	Unavailable,
@@ -26,6 +28,8 @@ class Cursor
 
 	private:
 		void setCursorPosition();
+		void updateCursorType();
+		void handleTransformCursorType();
 		void loadCursors();
 
 		bool isMouseExited = false;
@@ -34,4 +38,6 @@ class Cursor
 		glm::vec2 cursorPosition;
 
 		const ofColor CURSOR_DEFAULT_COLOR = ofColor(78, 59, 255, 255);
+
+		Gui* gui = nullptr;
 };

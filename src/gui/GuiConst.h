@@ -39,7 +39,7 @@ const float FONT_WIDTH_ERROR = 8.0f;
 
 // Scene
 const float SCENE_PADDING = 10.0f;
-const ofColor SCENE_DEFAULT_BACKGROUND_COLOR = ofColor(69, 69, 69, 255);
+const ofColor SCENE_DEFAULT_BACKGROUND_COLOR = ofColor(70, 70, 70, 255);
 
 // Histogram
 const int NUMBER_OF_COLOR_VALUE = 256;

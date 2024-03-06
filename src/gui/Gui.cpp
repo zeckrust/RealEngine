@@ -20,7 +20,7 @@ void Gui::setup() {
 	updateScenes();
 	histogramOrthogonal.setup(scene3d.getX(), scene3d.getY(), scene3d.getWidth(), scene3d.getHeight());
 	histogramPerspective.setup(scene2d.getX(), scene2d.getY(), scene2d.getWidth(), scene2d.getHeight());
-	currentUserMode = DRAWING;
+	selectedUserMode = DRAWING;
 	isHistogramShowing = false;
 }
 
@@ -133,15 +133,31 @@ void Gui::showHistogram() {
 }
 
 void Gui::setUserModeDrawing(void) {
-	currentUserMode = DRAWING;
+	selectedUserMode = DRAWING;
 }
 
 void Gui::setUserModeTransform(void) {
-	currentUserMode = TRANSFORM;
+	selectedUserMode = TRANSFORM;
 }
 
 ofColor Gui::getSceneBackgroundColor(void) {
 	return drawingPanel.getSceneBackgroundColor();
+}
+
+ofRectangle Gui::getScene2DShape(void) {
+	return scene2d;
+}
+
+ofRectangle Gui::getScene3DShape(void) {
+	return scene3d;
+}
+
+UserMode Gui::getSelectedUserMode(void) {
+	return selectedUserMode;
+}
+
+TransformTool Gui::getSelectedTransformTool(void) {
+	return transformPanel.getSelectedTransformTool();
 }
 
 ofRectangle Gui::getDrawingPanelShape(void) {
