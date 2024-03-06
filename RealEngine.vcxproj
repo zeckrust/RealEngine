@@ -113,6 +113,7 @@
     <ClCompile Include="src\gui\panels\DrawingToolsPanel.cpp" />
     <ClCompile Include="src\gui\panels\PropertiesPanel.cpp" />
     <ClCompile Include="src\gui\panels\SceneHierarchyPanel.cpp" />
+    <ClCompile Include="src\gui\panels\TransformPanel.cpp" />
     <ClCompile Include="src\gui\scene\Scene.cpp" />
     <ClCompile Include="src\gui\scene\SceneElement.cpp" />
     <ClCompile Include="src\gui\scene\SceneElementExtension.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="src\gui\panels\DrawingToolsPanel.h" />
     <ClInclude Include="src\gui\panels\PropertiesPanel.h" />
     <ClInclude Include="src\gui\panels\SceneHierarchyPanel.h" />
+    <ClInclude Include="src\gui\panels\TransformPanel.h" />
     <ClInclude Include="src\gui\scene\Scene.h" />
     <ClInclude Include="src\gui\scene\SceneElement.h" />
     <ClInclude Include="src\gui\scene\SceneElementExtension.h" />

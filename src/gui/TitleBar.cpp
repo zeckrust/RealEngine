@@ -27,13 +27,14 @@ void TitleBar::setup() {
 
 	drawingButton.setup("Drawing", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
 	transformButton.setup("Transform", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	drawingButton.setPressedFunction(&Gui::setUserModeDrawing);
+	transformButton.setPressedFunction(&Gui::setUserModeTransform);
 	std::vector<CustomButton*> modeSubButtons = {&drawingButton, &transformButton};
 	modeButton.setSubButtons(modeSubButtons);
 
 	histogramButton.setup("Histogram", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
 	histogramButton.setPressedFunction(&Gui::showHistogram);
-	std::vector<CustomButton*> showSubButtons{ &histogramButton };
-	showButton.setSubButtons(showSubButtons);
+	showButton.addSubButton(&histogramButton);
 }
 
 void TitleBar::setupButtons() {

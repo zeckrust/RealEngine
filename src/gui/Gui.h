@@ -6,6 +6,7 @@
 #include "panels/DrawingToolsPanel.h"
 #include "panels/SceneHierarchyPanel.h"
 #include "panels/PropertiesPanel.h"
+#include "panels/TransformPanel.h"
 #include "scene/Scene.h"
 #include "scene/SceneElement.h"
 #include "Histogram.h"
@@ -29,9 +30,13 @@ class Gui
 		void saveScenes();
 		void importFile();
 		void showHistogram();
+
+		void setUserModeDrawing(void);
+		void setUserModeTransform(void);
 		
 		ofColor getSceneBackgroundColor(void);
 		ofRectangle getDrawingPanelShape(void);
+		ofRectangle getTransformPanelShape(void);
 
 		// Singleton
 		static Gui* getInstance();
@@ -48,6 +53,7 @@ class Gui
 		TitleBar titleBar;
 		SceneHierarchyPanel sceneHierarchyPanel;
 		DrawingToolsPanel drawingPanel;
+		TransformPanel transformPanel;
 		PropertiesPanel propertiesPanel;
 
 		Scene scene2d;

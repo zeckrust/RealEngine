@@ -100,6 +100,9 @@
     <ClCompile Include="src\gui\panels\PropertiesPanel.cpp">
       <Filter>src\gui\panels</Filter>
     </ClCompile>
+    <ClCompile Include="src\gui\panels\TransformPanel.cpp">
+      <Filter>src\gui\panels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -522,6 +525,9 @@
       <Filter>src\gui\panels</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\panels\PropertiesPanel.h">
+      <Filter>src\gui\panels</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\panels\TransformPanel.h">
       <Filter>src\gui\panels</Filter>
     </ClInclude>
   </ItemGroup>

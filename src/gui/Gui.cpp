@@ -26,8 +26,9 @@ void Gui::setup() {
 
 void Gui::setupPanels() {
 	sceneHierarchyPanel.setup("Scene Elements", 0, titleBar.getHeight());
-	drawingPanel.setup("Drawing Tools", 0, titleBar.getHeight());
-	propertiesPanel.setup("Properties", 0, 0); // Dynamically positioned in update
+	drawingPanel.setup("Drawing", 0, titleBar.getHeight());
+	transformPanel.setup("Transform", 0, 0); // Dynamically positioned in update()
+	propertiesPanel.setup("Properties", 0, 0); // Dynamically positioned in update()
 
 	// Tests
 	sceneHierarchyPanel.createSceneElement("element1");
@@ -38,7 +39,9 @@ void Gui::setupPanels() {
 void Gui::update() {
 	sceneHierarchyPanel.update();
 	drawingPanel.update();
+	transformPanel.update();
 	propertiesPanel.update();
+
 	updateScenes();
 	sceneHierarchyPanel.setPosition(ofGetWidth() - sceneHierarchyPanel.getWidth(), sceneHierarchyPanel.getPosition().y);
 	histogramOrthogonal.update(scene3d.getX(), scene3d.getY(), scene3d.getWidth(), scene3d.getHeight());
@@ -65,6 +68,7 @@ void Gui::draw() {
 	scene3d.draw();
 	sceneHierarchyPanel.draw();
 	drawingPanel.draw();
+	transformPanel.draw();
 	propertiesPanel.draw();
 	titleBar.draw();
 
@@ -78,6 +82,7 @@ void Gui::mouseMoved(ofMouseEventArgs& args) {
 	if (!titleBar.mouseMoved(args)) {
 		sceneHierarchyPanel.mouseMoved(args);
 		drawingPanel.mouseMoved(args);
+		transformPanel.mouseMoved(args);
 		propertiesPanel.mouseMoved(args);
 	}
 }
@@ -86,14 +91,17 @@ void Gui::mousePressed(ofMouseEventArgs& args) {
 	if (!titleBar.mousePressed(args)) {
 		sceneHierarchyPanel.mousePressed(args);
 		drawingPanel.mousePressed(args);
+		transformPanel.mousePressed(args);
 		propertiesPanel.mousePressed(args);
 	}
 }
 
 void Gui::mouseReleased(ofMouseEventArgs& args) {
+	std::vector<CustomButton*> showSubButtons{  };
 	if (!titleBar.mouseReleased(args)) {
 		sceneHierarchyPanel.mouseReleased(args);
 		drawingPanel.mouseReleased(args);
+		transformPanel.mouseReleased(args);
 		propertiesPanel.mouseReleased(args);
 	}
 }
@@ -124,10 +132,22 @@ void Gui::showHistogram() {
 	isHistogramShowing = !isHistogramShowing;
 }
 
+void Gui::setUserModeDrawing(void) {
+	currentUserMode = DRAWING;
+}
+
+void Gui::setUserModeTransform(void) {
+	currentUserMode = TRANSFORM;
+}
+
 ofColor Gui::getSceneBackgroundColor(void) {
 	return drawingPanel.getSceneBackgroundColor();
 }
 
 ofRectangle Gui::getDrawingPanelShape(void) {
 	return drawingPanel.getShape();
+}
+
+ofRectangle Gui::getTransformPanelShape(void) {
+	return transformPanel.getShape();
 }

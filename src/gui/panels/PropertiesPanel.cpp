@@ -29,7 +29,6 @@ void PropertiesPanel::setupFields(void) {
 
 	scaleField.setup("Scale :", 1);
 	scaleField.setMin(1);
-
 }
 
 void PropertiesPanel::update(void) {
@@ -38,8 +37,8 @@ void PropertiesPanel::update(void) {
 }
 
 void PropertiesPanel::updatePosition(void) {
-	ofRectangle drawingPanel = gui->getDrawingPanelShape();
-	float posX = drawingPanel.getPosition().x;
-	float posY = drawingPanel.getPosition().y + drawingPanel.getHeight() + CUSTOM_PANEL_PADDING;
+	ofRectangle transformPanel = gui->getTransformPanelShape();
+	float posX = transformPanel.getPosition().x;
+	float posY = transformPanel.getPosition().y + transformPanel.getHeight() + CUSTOM_PANEL_PADDING;
 	setPosition(posX, posY);
 }
