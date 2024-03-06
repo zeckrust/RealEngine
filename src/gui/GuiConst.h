@@ -27,7 +27,7 @@ const int DEFAULT_BUTTON_HEIGHT = 30;
 // Custom panel
 const int PANEL_TITLE_HEIGHT = 20;
 const ofColor PANEL_TITLE_COLOR = TITLE_BAR_COLOR;
-const ofColor PANEL_BACKGROUND_COLOR = ofColor(20, 20, 20, 255);
+const ofColor PANEL_HEADER_BACKGROUND_COLOR = ofColor(100, 100, 100, 255);
 const int CUSTOM_PANEL_DEFAULT_WIDTH = 150;
 const int CUSTOM_PANEL_PADDING = 10;
 
