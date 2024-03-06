@@ -24,8 +24,9 @@ void Gui::setup() {
 }
 
 void Gui::setupPanels() {
-	sceneHierarchyPanel.setup(RIGHT_PANEL_NAME, 0, titleBar.getHeight());
-	drawingPanel.setup(LEFT_PANEL_NAME, 0, titleBar.getHeight());
+	sceneHierarchyPanel.setup("Scene Elements", 0, titleBar.getHeight());
+	drawingPanel.setup("Drawing Tools", 0, titleBar.getHeight());
+	propertiesPanel.setup("Properties", 0, 0); // Dynamically positioned in update
 
 	// Tests
 	sceneHierarchyPanel.createSceneElement("element1");
@@ -36,6 +37,7 @@ void Gui::setupPanels() {
 void Gui::update() {
 	sceneHierarchyPanel.update();
 	drawingPanel.update();
+	propertiesPanel.update();
 	updateScenes();
 	sceneHierarchyPanel.setPosition(ofGetWidth() - sceneHierarchyPanel.getWidth(), sceneHierarchyPanel.getPosition().y);
 	histogramOrthogonal.update(scene3d.getX(), scene3d.getY(), scene3d.getWidth(), scene3d.getHeight());
@@ -62,7 +64,9 @@ void Gui::draw() {
 	scene3d.draw();
 	sceneHierarchyPanel.draw();
 	drawingPanel.draw();
+	propertiesPanel.draw();
 	titleBar.draw();
+
 	if (isHistogramShowing) {
 		histogramOrthogonal.draw();
 		histogramPerspective.draw();
@@ -73,6 +77,7 @@ void Gui::mouseMoved(ofMouseEventArgs& args) {
 	if (!titleBar.mouseMoved(args)) {
 		sceneHierarchyPanel.mouseMoved(args);
 		drawingPanel.mouseMoved(args);
+		propertiesPanel.mouseMoved(args);
 	}
 }
 
@@ -80,6 +85,7 @@ void Gui::mousePressed(ofMouseEventArgs& args) {
 	if (!titleBar.mousePressed(args)) {
 		sceneHierarchyPanel.mousePressed(args);
 		drawingPanel.mousePressed(args);
+		propertiesPanel.mousePressed(args);
 	}
 }
 
@@ -87,6 +93,7 @@ void Gui::mouseReleased(ofMouseEventArgs& args) {
 	if (!titleBar.mouseReleased(args)) {
 		sceneHierarchyPanel.mouseReleased(args);
 		drawingPanel.mouseReleased(args);
+		propertiesPanel.mouseReleased(args);
 	}
 }
 
@@ -118,4 +125,8 @@ void Gui::showHistogram() {
 
 ofColor Gui::getSceneBackgroundColor(void) {
 	return drawingPanel.getSceneBackgroundColor();
+}
+
+ofRectangle Gui::getDrawingPanelShape(void) {
+	return drawingPanel.getShape();
 }

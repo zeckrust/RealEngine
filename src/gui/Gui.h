@@ -5,6 +5,7 @@
 #include "TitleBar.h"
 #include "panels/DrawingToolsPanel.h"
 #include "panels/SceneHierarchyPanel.h"
+#include "panels/PropertiesPanel.h"
 #include "scene/Scene.h"
 #include "scene/SceneElement.h"
 #include "Histogram.h"
@@ -25,6 +26,7 @@ class Gui
 		void showHistogram();
 		
 		ofColor getSceneBackgroundColor(void);
+		ofRectangle getDrawingPanelShape(void);
 
 		// Singleton
 		static Gui* getInstance();
@@ -41,6 +43,8 @@ class Gui
 		TitleBar titleBar;
 		SceneHierarchyPanel sceneHierarchyPanel;
 		DrawingToolsPanel drawingPanel;
+		PropertiesPanel propertiesPanel;
+
 		Scene scene2d;
 		Scene scene3d;
 		Histogram histogramOrthogonal;

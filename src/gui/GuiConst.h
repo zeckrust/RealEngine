@@ -28,9 +28,8 @@ const int DEFAULT_BUTTON_HEIGHT = 30;
 const int PANEL_TITLE_HEIGHT = 20;
 const ofColor PANEL_TITLE_COLOR = TITLE_BAR_COLOR;
 const ofColor PANEL_BACKGROUND_COLOR = ofColor(20, 20, 20, 255);
-const std::string RIGHT_PANEL_NAME = "Scene Elements";
-const std::string LEFT_PANEL_NAME = "Drawing Tools";
 const int CUSTOM_PANEL_DEFAULT_WIDTH = 150;
+const int CUSTOM_PANEL_PADDING = 10;
 
 // Fonts
 const int FONT_SIZE = 11;

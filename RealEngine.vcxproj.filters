@@ -97,6 +97,9 @@
     <ClCompile Include="src\gui\panels\ColorPanel.cpp">
       <Filter>src\gui\panels</Filter>
     </ClCompile>
+    <ClCompile Include="src\gui\panels\PropertiesPanel.cpp">
+      <Filter>src\gui\panels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -516,6 +519,9 @@
       <Filter>src\gui</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\panels\ColorPanel.h">
+      <Filter>src\gui\panels</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\panels\PropertiesPanel.h">
       <Filter>src\gui\panels</Filter>
     </ClInclude>
   </ItemGroup>
