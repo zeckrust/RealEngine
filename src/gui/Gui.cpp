@@ -20,12 +20,15 @@ void Gui::setup() {
 	updateScenes();
 	histogramOrthogonal.setup(scene3d.getX(), scene3d.getY(), scene3d.getWidth(), scene3d.getHeight());
 	histogramPerspective.setup(scene2d.getX(), scene2d.getY(), scene2d.getWidth(), scene2d.getHeight());
+	selectedUserMode = DRAWING;
 	isHistogramShowing = false;
 }
 
 void Gui::setupPanels() {
-	sceneHierarchyPanel.setup(RIGHT_PANEL_NAME, 0, titleBar.getHeight());
-	drawingPanel.setup(LEFT_PANEL_NAME, 0, titleBar.getHeight());
+	sceneHierarchyPanel.setup("Scene Elements", 0, titleBar.getHeight());
+	drawingPanel.setup("Drawing", 0, titleBar.getHeight());
+	transformPanel.setup("Transform", 0, 0); // Dynamically positioned in update()
+	propertiesPanel.setup("Properties", 0, 0); // Dynamically positioned in update()
 
 	// Tests
 	sceneHierarchyPanel.createSceneElement("element1");
@@ -36,6 +39,9 @@ void Gui::setupPanels() {
 void Gui::update() {
 	sceneHierarchyPanel.update();
 	drawingPanel.update();
+	transformPanel.update();
+	propertiesPanel.update();
+
 	updateScenes();
 	sceneHierarchyPanel.setPosition(ofGetWidth() - sceneHierarchyPanel.getWidth(), sceneHierarchyPanel.getPosition().y);
 	histogramOrthogonal.update(scene3d.getX(), scene3d.getY(), scene3d.getWidth(), scene3d.getHeight());
@@ -62,7 +68,10 @@ void Gui::draw() {
 	scene3d.draw();
 	sceneHierarchyPanel.draw();
 	drawingPanel.draw();
+	transformPanel.draw();
+	propertiesPanel.draw();
 	titleBar.draw();
+
 	if (isHistogramShowing) {
 		histogramOrthogonal.draw();
 		histogramPerspective.draw();
@@ -73,6 +82,8 @@ void Gui::mouseMoved(ofMouseEventArgs& args) {
 	if (!titleBar.mouseMoved(args)) {
 		sceneHierarchyPanel.mouseMoved(args);
 		drawingPanel.mouseMoved(args);
+		transformPanel.mouseMoved(args);
+		propertiesPanel.mouseMoved(args);
 	}
 }
 
@@ -80,13 +91,18 @@ void Gui::mousePressed(ofMouseEventArgs& args) {
 	if (!titleBar.mousePressed(args)) {
 		sceneHierarchyPanel.mousePressed(args);
 		drawingPanel.mousePressed(args);
+		transformPanel.mousePressed(args);
+		propertiesPanel.mousePressed(args);
 	}
 }
 
 void Gui::mouseReleased(ofMouseEventArgs& args) {
+	std::vector<CustomButton*> showSubButtons{  };
 	if (!titleBar.mouseReleased(args)) {
 		sceneHierarchyPanel.mouseReleased(args);
 		drawingPanel.mouseReleased(args);
+		transformPanel.mouseReleased(args);
+		propertiesPanel.mouseReleased(args);
 	}
 }
 
@@ -116,6 +132,38 @@ void Gui::showHistogram() {
 	isHistogramShowing = !isHistogramShowing;
 }
 
+void Gui::setUserModeDrawing(void) {
+	selectedUserMode = DRAWING;
+}
+
+void Gui::setUserModeTransform(void) {
+	selectedUserMode = TRANSFORM;
+}
+
 ofColor Gui::getSceneBackgroundColor(void) {
 	return drawingPanel.getSceneBackgroundColor();
+}
+
+ofRectangle Gui::getScene2DShape(void) {
+	return scene2d;
+}
+
+ofRectangle Gui::getScene3DShape(void) {
+	return scene3d;
+}
+
+UserMode Gui::getSelectedUserMode(void) {
+	return selectedUserMode;
+}
+
+TransformTool Gui::getSelectedTransformTool(void) {
+	return transformPanel.getSelectedTransformTool();
+}
+
+ofRectangle Gui::getDrawingPanelShape(void) {
+	return drawingPanel.getShape();
+}
+
+ofRectangle Gui::getTransformPanelShape(void) {
+	return transformPanel.getShape();
 }

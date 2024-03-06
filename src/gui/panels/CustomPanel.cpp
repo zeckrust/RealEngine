@@ -8,6 +8,8 @@ void CustomPanel::setup(std::string panelName, float x, float y) {
 	ofxGuiGroup::setup(panelName, FILE_NAME_SETTINGS, x, y);
 	unregisterMouseEvents();
 	setDefaultWidth(CUSTOM_PANEL_DEFAULT_WIDTH);
+
+	thisHeaderBackgroundColor = PANEL_HEADER_BACKGROUND_COLOR;
 }
 
 void CustomPanel::add(ofxBaseGui *element) {
