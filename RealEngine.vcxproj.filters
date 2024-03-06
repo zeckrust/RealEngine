@@ -94,6 +94,9 @@
     <ClCompile Include="src\gui\Histogram.cpp">
       <Filter>src\gui</Filter>
     </ClCompile>
+    <ClCompile Include="src\gui\panels\ColorPanel.cpp">
+      <Filter>src\gui\panels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -511,6 +514,9 @@
     </ClInclude>
     <ClInclude Include="src\gui\Histogram.h">
       <Filter>src\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\panels\ColorPanel.h">
+      <Filter>src\gui\panels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

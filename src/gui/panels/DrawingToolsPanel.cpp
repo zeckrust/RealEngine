@@ -1,12 +1,18 @@
 #include "DrawingToolsPanel.h"
 
 DrawingToolsPanel::DrawingToolsPanel() : CustomPanel() {
-
+	drawingButtons[0] = &drawCircleButton;
+	drawingButtons[1] = &drawEllipseButton;
+	drawingButtons[2] = &drawLineButton;
+	drawingButtons[3] = &drawSquareButton;
+	drawingButtons[4] = &drawRectButton;
 }
 
 void DrawingToolsPanel::setup(std::string panelName, float x, float y) {
 	CustomPanel::setup(panelName, x, y);
 	setupButtons();
+	setupFields();
+	setupColorPanels();
 }
 
 void DrawingToolsPanel::setupButtons(void) {
@@ -21,13 +27,35 @@ void DrawingToolsPanel::setupButtons(void) {
 	add(&drawLineButton);
 	add(&drawSquareButton);
 	add(&drawRectButton);
-
-	drawingButtons[0] = &drawCircleButton;
-	drawingButtons[1] = &drawEllipseButton;
-	drawingButtons[2] = &drawLineButton;
-	drawingButtons[3] = &drawSquareButton;
-	drawingButtons[4] = &drawRectButton;
 }	
+
+void DrawingToolsPanel::setupFields(void) {
+	lineWidthField.setup("Line width :", 5);
+	add(&lineWidthField);
+}
+
+void DrawingToolsPanel::setupColorPanels(void) {
+	lineColorPanel.setup("Line color", 0, 0, ofColor::blue);
+	fillColorPanel.setup("Fill color", 0, 0, ofColor::blue);
+	backgroundColorPanel.setup("Background color", 0, 0, SCENE_DEFAULT_BACKGROUND_COLOR);
+	add(&lineColorPanel);
+	add(&fillColorPanel);
+	add(&backgroundColorPanel);
+}
+
+void DrawingToolsPanel::update(void) {
+	CustomPanel::update();
+	lineColorPanel.update();
+	fillColorPanel.update();
+	backgroundColorPanel.update();
+}
+
+void DrawingToolsPanel::draw(void) {
+	CustomPanel::draw();
+	lineColorPanel.draw();
+	fillColorPanel.draw();
+	backgroundColorPanel.draw();
+}
 
 bool DrawingToolsPanel::mouseMoved(ofMouseEventArgs& args) {
 	for (int i = 0; i < std::size(collection); i++) {
@@ -39,15 +67,19 @@ bool DrawingToolsPanel::mouseMoved(ofMouseEventArgs& args) {
 }
 
 bool DrawingToolsPanel::mousePressed(ofMouseEventArgs& args) {
-	CustomPanel::mousePressed(args);
-	bool isPressed = false;
+	bool isPressed = CustomPanel::mousePressed(args);
+
 	for (int i = 0; i < std::size(collection); i++) {
 		if (collection[i] != nullptr) {
-			bool isButtonPressed =  collection[i]->mousePressed(args);
-			if (isButtonPressed && isDrawingButton(collection[i])) {
-				setSelectedDrawingTool((CustomButton*)collection[i]);
+			bool isInButton =  collection[i]->getShape().inside(args.x, args.y);
+			if (isInButton && isDrawingButton(collection[i])) {
+				if (collection[i] == selectedDrawingTool) {
+					setSelectedDrawingTool(nullptr);
+				}
+				else {
+					setSelectedDrawingTool((CustomButton*)collection[i]);
+				}
 			}
-			isPressed |= isButtonPressed;
 		}
 	}
 	return isPressed;
@@ -64,13 +96,13 @@ bool DrawingToolsPanel::mouseReleased(ofMouseEventArgs& args) {
 }
 
 void DrawingToolsPanel::setSelectedDrawingTool(CustomButton* button) {
+	selectedDrawingTool = button;
 	if (button != nullptr) {
-		selectedDrawingTool = button;
 		button->setBackground(SELECTED_BUTTON_COLOR);
-		for (int i = 0; i < std::size(drawingButtons); i++) {
-			if (drawingButtons[i] != nullptr && drawingButtons[i] != button) {
-				drawingButtons[i]->setBackground(BUTTON_DEFAULT_COLOR);
-			}
+	}
+	for (int i = 0; i < std::size(drawingButtons); i++) {
+		if (drawingButtons[i] != nullptr && drawingButtons[i] != button) {
+			drawingButtons[i]->setBackground(BUTTON_DEFAULT_COLOR);
 		}
 	}
 }
@@ -82,4 +114,20 @@ bool DrawingToolsPanel::isDrawingButton(ofxBaseGui* element) {
 		}
 	}
 	return false;
+}
+
+int DrawingToolsPanel::getLineWidth(void) {
+	return lineWidthField;
+}
+
+ofColor DrawingToolsPanel::getLineColor(void) {
+	return lineColorPanel.getColor();
+}
+
+ofColor DrawingToolsPanel::getFillColor(void) {
+	return fillColorPanel.getColor();
+}
+
+ofColor DrawingToolsPanel::getSceneBackgroundColor(void) {
+	return backgroundColorPanel.getColor();
 }
