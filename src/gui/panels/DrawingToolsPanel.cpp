@@ -13,6 +13,7 @@ void DrawingToolsPanel::setup(std::string panelName, float x, float y) {
 	setupButtons();
 	setupFields();
 	setupColorPanels();
+	typePrimitive = Primitype::none;
 }
 
 void DrawingToolsPanel::setupButtons(void) {
@@ -99,6 +100,22 @@ void DrawingToolsPanel::setSelectedDrawingTool(CustomButton* button) {
 	selectedDrawingTool = button;
 	if (button != nullptr) {
 		button->setBackground(SELECTED_BUTTON_COLOR);
+		if (button == &drawCircleButton){
+			typePrimitive = Primitype::circle;
+		}
+		else if (button == &drawEllipseButton) {
+			typePrimitive = Primitype::ellipse;
+		}
+		else if (button == &drawLineButton)
+		{
+			typePrimitive = Primitype::line;
+		}
+		else if (button == &drawSquareButton) {
+			typePrimitive = Primitype::square;
+		}
+		else if (button == &drawRectButton) {
+			typePrimitive = Primitype::rectangle;
+		}
 	}
 	for (int i = 0; i < std::size(drawingButtons); i++) {
 		if (drawingButtons[i] != nullptr && drawingButtons[i] != button) {
@@ -117,7 +134,8 @@ bool DrawingToolsPanel::isDrawingButton(ofxBaseGui* element) {
 }
 
 int DrawingToolsPanel::getLineWidth(void) {
-	return lineWidthField;
+	int lineWidth = lineWidthField;
+	return lineWidth;
 }
 
 ofColor DrawingToolsPanel::getLineColor(void) {
@@ -130,4 +148,8 @@ ofColor DrawingToolsPanel::getFillColor(void) {
 
 ofColor DrawingToolsPanel::getSceneBackgroundColor(void) {
 	return backgroundColorPanel.getColor();
+}
+
+Primitype DrawingToolsPanel::getDrawMode(void) {
+	return typePrimitive;
 }

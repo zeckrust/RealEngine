@@ -8,6 +8,7 @@
 #include "scene/Scene.h"
 #include "scene/SceneElement.h"
 #include "Histogram.h"
+#include "../Image/DessinVec.h"
 
 class Gui
 {
@@ -23,6 +24,11 @@ class Gui
 		void saveScenes();
 		void importFile();
 		void showHistogram();
+		int getLineWidth();
+		ofColor getLineColor();
+		ofColor getFillColor();
+		Primitype getTypePrimitive();
+
 		
 		ofColor getSceneBackgroundColor(void);
 

@@ -119,3 +119,19 @@ void Gui::showHistogram() {
 ofColor Gui::getSceneBackgroundColor(void) {
 	return drawingPanel.getSceneBackgroundColor();
 }
+
+int Gui::getLineWidth() {
+	return drawingPanel.getLineWidth();
+}
+
+ofColor Gui::getLineColor() {
+	return drawingPanel.getLineColor();
+}
+
+Primitype Gui::getTypePrimitive() {
+	return drawingPanel.getDrawMode();
+}
+
+ofColor Gui::getFillColor() {
+	return drawingPanel.getFillColor();
+}

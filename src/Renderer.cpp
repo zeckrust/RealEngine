@@ -9,6 +9,7 @@ void Renderer::setup() {
 	gui->setup();
 	ofSetFrameRate(FRAME_RATE);
 	cursors.setup();
+	dessinateur.setup();
 }
 
 void Renderer::update() {
@@ -19,16 +20,24 @@ void Renderer::update() {
 void Renderer::draw() {
 	ofSetBackgroundColor(BACKGROUND_COLOR);
 	gui->draw();
+
+	ofPushStyle();
+	ofSetColor(255, 255, 255, 255);
+	dessinateur.getFbo().draw(0, 0);
+	ofPopStyle();
+
 	cursors.draw();
 }
 
 void Renderer::mousePressed(ofMouseEventArgs& args) {
 	gui->mousePressed(args);
 	camera2d->setLastMousePosition(glm::vec2(args.x, args.y));
+	dessinateur.mousePressed();
 }
 
 void Renderer::mouseReleased(ofMouseEventArgs& args) {
 	gui->mouseReleased(args);
+	dessinateur.add_vector_shape();
 }
 
 void Renderer::mouseMoved(ofMouseEventArgs& args) {
@@ -37,6 +46,8 @@ void Renderer::mouseMoved(ofMouseEventArgs& args) {
 
 void Renderer::mouseDragged(ofMouseEventArgs& args) {
 	camera2d->moveCamera(args.x, args.y);
+
+	dessinateur.draw();
 }
 
 void Renderer::mouseExited() {

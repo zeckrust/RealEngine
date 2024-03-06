@@ -17,6 +17,7 @@ class CustomButton : public ofxLabel
 		void setPressedFunction(void (Gui::*_pressedFunction)());
 		float getWidth() const;
 		void setBackground(ofColor color);
+		std::string getLabel() const;
 
 	private:
 		void setupLabel(std::string label);

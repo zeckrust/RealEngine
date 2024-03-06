@@ -84,3 +84,7 @@ void CustomButton::setBackground(ofColor color) {
 	backgroundColor = color;
 	setBackgroundColor(color);
 }
+
+std::string CustomButton::getLabel() const {
+	return labelStr;
+}
