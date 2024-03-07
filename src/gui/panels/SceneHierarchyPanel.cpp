@@ -162,7 +162,6 @@ void SceneHierarchyPanel::handleDeleteRequest(void) {
 	if (deleteRequestedSceneElement != nullptr) {
 		deleteSceneObjects(deleteRequestedSceneElement);
 		remove(deleteRequestedSceneElement);
-		renderer->deleteSceneObject(deleteRequestedSceneElement->getSceneObjectPtr());
 		deleteRequestedSceneElement = nullptr;
 	}
 }
