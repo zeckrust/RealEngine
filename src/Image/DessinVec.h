@@ -12,6 +12,7 @@ class DessinVec
 		void update();
 		void draw();
 		void draw_buffer();
+		void redraw();
 		void reset();
 		void add_vector_shape();
 
@@ -35,6 +36,7 @@ class DessinVec
 		void dynamic_stage_1() const;
 		void dynamic_stage_2() const;
 
+
 		Primitype mode;
 		std::vector<VecObject*> shapes;
 		Gui* gui = nullptr;
@@ -55,6 +57,7 @@ class DessinVec
 		uint32_t compteur_image;
 		uint32_t compteur_stage_1;
 		uint32_t compteur_stage_2;
+
 
 		ofPolyline ligne;
 

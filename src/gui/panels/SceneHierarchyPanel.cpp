@@ -160,9 +160,19 @@ void SceneHierarchyPanel::handleMouseReleased(void) {
 
 void SceneHierarchyPanel::handleDeleteRequest(void) {
 	if (deleteRequestedSceneElement != nullptr) {
+		deleteSceneObjects(deleteRequestedSceneElement);
 		remove(deleteRequestedSceneElement);
 		renderer->deleteSceneObject(deleteRequestedSceneElement->getSceneObjectPtr());
 		deleteRequestedSceneElement = nullptr;
+	}
+}
+
+void SceneHierarchyPanel::deleteSceneObjects(SceneElement* sceneElement) {
+	std::vector<SceneElement*> sceneElementsChildren = sceneElement->getChildren();
+	renderer->deleteSceneObject(sceneElement->getSceneObjectPtr());
+
+	for (int i = 0; i < std::size(sceneElementsChildren); i++) {
+		deleteSceneObjects(sceneElementsChildren[i]);
 	}
 }
 

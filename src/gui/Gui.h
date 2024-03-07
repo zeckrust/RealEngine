@@ -48,6 +48,11 @@ class Gui
 
 		ofRectangle getDrawingPanelShape(void);
 		ofRectangle getTransformPanelShape(void);
+		bool getIsImageImported(void);
+		ofImage getImportedImage(void);
+		void setIsImageImported(bool _isImageImported);
+
+		void createSceneElement(std::string name, SceneObject* obj_ptr);
 
 		void createSceneElement(std::string name, SceneObject* obj_ptr);
 
@@ -76,6 +81,9 @@ class Gui
 
 		UserMode selectedUserMode;
 		bool isHistogramShowing;
+
+		ofImage imageBuffer;
+		bool isImageImported;
 };
 
 Gui* Gui::instancePtr = nullptr;

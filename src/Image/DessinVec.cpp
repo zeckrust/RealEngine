@@ -18,8 +18,11 @@ void DessinVec::setup()
 	compteur_rectangle = 0;
 	compteur_line = 0;
 	compteur_image = 0;
+
 	compteur_stage_1 = 0;
 	compteur_stage_2 = 0;
+=======
+
 
 	gui = Gui::getInstance();
 
@@ -39,9 +42,7 @@ void DessinVec::update()
 
 	if (hasPositionChanged || hasWidthChanged || hasHeightChanged) {
 		fbo.allocate(scene2DShape.getWidth(), scene2DShape.getHeight(), GL_RGBA);
-		fbo.begin();
-		ofClear(0, 0, 0, 0);
-		fbo.end();
+		redraw();
 	}
 
 	oldScene2dShape = scene2DShape;
@@ -55,7 +56,6 @@ void DessinVec::reset()
 void DessinVec::add_vector_shape() 
 {
 	shapes.push_back(new VecObject(mode));
-
 	shapes.back()->setPosition(glm::vec3(mouse_press_x, mouse_press_y, 0));
 	shapes.back()->setDimensions(glm::vec3(mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y, 0));
 	shapes.back()->setStrokeColor(gui->getLineColor());
@@ -65,7 +65,6 @@ void DessinVec::add_vector_shape()
 	mouse_pressed = false;
 
 	std::string name;
-
 	switch (mode)
 	{
 	case Primitype::none:
@@ -96,6 +95,8 @@ void DessinVec::add_vector_shape()
 		compteur_circle++;
 		break;
 	case Primitype::image:
+		shapes.back()->setImage(gui->getImportedImage());
+		gui->setIsImageImported(false);
 		name = "Image";
 		name += to_string(compteur_image);
 		compteur_image++;
@@ -122,22 +123,29 @@ void DessinVec::deleteObject(SceneObject* obj) {
 	auto shapes_it = std::find(shapes.begin(), shapes.end(), obj);
 	if (shapes_it != shapes.end()) {
 		shapes.erase(shapes_it);
-		fbo.begin();
-		ofClear(0, 0, 0, 0);
-		draw_buffer();
-		fbo.end();
-	}
+		redraw();
+	}	
+
 }
 
 void DessinVec::mousePressed(ofMouseEventArgs& args)
 {
-	if (gui->getSelectedUserMode() == DRAWING && scene2DShape.inside(args.x, args.y)) {
+	bool isInDrawingMode = gui->getSelectedUserMode() == DRAWING;
+	bool isInsideScene = scene2DShape.inside(args.x, args.y);
+	bool isDrawingToolSelected = gui->getTypePrimitive() != Primitype::none;
+
+	if (isInDrawingMode && isInsideScene && isDrawingToolSelected) {
 		mouse_pressed = true;
 		mouse_press_x = args.x - scene2DShape.getPosition().x;
 		mouse_press_y = args.y - scene2DShape.getPosition().y;
 		mouse_current_x = args.x - scene2DShape.getPosition().x;
 		mouse_current_y = args.y - scene2DShape.getPosition().y;
-		mode = gui->getTypePrimitive();
+		if (gui->getIsImageImported()) {
+			mode = Primitype::image;
+		}
+		else {
+			mode = gui->getTypePrimitive();
+		}
 	}
 }
 
@@ -252,13 +260,16 @@ void DessinVec::mouseDragged(ofMouseEventArgs& args)
 			ofNoFill();
 			ofSetColor(gui->getLineColor());
 			ofDrawCircle(glm::vec2(mouse_press_x, mouse_press_y), radius);
-
 			break;
+        
 		case Primitype::stage1:
 			dynamic_stage_1();
 			break;
 		case Primitype::stage2:
 			dynamic_stage_2();
+      break;
+		case Primitype::image:
+			gui->getImportedImage().draw(glm::vec2(mouse_press_x, mouse_press_y), mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y);
 			break;
 		default:
 			break;
@@ -275,6 +286,13 @@ void DessinVec::draw()
 	ofSetColor(255, 255, 255, 255);
 	fbo.draw(scene2DShape.getPosition().x, scene2DShape.getPosition().y);
 	ofPopStyle();
+}
+
+void DessinVec::redraw() {
+	fbo.begin();
+	ofClear(0, 0, 0, 0);
+	draw_buffer();
+	fbo.end();
 }
 
 void DessinVec::draw_buffer() {
@@ -303,6 +321,9 @@ void DessinVec::draw_buffer() {
 
 		case Primitype::circle:
 			draw_circle(*shape);
+			break;
+		case Primitype::image:
+			shape->getImage().draw(shape->getPosition().x, shape->getPosition().y, shape->getDimensions().x, shape->getDimensions().y);
 			break;
 
 		case Primitype::stage1:
@@ -477,10 +498,10 @@ void DessinVec::draw_stage_1(VecObject obj) const {
 	ofVertex(v7);
 
 	ofEndShape(true);
-
-	ofPopStyle();
-
+  
+  ofPopStyle();
 }
+
 
 void DessinVec::draw_stage_2(VecObject obj) const {
 	ofPushStyle();
@@ -533,7 +554,23 @@ void DessinVec::draw_stage_2(VecObject obj) const {
 
 	ofEndShape(true);
 
+
 	ofPopStyle();
+}
+
+void DessinVec::draw_ellipse(VecObject obj) const {
+	ofPushStyle();
+
+	ofFill();
+	ofSetLineWidth(obj.getStrokeWidth());
+	ofSetColor(obj.getFillColor());
+  
+  ofDrawEllipse(obj.getPosition(), 2 * obj.getDimensions().x, 2 * obj.getDimensions().y);
+
+	ofNoFill();
+	ofSetColor(obj.getStrokeColor());
+	ofDrawEllipse(obj.getPosition(), 2 * obj.getDimensions().x, 2 * obj.getDimensions().y);
+  ofPopStyle();
 }
 
 void DessinVec::dynamic_stage_1() const {
