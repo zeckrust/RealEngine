@@ -558,21 +558,6 @@ void DessinVec::draw_stage_2(VecObject obj) const {
 	ofPopStyle();
 }
 
-void DessinVec::draw_ellipse(VecObject obj) const {
-	ofPushStyle();
-
-	ofFill();
-	ofSetLineWidth(obj.getStrokeWidth());
-	ofSetColor(obj.getFillColor());
-  
-  ofDrawEllipse(obj.getPosition(), 2 * obj.getDimensions().x, 2 * obj.getDimensions().y);
-
-	ofNoFill();
-	ofSetColor(obj.getStrokeColor());
-	ofDrawEllipse(obj.getPosition(), 2 * obj.getDimensions().x, 2 * obj.getDimensions().y);
-  ofPopStyle();
-}
-
 void DessinVec::dynamic_stage_1() const {
 	ofFill();
 	ofSetLineWidth(gui->getLineWidth());
