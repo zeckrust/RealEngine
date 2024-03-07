@@ -101,7 +101,10 @@ bool DrawingToolsPanel::mouseReleased(ofMouseEventArgs& args) {
 
 void DrawingToolsPanel::setSelectedDrawingTool(CustomButton* button) {
 	selectedDrawingTool = button;
-	if (button != nullptr) {
+	if (button == nullptr) {
+		typePrimitive = Primitype::none;
+	}
+	else {
 		button->setBackground(SELECTED_BUTTON_COLOR);
 		if (button == &drawCircleButton){
 			typePrimitive = Primitype::circle;

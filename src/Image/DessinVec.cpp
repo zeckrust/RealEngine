@@ -37,9 +37,7 @@ void DessinVec::update()
 
 	if (hasPositionChanged || hasWidthChanged || hasHeightChanged) {
 		fbo.allocate(scene2DShape.getWidth(), scene2DShape.getHeight(), GL_RGBA);
-		fbo.begin();
-		ofClear(0, 0, 0, 0);
-		fbo.end();
+		redraw();
 	}
 
 	oldScene2dShape = scene2DShape;
@@ -110,16 +108,17 @@ void DessinVec::deleteObject(SceneObject* obj) {
 	auto shapes_it = std::find(shapes.begin(), shapes.end(), obj);
 	if (shapes_it != shapes.end()) {
 		shapes.erase(shapes_it);
-		fbo.begin();
-		ofClear(0, 0, 0, 0);
-		draw_buffer();
-		fbo.end();
-	}
+		redraw();
+	}	
 }
 
 void DessinVec::mousePressed(ofMouseEventArgs& args)
 {
-	if (gui->getSelectedUserMode() == DRAWING && scene2DShape.inside(args.x, args.y)) {
+	bool isInDrawingMode = gui->getSelectedUserMode() == DRAWING;
+	bool isInsideScene = scene2DShape.inside(args.x, args.y);
+	bool isDrawingToolSelected = gui->getTypePrimitive() != Primitype::none;
+
+	if (isInDrawingMode && isInsideScene && isDrawingToolSelected) {
 		mouse_pressed = true;
 		mouse_press_x = args.x - scene2DShape.getPosition().x;
 		mouse_press_y = args.y - scene2DShape.getPosition().y;
@@ -257,6 +256,13 @@ void DessinVec::draw()
 	ofSetColor(255, 255, 255, 255);
 	fbo.draw(scene2DShape.getPosition().x, scene2DShape.getPosition().y);
 	ofPopStyle();
+}
+
+void DessinVec::redraw() {
+	fbo.begin();
+	ofClear(0, 0, 0, 0);
+	draw_buffer();
+	fbo.end();
 }
 
 void DessinVec::draw_buffer() {
