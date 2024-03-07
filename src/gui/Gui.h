@@ -10,6 +10,7 @@
 #include "scene/Scene.h"
 #include "scene/SceneElement.h"
 #include "Histogram.h"
+#include "../Image/DessinVec.h"
 
 enum UserMode {
 	DRAWING = 0,
@@ -30,6 +31,11 @@ class Gui
 		void saveScenes();
 		void importFile();
 		void showHistogram();
+		int getLineWidth();
+		ofColor getLineColor();
+		ofColor getFillColor();
+		Primitype getTypePrimitive();
+
 
 		void setUserModeDrawing(void);
 		void setUserModeTransform(void);

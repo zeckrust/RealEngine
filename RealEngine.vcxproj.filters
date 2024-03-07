@@ -97,6 +97,8 @@
     <ClCompile Include="src\gui\panels\ColorPanel.cpp">
       <Filter>src\gui\panels</Filter>
     </ClCompile>
+    <ClCompile Include="src\Image\DessinVec.cpp">
+      <Filter>src\Image</Filter>
     <ClCompile Include="src\gui\panels\PropertiesPanel.cpp">
       <Filter>src\gui\panels</Filter>
     </ClCompile>

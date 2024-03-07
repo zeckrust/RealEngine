@@ -4,6 +4,7 @@
 #include "gui/Gui.h"
 #include "Transformation/Camera2d.h"
 #include "Image/Cursor.h"
+#include "Image/DessinVec.h"
 
 class Renderer
 {
@@ -27,6 +28,9 @@ class Renderer
 		Gui* gui;
 		Camera2d* camera2d;
 		Cursor cursors;
+		DessinVec dessinateur;
+
+		PrimitiveVectorielle currentShape;
 };
 
 const int FRAME_RATE = 60;

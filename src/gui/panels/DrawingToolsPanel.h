@@ -3,6 +3,7 @@
 #include "ColorPanel.h"
 #include "../buttons/CustomButton.h"
 #include "../GuiConst.h"
+#include "../apps/RealEngine/src/Image/DessinVec.h"
 
 class DrawingToolsPanel : public CustomPanel 
 {
@@ -22,6 +23,7 @@ class DrawingToolsPanel : public CustomPanel
 		ofColor getLineColor(void);
 		ofColor getFillColor(void);
 		ofColor getSceneBackgroundColor(void);
+		Primitype getDrawMode(void);
 
 	private:
 		void setupButtons(void);
@@ -42,6 +44,7 @@ class DrawingToolsPanel : public CustomPanel
 		ColorPanel lineColorPanel;
 		ColorPanel fillColorPanel;
 		ColorPanel backgroundColorPanel;
+		Primitype typePrimitive;
 
 		const ofColor SELECTED_BUTTON_COLOR = ofColor(90, 90, 90, 255);
 };
