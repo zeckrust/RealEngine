@@ -1,6 +1,7 @@
 #pragma once
 #include "ofMain.h"
 #include "VecObject.h"
+#include "../gui/Histogram.h"
 
 class Gui;
 
@@ -64,4 +65,7 @@ class DessinVec
 		ofFbo fbo;
 		ofRectangle scene2DShape;
 		ofRectangle oldScene2dShape;
+
+		Histogram histogramOrthogonal;
+		Histogram histogramPerspective;
 };

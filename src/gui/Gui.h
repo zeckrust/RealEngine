@@ -50,6 +50,7 @@ class Gui
 		ofRectangle getTransformPanelShape(void);
 		bool getIsImageImported(void);
 		ofImage getImportedImage(void);
+		bool getIsHistogramShowing(void);
 		void setIsImageImported(bool _isImageImported);
 
 		void createSceneElement(std::string name, SceneObject* obj_ptr);
@@ -74,8 +75,6 @@ class Gui
 
 		Scene scene2d;
 		Scene scene3d;
-		Histogram histogramOrthogonal;
-		Histogram histogramPerspective;
 
 		UserMode selectedUserMode;
 		bool isHistogramShowing;

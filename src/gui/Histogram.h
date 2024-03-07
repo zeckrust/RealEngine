@@ -6,8 +6,8 @@
 class Histogram {
 public:
 	void draw();
-	void setup(int _grab_x, int _grab_y, int _grab_w, int _grab_h);
-	void update(int _grab_x, int _grab_y, int _grab_w, int _grab_h);
+	void setup(ofFbo fbo, int _y_position);
+	void update(ofFbo fbo, int _y_position);
 
 private:
 	int arrayMax(int* arr, int sizeArray);
@@ -18,10 +18,9 @@ private:
 	void calculateLinePos(int colorArray[], int sizeArray, glm::vec2 linesStart[], glm::vec2 linesEnd[]);
 	void drawColoredLines(ofColor color, int sizeArray, glm::vec2 linesStart[], glm::vec2 linesEnd[]);
 
-	int grab_x;
-	int grab_y;
-	int grab_w;
-	int grab_h;
+	ofFbo fbo;
+
+	int y_position;
 
 	vector<ofColor> colors;
 	vector<ofRectangle> rectangles;

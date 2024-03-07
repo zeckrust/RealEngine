@@ -18,8 +18,6 @@ void Gui::setup() {
 	titleBar.setup();
 	setupPanels();
 	updateScenes();
-	histogramOrthogonal.setup(scene3d.getX(), scene3d.getY(), scene3d.getWidth(), scene3d.getHeight());
-	histogramPerspective.setup(scene2d.getX(), scene2d.getY(), scene2d.getWidth(), scene2d.getHeight());
 	selectedUserMode = DRAWING;
 	isHistogramShowing = false;
 	isImageImported = false;
@@ -40,8 +38,6 @@ void Gui::update() {
 
 	updateScenes();
 	sceneHierarchyPanel.setPosition(ofGetWidth() - sceneHierarchyPanel.getWidth(), sceneHierarchyPanel.getPosition().y);
-	histogramOrthogonal.update(scene3d.getX(), scene3d.getY(), scene3d.getWidth(), scene3d.getHeight());
-	histogramPerspective.update(scene2d.getX(), scene2d.getY(), scene2d.getWidth(), scene2d.getHeight());
 }
 
 void Gui::updateScenes() {
@@ -67,11 +63,6 @@ void Gui::draw() {
 	transformPanel.draw();
 	propertiesPanel.draw();
 	titleBar.draw();
-
-	if (isHistogramShowing) {
-		histogramOrthogonal.draw();
-		histogramPerspective.draw();
-	}
 }
 
 void Gui::mouseMoved(ofMouseEventArgs& args) {
@@ -193,4 +184,8 @@ ofImage Gui::getImportedImage(void) {
 
 void Gui::setIsImageImported(bool _isImageImported) {
 	isImageImported = _isImageImported;
+}
+
+bool Gui::getIsHistogramShowing(void) {
+	return isHistogramShowing;
 }
