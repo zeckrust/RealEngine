@@ -52,9 +52,6 @@
     <ClCompile Include="src\gui\TitleBar.cpp">
       <Filter>src\gui</Filter>
     </ClCompile>
-    <ClCompile Include="src\Image\Object2d.cpp">
-      <Filter>src\Image</Filter>
-    </ClCompile>
     <ClCompile Include="src\Transformation\Camera2d.cpp">
       <Filter>src\Transformation</Filter>
     </ClCompile>
@@ -104,6 +101,12 @@
       <Filter>src\gui\panels</Filter>
     </ClCompile>
     <ClCompile Include="src\Image\DessinVec.cpp">
+      <Filter>src\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Image\SceneObject.cpp">
+      <Filter>src\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Image\VecObject.cpp">
       <Filter>src\Image</Filter>
     </ClCompile>
   </ItemGroup>
@@ -479,9 +482,6 @@
     <ClInclude Include="src\gui\TitleBar.h">
       <Filter>src\gui</Filter>
     </ClInclude>
-    <ClInclude Include="src\Image\Object2d.h">
-      <Filter>src\Image</Filter>
-    </ClInclude>
     <ClInclude Include="src\Transformation\Camera2d.h">
       <Filter>src\Transformation</Filter>
     </ClInclude>
@@ -534,6 +534,12 @@
       <Filter>src\gui\panels</Filter>
     </ClInclude>
     <ClInclude Include="src\Image\DessinVec.h">
+      <Filter>src\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Image\SceneObject.h">
+      <Filter>src\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Image\VecObject.h">
       <Filter>src\Image</Filter>
     </ClInclude>
   </ItemGroup>

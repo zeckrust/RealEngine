@@ -1,19 +1,6 @@
 #pragma once
-//#include "../apps/RealEngine/src/Renderer.h"
 #include "ofMain.h"
-
-enum class Primitype {none, square, line, rectangle, ellipse, circle, image};
-
-struct PrimitiveVectorielle
-{
-	Primitype			type;
-	float               position1[2];
-	float               position2[2];
-	float               stroke_width;
-	ofColor				stroke_color;
-	ofColor		        fill_color;
-	ofImage				imported_image;
-};
+#include "VecObject.h"
 
 class Gui;
 
@@ -32,25 +19,21 @@ class DessinVec
 		void mouseReleased(ofMouseEventArgs& args);
 		void mouseDragged(ofMouseEventArgs& args);
 
+		void deleteObject(SceneObject* obj);
+
 		ofFbo getFbo() const;
 		~DessinVec();
 
 	private :
-		void draw_line(PrimitiveVectorielle prim) const;
-		void draw_rectangle(PrimitiveVectorielle prim) const;
-		void draw_square(PrimitiveVectorielle prim) const;
-		void draw_circle(PrimitiveVectorielle prim) const;
-		void draw_ellipse(PrimitiveVectorielle prim) const;
+		void draw_line(VecObject obj) const;
+		void draw_rectangle(VecObject obj) const;
+		void draw_square(VecObject obj) const;
+		void draw_circle(VecObject obj) const;
+		void draw_ellipse(VecObject obj) const;
 
 		Primitype mode;
-		std::vector<PrimitiveVectorielle*> shapes;
+		std::vector<VecObject*> shapes;
 		Gui* gui = nullptr;
-
-		int index;
-
-		int buffer_count;
-		int buffer_size;
-		int buffer_head;
 
 		int mouse_press_x;
 		int mouse_press_y;
@@ -59,6 +42,13 @@ class DessinVec
 		int mouse_current_y;
 
 		bool mouse_pressed;
+
+		uint32_t compteur_square;
+		uint32_t compteur_circle;
+		uint32_t compteur_ellipse;
+		uint32_t compteur_rectangle;
+		uint32_t compteur_line;
+		uint32_t compteur_image;
 
 		ofPolyline ligne;
 

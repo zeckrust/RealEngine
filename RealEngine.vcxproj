@@ -120,7 +120,8 @@
     <ClCompile Include="src\gui\TitleBar.cpp" />
     <ClCompile Include="src\Image\Cursor.cpp" />
     <ClCompile Include="src\Image\DessinVec.cpp" />
-    <ClCompile Include="src\Image\Object2d.cpp" />
+    <ClCompile Include="src\Image\SceneObject.cpp" />
+    <ClCompile Include="src\Image\VecObject.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
     <ClCompile Include="..\..\addons\ofxAssimpModelLoader\src\ofxAssimpAnimation.cpp" />
@@ -158,7 +159,8 @@
     <ClInclude Include="src\gui\TitleBar.h" />
     <ClInclude Include="src\Image\Cursor.h" />
     <ClInclude Include="src\Image\DessinVec.h" />
-    <ClInclude Include="src\Image\Object2d.h" />
+    <ClInclude Include="src\Image\SceneObject.h" />
+    <ClInclude Include="src\Image\VecObject.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="..\..\addons\ofxAssimpModelLoader\src\ofxAssimpAnimation.h" />
     <ClInclude Include="..\..\addons\ofxAssimpModelLoader\src\ofxAssimpMeshHelper.h" />

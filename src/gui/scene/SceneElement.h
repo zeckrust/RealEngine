@@ -3,11 +3,12 @@
 #include "ofxGui.h"
 #include "../GuiConst.h"
 #include "SceneElementExtension.h"
+#include "../../Image/SceneObject.h"
 
 class SceneElement : public ofxLabel
 {
 	public:
-		SceneElement(std::string _labelName);
+		SceneElement(std::string _labelName, SceneObject* obj_ptr);
 		void setupExtension(void);
 		void update(void);
 		void updateElement(uint32_t newDepth);
@@ -23,6 +24,8 @@ class SceneElement : public ofxLabel
 		bool isSelected(void);
 		bool isDeleteRequested(void);
 
+		SceneObject* getSceneObjectPtr(void);
+
 	private:
 		void setupFont();
 		void updateChildren();
@@ -33,6 +36,7 @@ class SceneElement : public ofxLabel
 		std::vector<SceneElement*> children;
 		uint32_t depth = 0;
 		SceneElementExtension extension;
+		SceneObject* object_ptr;
 };
 
 const ofColor DEFAULT_COLOR = ofColor(0, 0, 0, 0);

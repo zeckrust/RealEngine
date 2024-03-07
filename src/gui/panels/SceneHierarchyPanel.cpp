@@ -1,13 +1,19 @@
 #include "SceneHierarchyPanel.h"
+#include "../../Renderer.h"
 
+// ********************************************************************************************************************
+// DISCLAMER : Cast from ofxBaseGui to SceneElement (only SceneElement objects can be added to a SceneHierarchyPanel)
+// ********************************************************************************************************************
 
 SceneHierarchyPanel::SceneHierarchyPanel() : CustomPanel() {
 
 }
 
-// ********************************************************************************************************************
-// DISCLAMER : Cast from ofxBaseGui to SceneElement (only SceneElement objects can be added to a SceneHierarchyPanel)
-// ********************************************************************************************************************
+void SceneHierarchyPanel::setup(std::string panelName, float x, float y) {
+	CustomPanel::setup(panelName, x, y);
+	renderer = Renderer::getInstance();
+}
+
 void SceneHierarchyPanel::update(void) {
 	CustomPanel::update();
 	for (int i = 0; i < std::size(collection); i++) {
@@ -33,8 +39,8 @@ void SceneHierarchyPanel::draw(void) {
 	}
 }
 
-void SceneHierarchyPanel::createSceneElement(std::string sceneElementName) {
-	SceneElement *newSceneElement = new SceneElement(sceneElementName);
+void SceneHierarchyPanel::createSceneElement(std::string sceneElementName, SceneObject* obj_ptr) {
+	SceneElement *newSceneElement = new SceneElement(sceneElementName, obj_ptr);
 	add(newSceneElement);
 }
 
@@ -155,6 +161,7 @@ void SceneHierarchyPanel::handleMouseReleased(void) {
 void SceneHierarchyPanel::handleDeleteRequest(void) {
 	if (deleteRequestedSceneElement != nullptr) {
 		remove(deleteRequestedSceneElement);
+		renderer->deleteSceneObject(deleteRequestedSceneElement->getSceneObjectPtr());
 		deleteRequestedSceneElement = nullptr;
 	}
 }

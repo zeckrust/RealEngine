@@ -29,11 +29,6 @@ void Gui::setupPanels() {
 	drawingPanel.setup("Drawing", 0, titleBar.getHeight());
 	transformPanel.setup("Transform", 0, 0); // Dynamically positioned in update()
 	propertiesPanel.setup("Properties", 0, 0); // Dynamically positioned in update()
-
-	// Tests
-	sceneHierarchyPanel.createSceneElement("element1");
-	sceneHierarchyPanel.createSceneElement("element2");
-	sceneHierarchyPanel.createSceneElement("element3");
 }
 
 void Gui::update() {
@@ -130,6 +125,10 @@ void Gui::importFile() {
 void Gui::showHistogram() {
 	// ofLog() << "## NOT IMPLEMENTED ##";
 	isHistogramShowing = !isHistogramShowing;
+}
+
+void Gui::createSceneElement(std::string name, SceneObject* obj_ptr) {
+	sceneHierarchyPanel.createSceneElement(name, obj_ptr);
 }
 
 void Gui::setUserModeDrawing(void) {

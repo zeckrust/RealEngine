@@ -9,8 +9,8 @@
 class Renderer
 {
 	public:
-		Renderer(Camera2d* _camera2d);
-		void setup();
+		Renderer();
+		void setup(Camera2d* _camera);
 		void update();
 		void draw();
 		void windowResized(int width, int height);
@@ -22,17 +22,25 @@ class Renderer
 		void mouseExited();
 		void mouseEntered();
 		void keyPressed(ofKeyEventArgs& args);
+		void deleteSceneObject(SceneObject* obj);
+
+		// Singleton
+		static Renderer* getInstance();
+		Renderer(const Renderer& obj) = delete;
 
 	private:
 
 		Gui* gui;
-		Camera2d* camera2d;
+		Camera2d* camera2d = nullptr;
 		Cursor cursors;
 		DessinVec dessinateur;
 
-		PrimitiveVectorielle currentShape;
+		static Renderer* instancePtr;
 };
 
 const int FRAME_RATE = 60;
 const ofColor BACKGROUND_COLOR = ofColor(40, 40, 40, 255);
 const int KEY_CONTROL_S = 19;
+
+Renderer* Renderer::instancePtr = nullptr;
+

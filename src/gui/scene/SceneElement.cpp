@@ -1,6 +1,6 @@
 #include "SceneElement.h"
 
-SceneElement::SceneElement(std::string _labelName) : ofxLabel(_labelName), labelName(_labelName), label(_labelName){
+SceneElement::SceneElement(std::string _labelName, SceneObject* obj_ptr) : ofxLabel(_labelName), labelName(_labelName), label(_labelName), object_ptr(obj_ptr){
 	setBackgroundColor(DEFAULT_COLOR);
 	setupFont();
 }
@@ -122,4 +122,8 @@ bool SceneElement::isSelected(void) {
 
 bool SceneElement::isDeleteRequested(void) {
 	return extension.isDeleteRequested();
+}
+
+SceneObject* SceneElement::getSceneObjectPtr(void) {
+	return object_ptr;
 }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "../Image/Object2d.h"
+#include "../Image/SceneObject.h"
 
 class Camera2d
 {
@@ -9,10 +9,10 @@ class Camera2d
 		Camera2d();
 		void setLastMousePosition(glm::vec2 position);
 		void moveCamera(int x, int y);
-		void addImage(Object2d* image);
-		void removeImage(Object2d* image);
+		void addImage(SceneObject* image);
+		void removeImage(SceneObject* image);
 
 	private:
 		glm::vec2 lastMousePosition;
-		std::vector<Object2d*> images;
+		std::vector<SceneObject*> images;
 };
