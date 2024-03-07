@@ -12,6 +12,7 @@ class DessinVec
 		void update();
 		void draw();
 		void draw_buffer();
+		void redraw();
 		void reset();
 		void add_vector_shape();
 

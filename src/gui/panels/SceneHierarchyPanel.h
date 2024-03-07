@@ -23,6 +23,7 @@ class SceneHierarchyPanel : public CustomPanel
 		void removeElementChildren(ofxBaseGui *element);
 		void handleMouseReleased(void);
 		void handleDeleteRequest(void);
+		void deleteSceneObjects(SceneElement* sceneElement);
 		void updateDisplay();
 
 		SceneElement *pressedSceneElement = nullptr;
