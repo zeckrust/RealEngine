@@ -1,7 +1,10 @@
 #pragma once
+
 #include "ofxGui.h"
 #include <map>
 #include <string>
+
+class Gui;
 
 enum CursorType {
 	Normal = 1,
@@ -25,10 +28,16 @@ class Cursor
 
 	private:
 		void setCursorPosition();
+		void updateCursorType();
+		void handleTransformCursorType();
 		void loadCursors();
 
 		bool isMouseExited = false;
 		std::map<CursorType, std::string> cursorsMap;
 		ofImage currentCursor;
 		glm::vec2 cursorPosition;
+
+		const ofColor CURSOR_DEFAULT_COLOR = ofColor(78, 59, 255, 255);
+
+		Gui* gui = nullptr;
 };

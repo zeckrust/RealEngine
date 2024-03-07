@@ -13,12 +13,12 @@ void Renderer::setup() {
 }
 
 void Renderer::update() {
+	ofSetBackgroundColor(BACKGROUND_COLOR);
 	gui->update();
 	cursors.update();
 }
 
 void Renderer::draw() {
-	ofSetBackgroundColor(BACKGROUND_COLOR);
 	gui->draw();
 
 	ofPushStyle();

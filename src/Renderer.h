@@ -34,5 +34,5 @@ class Renderer
 };
 
 const int FRAME_RATE = 60;
-const ofColor BACKGROUND_COLOR = ofColor(212, 212, 212, 255);
+const ofColor BACKGROUND_COLOR = ofColor(40, 40, 40, 255);
 const int KEY_CONTROL_S = 19;

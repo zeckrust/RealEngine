@@ -54,7 +54,7 @@ void ColorPanel::draw(void) {
 }
 
 bool ColorPanel::mousePressed(ofMouseEventArgs& args) {
-	if (colorModeButton.getShape().inside(args.x, args.y)) {
+	if (!isMinimized() && colorModeButton.getShape().inside(args.x, args.y)) {
 		changeColorMode();
 	}
 	return CustomPanel::mousePressed(args);

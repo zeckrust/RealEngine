@@ -3,13 +3,11 @@
 
 TitleBar::TitleBar() {
 	buttons[0] = &fileButton;
-	buttons[1] = &viewButton;
-	buttons[2] = &windowButton;
-	buttons[3] = &showButton;
+	buttons[1] = &modeButton;
+	buttons[2] = &showButton;
 	buttonNames[0] = "File";
-	buttonNames[1] = "View";
-	buttonNames[2] = "Window";
-	buttonNames[3] = "Show";
+	buttonNames[1] = "Mode";
+	buttonNames[2] = "Show";
 }
 
 void TitleBar::setup() {
@@ -20,7 +18,6 @@ void TitleBar::setup() {
 
 	setupButtons();
 
-	// setup file sub-buttons
 	importButton.setup("Import", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
 	exportButton.setup("Export", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
 	importButton.setPressedFunction(&Gui::importFile);
@@ -28,10 +25,16 @@ void TitleBar::setup() {
 	std::vector<CustomButton*> fileSubButtons {&importButton, &exportButton};
 	fileButton.setSubButtons(fileSubButtons);
 
+	drawingButton.setup("Drawing", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	transformButton.setup("Transform", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	drawingButton.setPressedFunction(&Gui::setUserModeDrawing);
+	transformButton.setPressedFunction(&Gui::setUserModeTransform);
+	std::vector<CustomButton*> modeSubButtons = {&drawingButton, &transformButton};
+	modeButton.setSubButtons(modeSubButtons);
+
 	histogramButton.setup("Histogram", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
 	histogramButton.setPressedFunction(&Gui::showHistogram);
-	std::vector<CustomButton*> showSubButtons{ &histogramButton };
-	showButton.setSubButtons(showSubButtons);
+	showButton.addSubButton(&histogramButton);
 }
 
 void TitleBar::setupButtons() {
@@ -52,10 +55,12 @@ void TitleBar::draw() {
 }
 
 void TitleBar::drawBar() {
+	ofPushStyle();
 	ofSetColor(TITLE_BAR_COLOR);
 	ofDrawRectangle(rectBackground);
 	ofSetColor(TITLE_BAR_LINE_LIMIT_COLOR);
 	ofDrawRectangle(lineLimit);
+	ofPopStyle();
 }
 
 void TitleBar::drawButtons() {

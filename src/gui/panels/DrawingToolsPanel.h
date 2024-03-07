@@ -47,4 +47,5 @@ class DrawingToolsPanel : public CustomPanel
 		Primitype typePrimitive;
 };
 
-const ofColor SELECTED_BUTTON_COLOR = ofColor(90, 90, 90, 255);
+		const ofColor SELECTED_BUTTON_COLOR = ofColor(90, 90, 90, 255);
+};

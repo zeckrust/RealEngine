@@ -5,10 +5,17 @@
 #include "TitleBar.h"
 #include "panels/DrawingToolsPanel.h"
 #include "panels/SceneHierarchyPanel.h"
+#include "panels/PropertiesPanel.h"
+#include "panels/TransformPanel.h"
 #include "scene/Scene.h"
 #include "scene/SceneElement.h"
 #include "Histogram.h"
 #include "../Image/DessinVec.h"
+
+enum UserMode {
+	DRAWING = 0,
+	TRANSFORM
+};
 
 class Gui
 {
@@ -29,8 +36,18 @@ class Gui
 		ofColor getFillColor();
 		Primitype getTypePrimitive();
 
+
+		void setUserModeDrawing(void);
+		void setUserModeTransform(void);
 		
 		ofColor getSceneBackgroundColor(void);
+		ofRectangle getScene2DShape(void);
+		ofRectangle getScene3DShape(void);
+		UserMode getSelectedUserMode(void);
+		TransformTool getSelectedTransformTool(void);
+
+		ofRectangle getDrawingPanelShape(void);
+		ofRectangle getTransformPanelShape(void);
 
 		// Singleton
 		static Gui* getInstance();
@@ -47,11 +64,15 @@ class Gui
 		TitleBar titleBar;
 		SceneHierarchyPanel sceneHierarchyPanel;
 		DrawingToolsPanel drawingPanel;
+		TransformPanel transformPanel;
+		PropertiesPanel propertiesPanel;
+
 		Scene scene2d;
 		Scene scene3d;
 		Histogram histogramOrthogonal;
 		Histogram histogramPerspective;
 
+		UserMode selectedUserMode;
 		bool isHistogramShowing;
 };
 

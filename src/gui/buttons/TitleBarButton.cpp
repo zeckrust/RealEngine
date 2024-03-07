@@ -7,6 +7,7 @@ TitleBarButton::TitleBarButton() : CustomButton() {
 	extensionWidth = 0;
 	extensionHeight = 0;
 	closeExtensionTimeStart = std::chrono::steady_clock::time_point();
+	setBackground(TITLE_BAR_COLOR);
 }
 
 void TitleBarButton::draw() {
@@ -30,8 +31,11 @@ void TitleBarButton::drawExtension() {
 	float posY = getPosition().y + getHeight();
 
 	rectExtension = ofRectangle(posX, posY, extensionWidth, extensionHeight);
+
+	ofPushStyle();
 	ofSetColor(TITLE_BAR_COLOR);
 	ofDrawRectangle(rectExtension);
+	ofPopStyle();
 }
 
 bool TitleBarButton::mousePressed(ofMouseEventArgs& args) {
@@ -112,11 +116,18 @@ float TitleBarButton::getExtensionHeight() {
 }
 
 void TitleBarButton::setSubButtons(std::vector<CustomButton*> buttons) {
+	for (int i = 0; i < std::size(buttons); i++) {
+		if (buttons[i] != nullptr) {
+			buttons[i]->setBackground(TITLE_BAR_COLOR);
+		}
+	}
+
 	subButtons = buttons;
 	update();
 }
 
 void TitleBarButton::addSubButton(CustomButton* button) {
+	button->setBackground(TITLE_BAR_COLOR);
 	subButtons.push_back(button);
 	update();
 }

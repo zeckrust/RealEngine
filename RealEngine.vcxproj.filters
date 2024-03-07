@@ -99,6 +99,11 @@
     </ClCompile>
     <ClCompile Include="src\Image\DessinVec.cpp">
       <Filter>src\Image</Filter>
+    <ClCompile Include="src\gui\panels\PropertiesPanel.cpp">
+      <Filter>src\gui\panels</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\panels\TransformPanel.cpp">
+      <Filter>src\gui\panels</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -517,6 +522,15 @@
     </ClInclude>
     <ClInclude Include="src\gui\Histogram.h">
       <Filter>src\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\panels\ColorPanel.h">
+      <Filter>src\gui\panels</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\panels\PropertiesPanel.h">
+      <Filter>src\gui\panels</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\panels\TransformPanel.h">
+      <Filter>src\gui\panels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
