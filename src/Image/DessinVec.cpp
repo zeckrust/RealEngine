@@ -11,14 +11,10 @@ void DessinVec::setup()
 	buffer_head = 0;
 	buffer_size = buffer_count * sizeof(PrimitiveVectorielle);
 
-	//shapes = (PrimitiveVectorielle*)std::malloc(buffer_size);
-
 	mode = Primitype::none;
 
 	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = 0;
 	mouse_pressed = false;
-
-	radius = 4.0f;
 
 	gui = Gui::getInstance();
 
@@ -26,10 +22,6 @@ void DessinVec::setup()
 	fbo.begin();
 	ofClear(0, 0, 0, 0);
 	fbo.end();
-
-	//shader.load("shaders/shader.glsl");
-
-	//shader.setUniform2f("zoneMin", glm::vec2())
 }
 
 void DessinVec::reset()

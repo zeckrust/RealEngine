@@ -2,7 +2,7 @@
 //#include "../apps/RealEngine/src/Renderer.h"
 #include "ofMain.h"
 
-enum class Primitype {none, square, line, rectangle, ellipse, circle };
+enum class Primitype {none, square, line, rectangle, ellipse, circle, image};
 
 struct PrimitiveVectorielle
 {
@@ -12,6 +12,7 @@ struct PrimitiveVectorielle
 	float               stroke_width;
 	ofColor				stroke_color;
 	ofColor		        fill_color;
+	ofImage				imported_image;
 };
 
 class Gui;
@@ -35,17 +36,14 @@ class DessinVec
 		void draw_square(PrimitiveVectorielle prim) const;
 		void draw_circle(PrimitiveVectorielle prim) const;
 		void draw_ellipse(PrimitiveVectorielle prim) const;
-		void draw_zone(float x1, float y1, float x2, float y2) const;
 
 		Primitype mode;
-		//PrimitiveVectorielle* shapes;
 		std::vector<PrimitiveVectorielle*> shapes;
 		Gui* gui = nullptr;
 
 		int index;
 
 		int buffer_count;
-		//int buffer_step;
 		int buffer_size;
 		int buffer_head;
 
@@ -54,8 +52,6 @@ class DessinVec
 
 		int mouse_current_x;
 		int mouse_current_y;
-
-		float radius;
 
 		bool mouse_pressed;
 
