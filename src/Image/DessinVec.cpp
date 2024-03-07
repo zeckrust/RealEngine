@@ -26,6 +26,8 @@ void DessinVec::setup()
 	fbo.begin();
 	ofClear(0, 0, 0, 0);
 	fbo.end();
+
+	histogramOrthogonal.setup(fbo, scene2DShape.getY());
 }
 
 void DessinVec::update()
@@ -41,6 +43,7 @@ void DessinVec::update()
 	}
 
 	oldScene2dShape = scene2DShape;
+	histogramOrthogonal.update(fbo, scene2DShape.getY());
 }
 
 void DessinVec::reset()
@@ -59,6 +62,7 @@ void DessinVec::add_vector_shape()
 	shapes.back()->setFillColor(gui->getFillColor());
 
 	mouse_pressed = false;
+	histogramOrthogonal.update(fbo, scene2DShape.getY());
 
 	std::string name;
 
@@ -249,6 +253,7 @@ void DessinVec::mouseDragged(ofMouseEventArgs& args)
 
 			break;
 		case Primitype::image:
+			ofSetColor(255, 255, 255, 255);
 			gui->getImportedImage().draw(glm::vec2(mouse_press_x, mouse_press_y), mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y);
 			break;
 		default:
@@ -266,6 +271,9 @@ void DessinVec::draw()
 	ofSetColor(255, 255, 255, 255);
 	fbo.draw(scene2DShape.getPosition().x, scene2DShape.getPosition().y);
 	ofPopStyle();
+	if (gui->getIsHistogramShowing()) {
+		histogramOrthogonal.draw();
+	}
 }
 
 void DessinVec::redraw() {
@@ -303,6 +311,7 @@ void DessinVec::draw_buffer() {
 			draw_circle(*shape);
 			break;
 		case Primitype::image:
+			ofSetColor(255, 255, 255, 255);
 			shape->getImage().draw(shape->getPosition().x, shape->getPosition().y, shape->getDimensions().x, shape->getDimensions().y);
 			break;
 
