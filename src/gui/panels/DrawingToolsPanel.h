@@ -45,7 +45,6 @@ class DrawingToolsPanel : public CustomPanel
 		ColorPanel fillColorPanel;
 		ColorPanel backgroundColorPanel;
 		Primitype typePrimitive;
-};
 
 		const ofColor SELECTED_BUTTON_COLOR = ofColor(90, 90, 90, 255);
 };
