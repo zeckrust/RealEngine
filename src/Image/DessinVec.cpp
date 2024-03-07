@@ -18,16 +18,33 @@ void DessinVec::setup()
 
 	gui = Gui::getInstance();
 
-	fbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
+	scene2DShape = gui->getScene2DShape();
+	fbo.allocate(scene2DShape.getHeight(), scene2DShape.getWidth(), GL_RGBA);
 	fbo.begin();
 	ofClear(0, 0, 0, 0);
 	fbo.end();
 }
 
+void DessinVec::update()
+{
+	scene2DShape = gui->getScene2DShape();
+	bool hasPositionChanged = scene2DShape.getPosition() != oldScene2dShape.getPosition();
+	bool hasWidthChanged = scene2DShape.getWidth() != oldScene2dShape.getWidth();
+	bool hasHeightChanged = scene2DShape.getHeight() != oldScene2dShape.getHeight();
+
+	if (hasPositionChanged || hasWidthChanged || hasHeightChanged) {
+		fbo.allocate(scene2DShape.getWidth(), scene2DShape.getHeight(), GL_RGBA);
+		fbo.begin();
+		ofClear(0, 0, 0, 0);
+		fbo.end();
+	}
+
+	oldScene2dShape = scene2DShape;
+}
+
 void DessinVec::reset()
 {
 	shapes.clear();
-
 	buffer_head = 0;
 }
 
@@ -53,25 +70,30 @@ void DessinVec::add_vector_shape()
 	mouse_pressed = false;
 }
 
-void DessinVec::mousePressed()
+void DessinVec::mousePressed(ofMouseEventArgs& args)
 {
-	mouse_pressed = true;
-
-	mouse_press_x = ofGetMouseX();
-	mouse_press_y = ofGetMouseY();
-
-	mouse_current_x = ofGetMouseX();
-	mouse_current_y = ofGetMouseY();
-
-	mode = gui->getTypePrimitive();
+	if (gui->getSelectedUserMode() == DRAWING && scene2DShape.inside(args.x, args.y)) {
+		mouse_pressed = true;
+		mouse_press_x = args.x - scene2DShape.getPosition().x;
+		mouse_press_y = args.y - scene2DShape.getPosition().y;
+		mouse_current_x = args.x - scene2DShape.getPosition().x;
+		mouse_current_y = args.y - scene2DShape.getPosition().y;
+		mode = gui->getTypePrimitive();
+	}
 }
 
-void DessinVec::draw()
+void DessinVec::mouseReleased(ofMouseEventArgs& args)
 {
-
 	if (mouse_pressed) {
-		mouse_current_x = ofGetMouseX();
-		mouse_current_y = ofGetMouseY();
+		add_vector_shape();
+	}
+}
+
+void DessinVec::mouseDragged(ofMouseEventArgs& args)
+{
+	if (mouse_pressed) {
+		mouse_current_x = args.x - scene2DShape.getPosition().x;
+		mouse_current_y = args.y - scene2DShape.getPosition().y;
 		int formatX = 0;
 		int formatY = 0;
 		int radius = 0;
@@ -180,6 +202,14 @@ void DessinVec::draw()
 		fbo.end();
 		ofPopStyle();
 	}
+}
+
+void DessinVec::draw()
+{
+	ofPushStyle();
+	ofSetColor(255, 255, 255, 255);
+	fbo.draw(scene2DShape.getPosition().x, scene2DShape.getPosition().y);
+	ofPopStyle();
 }
 
 void DessinVec::draw_buffer() {

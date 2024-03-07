@@ -78,11 +78,11 @@ void Cursor::setCursorPosition() {
 void Cursor::handleTransformCursorType() {
 	switch (gui->getSelectedTransformTool()) {
 		case TRANSLATION: {
-			changeCurrentCursor(CursorType::Resize);
+			changeCurrentCursor(CursorType::Move);
 			break;
 		}
 		case ROTATION: {
-			changeCurrentCursor(CursorType::Hand);
+			changeCurrentCursor(CursorType::Rotate);
 			break;
 		}
 		case SCALE: {
@@ -98,11 +98,10 @@ void Cursor::handleTransformCursorType() {
 
 void Cursor::loadCursors() {
 	cursorsMap = {
-		{ CursorType::Normal,		"cursors/normal-select.png" },
-		{ CursorType::Unavailable,	"cursors/unavailable.png" },
-		{ CursorType::Resize,		"cursors/move.png" },
-		{ CursorType::Hand,			"cursors/link-select.png" },
-		{ CursorType::Draw,			"cursors/handwriting.png" },
-		{ CursorType::CrossAir,		"cursors/precision-select.png" }
+		{ CursorType::Normal,		"cursors/cursor.png" },
+		{ CursorType::Move,			"cursors/move.png" },
+		{ CursorType::Hand,			"cursors/hand.png" },
+		{ CursorType::Draw,			"cursors/pen.png" },
+		{ CursorType::Rotate,		"cursors/rotate.png" }
 	};
 }
