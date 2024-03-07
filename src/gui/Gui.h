@@ -54,8 +54,6 @@ class Gui
 
 		void createSceneElement(std::string name, SceneObject* obj_ptr);
 
-		void createSceneElement(std::string name, SceneObject* obj_ptr);
-
 		// Singleton
 		static Gui* getInstance();
 		Gui(const Gui& obj) = delete;
