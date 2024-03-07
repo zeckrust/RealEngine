@@ -22,11 +22,16 @@ class DessinVec
 	public :
 		DessinVec();
 		void setup();
+		void update();
 		void draw();
+		void draw_buffer();
 		void reset();
 		void add_vector_shape();
-		void mousePressed();
-		void draw_buffer();
+
+		void mousePressed(ofMouseEventArgs& args);
+		void mouseReleased(ofMouseEventArgs& args);
+		void mouseDragged(ofMouseEventArgs& args);
+
 		ofFbo getFbo() const;
 		~DessinVec();
 
@@ -58,6 +63,6 @@ class DessinVec
 		ofPolyline ligne;
 
 		ofFbo fbo;
-		ofShader shader;
-
+		ofRectangle scene2DShape;
+		ofRectangle oldScene2dShape;
 };
