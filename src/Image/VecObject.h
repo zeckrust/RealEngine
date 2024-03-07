@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "SceneObject.h"
 
-enum class Primitype { none, square, line, rectangle, ellipse, circle, image };
+enum class Primitype { none, square, line, rectangle, ellipse, circle, image, stage1, stage2 };
 
 class VecObject : public SceneObject
 {

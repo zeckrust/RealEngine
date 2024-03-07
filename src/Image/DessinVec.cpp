@@ -18,6 +18,8 @@ void DessinVec::setup()
 	compteur_rectangle = 0;
 	compteur_line = 0;
 	compteur_image = 0;
+	compteur_stage_1 = 0;
+	compteur_stage_2 = 0;
 
 	gui = Gui::getInstance();
 
@@ -97,6 +99,16 @@ void DessinVec::add_vector_shape()
 		name = "Image";
 		name += to_string(compteur_image);
 		compteur_image++;
+		break;
+	case Primitype::stage1:
+		name = "Stage1_";
+		name += to_string(compteur_stage_1);
+		compteur_stage_1++;
+		break;
+	case Primitype::stage2:
+		name = "Stage2_";
+		name += to_string(compteur_stage_2);
+		compteur_stage_2++;
 		break;
 	default:
 		break;
@@ -242,6 +254,12 @@ void DessinVec::mouseDragged(ofMouseEventArgs& args)
 			ofDrawCircle(glm::vec2(mouse_press_x, mouse_press_y), radius);
 
 			break;
+		case Primitype::stage1:
+			dynamic_stage_1();
+			break;
+		case Primitype::stage2:
+			dynamic_stage_2();
+			break;
 		default:
 			break;
 		}
@@ -287,6 +305,13 @@ void DessinVec::draw_buffer() {
 			draw_circle(*shape);
 			break;
 
+		case Primitype::stage1:
+			draw_stage_1(*shape);
+			break;
+
+		case Primitype::stage2:
+			draw_stage_2(*shape);
+			break;
 		default:
 			break;
 		}
@@ -406,6 +431,203 @@ void DessinVec::draw_ellipse(VecObject obj) const {
 	ofDrawEllipse(obj.getPosition(), 2 * obj.getDimensions().x, 2 * obj.getDimensions().y);
 
 	ofPopStyle();
+}
+
+void DessinVec::draw_stage_1(VecObject obj) const {
+
+	ofPushStyle();
+
+	ofFill();
+	ofSetLineWidth(obj.getStrokeWidth());
+	ofSetColor(obj.getFillColor());
+
+	glm::vec3 v0 = glm::vec3(obj.getPosition().x, obj.getPosition().y, obj.getPosition().z);
+	glm::vec3 v1 = glm::vec3(obj.getPosition().x + obj.getDimensions().x, obj.getPosition().y, obj.getPosition().z);
+	glm::vec3 v2 = glm::vec3(obj.getPosition().x + (obj.getDimensions().x * 0.9), obj.getPosition().y + (obj.getDimensions().y * 0.5), obj.getPosition().z);
+	glm::vec3 v3 = glm::vec3(obj.getPosition().x + (obj.getDimensions().x * 0.95), obj.getPosition().y + obj.getDimensions().y, obj.getPosition().z);
+	glm::vec3 v4 = glm::vec3(obj.getPosition().x + (obj.getDimensions().x * 0.5), obj.getPosition().y + (obj.getDimensions().y * 0.9), obj.getPosition().z);
+	glm::vec3 v5 = glm::vec3(obj.getPosition().x + (obj.getDimensions().x * 0.05), obj.getPosition().y + obj.getDimensions().y, obj.getPosition().z);
+	glm::vec3 v6 = glm::vec3(obj.getPosition().x + (obj.getDimensions().x * 0.1), obj.getPosition().y + (obj.getDimensions().y * 0.5), obj.getPosition().z);
+	glm::vec3 v7 = glm::vec3(obj.getPosition().x, obj.getPosition().y, obj.getPosition().z);
+
+	ofBeginShape();
+
+	ofVertex(v0);
+	ofVertex(v1);
+	ofVertex(v2);
+	ofVertex(v3);
+	ofVertex(v4);
+	ofVertex(v5);
+	ofVertex(v6);
+	ofVertex(v7);
+
+	ofEndShape(true);
+
+	ofNoFill();
+	ofSetColor(obj.getStrokeColor());
+	ofBeginShape();
+
+	ofVertex(v0);
+	ofVertex(v1);
+	ofVertex(v2);
+	ofVertex(v3);
+	ofVertex(v4);
+	ofVertex(v5);
+	ofVertex(v6);
+	ofVertex(v7);
+
+	ofEndShape(true);
+
+	ofPopStyle();
+
+}
+
+void DessinVec::draw_stage_2(VecObject obj) const {
+	ofPushStyle();
+
+	ofFill();
+	ofSetLineWidth(obj.getStrokeWidth());
+	ofSetColor(obj.getFillColor());
+
+	glm::vec3 v0 = glm::vec3(obj.getPosition().x, obj.getPosition().y, obj.getPosition().z);
+	glm::vec3 v1 = glm::vec3(obj.getPosition().x + obj.getDimensions().x, obj.getPosition().y, obj.getPosition().z);
+
+	glm::vec3 v2 = glm::vec3(obj.getPosition().x + (obj.getDimensions().x * 0.9), obj.getPosition().y + (obj.getDimensions().y * 0.65), obj.getPosition().z);
+	glm::vec3 v3 = glm::vec3(obj.getPosition().x + (obj.getDimensions().x * 0.65), obj.getPosition().y + (obj.getDimensions().y * 0.65), obj.getPosition().z);
+
+	glm::vec3 v4 = glm::vec3(obj.getPosition().x + (obj.getDimensions().x * 0.65), obj.getPosition().y + obj.getDimensions().y, obj.getPosition().z);
+	glm::vec3 v5 = glm::vec3(obj.getPosition().x + (obj.getDimensions().x * 0.35), obj.getPosition().y + obj.getDimensions().y, obj.getPosition().z);
+
+	glm::vec3 v6 = glm::vec3(obj.getPosition().x + (obj.getDimensions().x * 0.35), obj.getPosition().y + (obj.getDimensions().y * 0.65), obj.getPosition().z);
+	glm::vec3 v7 = glm::vec3(obj.getPosition().x + (obj.getDimensions().x * 0.1), obj.getPosition().y + (obj.getDimensions().y * 0.65), obj.getPosition().z);
+
+	glm::vec3 v8 = glm::vec3(obj.getPosition().x, obj.getPosition().y, obj.getPosition().z);
+
+	ofBeginShape();
+
+	ofVertex(v0);
+	ofVertex(v1);
+	ofVertex(v2);
+	ofVertex(v3);
+	ofVertex(v4);
+	ofVertex(v5);
+	ofVertex(v6);
+	ofVertex(v7);
+	ofVertex(v8);
+
+	ofEndShape(true);
+
+	ofNoFill();
+	ofSetColor(obj.getStrokeColor());
+	ofBeginShape();
+
+	ofVertex(v0);
+	ofVertex(v1);
+	ofVertex(v2);
+	ofVertex(v3);
+	ofVertex(v4);
+	ofVertex(v5);
+	ofVertex(v6);
+	ofVertex(v7);
+	ofVertex(v8);
+
+	ofEndShape(true);
+
+	ofPopStyle();
+}
+
+void DessinVec::dynamic_stage_1() const {
+	ofFill();
+	ofSetLineWidth(gui->getLineWidth());
+	ofSetColor(gui->getFillColor());
+
+	glm::vec3 v0 = glm::vec3(mouse_press_x, mouse_press_y, 0);
+	glm::vec3 v1 = glm::vec3(mouse_current_x, mouse_press_y, 0);
+	glm::vec3 v2 = glm::vec3(mouse_press_x + ((mouse_current_x - mouse_press_x) * 0.9), mouse_press_y + ((mouse_current_y - mouse_press_y) * 0.5), 0);
+	glm::vec3 v3 = glm::vec3(mouse_press_x + ((mouse_current_x - mouse_press_x) * 0.95), mouse_current_y, 0);
+	glm::vec3 v4 = glm::vec3(mouse_press_x + ((mouse_current_x - mouse_press_x) * 0.5), mouse_press_y + ((mouse_current_y - mouse_press_y) * 0.9), 0);
+	glm::vec3 v5 = glm::vec3(mouse_press_x + ((mouse_current_x - mouse_press_x) * 0.05), mouse_current_y, 0);
+	glm::vec3 v6 = glm::vec3(mouse_press_x + ((mouse_current_x - mouse_press_x) * 0.1), mouse_press_y + ((mouse_current_y - mouse_press_y) * 0.5), 0);
+	glm::vec3 v7 = glm::vec3(mouse_press_x, mouse_press_y, 0);
+
+	ofBeginShape();
+
+	ofVertex(v0);
+	ofVertex(v1);
+	ofVertex(v2);
+	ofVertex(v3);
+	ofVertex(v4);
+	ofVertex(v5);
+	ofVertex(v6);
+	ofVertex(v7);
+
+	ofEndShape(true);
+
+	ofNoFill();
+	ofSetColor(gui->getLineColor());
+	ofBeginShape();
+
+	ofVertex(v0);
+	ofVertex(v1);
+	ofVertex(v2);
+	ofVertex(v3);
+	ofVertex(v4);
+	ofVertex(v5);
+	ofVertex(v6);
+	ofVertex(v7);
+
+	ofEndShape(true);
+}
+
+void DessinVec::dynamic_stage_2() const {
+	ofFill();
+	ofSetLineWidth(gui->getLineWidth());
+	ofSetColor(gui->getFillColor());
+
+	glm::vec3 v0 = glm::vec3(mouse_press_x, mouse_press_y, 0);
+	glm::vec3 v1 = glm::vec3(mouse_current_x, mouse_press_y, 0);
+
+	glm::vec3 v2 = glm::vec3(mouse_press_x + ((mouse_current_x - mouse_press_x) * 0.9), mouse_press_y + ((mouse_current_y - mouse_press_y) * 0.65), 0);
+	glm::vec3 v3 = glm::vec3(mouse_press_x + ((mouse_current_x - mouse_press_x) * 0.65), mouse_press_y + ((mouse_current_y - mouse_press_y) * 0.65), 0);
+
+	glm::vec3 v4 = glm::vec3(mouse_press_x + ((mouse_current_x - mouse_press_x) * 0.65), mouse_current_y, 0);
+	glm::vec3 v5 = glm::vec3(mouse_press_x + ((mouse_current_x - mouse_press_x) * 0.35), mouse_current_y, 0);
+
+	glm::vec3 v6 = glm::vec3(mouse_press_x + ((mouse_current_x - mouse_press_x) * 0.35), mouse_press_y + ((mouse_current_y - mouse_press_y) * 0.65), 0);
+	glm::vec3 v7 = glm::vec3(mouse_press_x + ((mouse_current_x - mouse_press_x) * 0.1), mouse_press_y + ((mouse_current_y - mouse_press_y) * 0.65), 0);
+
+	glm::vec3 v8 = glm::vec3(mouse_press_x, mouse_press_y, 0);
+
+	ofBeginShape();
+
+	ofVertex(v0);
+	ofVertex(v1);
+	ofVertex(v2);
+	ofVertex(v3);
+	ofVertex(v4);
+	ofVertex(v5);
+	ofVertex(v6);
+	ofVertex(v7);
+	ofVertex(v8);
+
+	ofEndShape(true);
+
+	ofNoFill();
+	ofSetColor(gui->getLineColor());
+	ofBeginShape();
+
+	ofVertex(v0);
+	ofVertex(v1);
+	ofVertex(v2);
+	ofVertex(v3);
+	ofVertex(v4);
+	ofVertex(v5);
+	ofVertex(v6);
+	ofVertex(v7);
+	ofVertex(v8);
+
+	ofEndShape(true);
+
 }
 
 DessinVec::~DessinVec() {

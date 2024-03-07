@@ -30,7 +30,7 @@ class DrawingToolsPanel : public CustomPanel
 		void setupFields(void);
 		void setupColorPanels(void);
 
-		static const uint8_t NB_DRAWING_BUTTONS = 5;
+		static const uint8_t NB_DRAWING_BUTTONS = 7;
 		CustomButton* drawingButtons[NB_DRAWING_BUTTONS];
 
 		CustomButton* selectedDrawingTool = nullptr;
@@ -39,6 +39,8 @@ class DrawingToolsPanel : public CustomPanel
 		CustomButton drawLineButton;
 		CustomButton drawSquareButton;
 		CustomButton drawRectButton;
+		CustomButton drawStage1Button;
+		CustomButton drawStage2Button;
 		
 		ofxInputField<int> lineWidthField;
 		ColorPanel lineColorPanel;
