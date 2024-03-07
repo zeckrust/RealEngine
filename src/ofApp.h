@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "ofxGui.h"
 #include "Transformation/Camera2d.h"
-#include "Image/Object2d.h"
+#include "Image/SceneObject.h"
 #include "gui/Gui.h"
 #include "Renderer.h"
 
@@ -30,5 +30,5 @@ class ofApp : public ofBaseApp{
 
 	private:
 		Camera2d camera2d;
-		Renderer renderer = Renderer(&camera2d);
+		Renderer* renderer;
 };

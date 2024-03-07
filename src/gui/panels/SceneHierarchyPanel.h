@@ -3,13 +3,16 @@
 #include "CustomPanel.h"
 #include "../scene/SceneElement.h"
 
+class Renderer;
+
 class SceneHierarchyPanel : public CustomPanel
 {
 	public: 
 		SceneHierarchyPanel();
+		void setup(std::string panelName, float x, float y);
 		void update(void);
 		void draw(void);
-		void createSceneElement(std::string sceneElementName);
+		void createSceneElement(std::string sceneElementName, SceneObject* obj_ptr);
 		void remove(ofxBaseGui *element);
 		virtual bool mousePressed(ofMouseEventArgs &args) override;
 		virtual bool mouseReleased(ofMouseEventArgs &args) override;
@@ -25,4 +28,6 @@ class SceneHierarchyPanel : public CustomPanel
 		SceneElement *pressedSceneElement = nullptr;
 		SceneElement *releasedSceneElement = nullptr;
 		SceneElement *deleteRequestedSceneElement = nullptr;
+
+		Renderer* renderer = nullptr;
 };

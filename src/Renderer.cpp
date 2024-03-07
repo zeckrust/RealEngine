@@ -1,10 +1,21 @@
 #include "Renderer.h"
 
-Renderer::Renderer(Camera2d* _camera2d) : camera2d(_camera2d) {
+Renderer::Renderer() {
 
 }
 
-void Renderer::setup() {
+Renderer* Renderer::getInstance() {
+	if (instancePtr == nullptr) {
+		instancePtr = new Renderer();
+		return instancePtr;
+	}
+	else {
+		return instancePtr;
+	}
+}
+
+void Renderer::setup(Camera2d* _camera) {
+	camera2d = _camera;
 	gui = Gui::getInstance();
 	gui->setup();
 	ofSetFrameRate(FRAME_RATE);
@@ -61,4 +72,8 @@ void Renderer::keyPressed(ofKeyEventArgs& args) {
 	if (args.key == KEY_CONTROL_S) {
 		gui->saveScenes();
 	}
+}
+
+void Renderer::deleteSceneObject(SceneObject* obj) {
+	dessinateur.deleteObject(obj);
 }

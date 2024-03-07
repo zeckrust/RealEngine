@@ -1,5 +1,5 @@
 #include "DessinVec.h"
-#include "../apps/RealEngine/src/gui/Gui.h"
+#include "../gui/Gui.h"
 
 DessinVec::DessinVec(){
 
@@ -7,14 +7,17 @@ DessinVec::DessinVec(){
 
 void DessinVec::setup()
 {
-	buffer_count = 100;
-	buffer_head = 0;
-	buffer_size = buffer_count * sizeof(PrimitiveVectorielle);
-
 	mode = Primitype::none;
 
 	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = 0;
 	mouse_pressed = false;
+
+	compteur_square = 0;
+	compteur_circle = 0;
+	compteur_ellipse = 0;
+	compteur_rectangle = 0;
+	compteur_line = 0;
+	compteur_image = 0;
 
 	gui = Gui::getInstance();
 
@@ -45,29 +48,73 @@ void DessinVec::update()
 void DessinVec::reset()
 {
 	shapes.clear();
-	buffer_head = 0;
 }
 
 void DessinVec::add_vector_shape() 
 {
-	shapes.push_back(new PrimitiveVectorielle);
+	shapes.push_back(new VecObject(mode));
 
-	shapes.at(buffer_head)->type = mode;
-	shapes.at(buffer_head)->position1[0] = mouse_press_x;
-	shapes.at(buffer_head)->position1[1] = mouse_press_y;
-	shapes.at(buffer_head)->position2[0] = mouse_current_x;
-	shapes.at(buffer_head)->position2[1] = mouse_current_y;
-	shapes.at(buffer_head)->stroke_color = gui->getLineColor();
-	shapes.at(buffer_head)->fill_color = gui->getFillColor();
-	shapes.at(buffer_head)->stroke_width = gui->getLineWidth();
+	shapes.back()->setPosition(glm::vec3(mouse_press_x, mouse_press_y, 0));
+	shapes.back()->setDimensions(glm::vec3(mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y, 0));
+	shapes.back()->setStrokeColor(gui->getLineColor());
+	shapes.back()->setStrokeWidth(gui->getLineWidth());
+	shapes.back()->setFillColor(gui->getFillColor());
 
-	buffer_head++;
-
-	if (buffer_head >= buffer_count)
-	{
-		buffer_head = 0;
-	}
 	mouse_pressed = false;
+
+	std::string name;
+
+	switch (mode)
+	{
+	case Primitype::none:
+		break;
+	case Primitype::square:
+		name = "Square";
+		name += to_string(compteur_square);
+		compteur_square++;
+		break;
+	case Primitype::line:
+		name = "Line";
+		name += to_string(compteur_line);
+		compteur_line++;
+		break;
+	case Primitype::rectangle:
+		name = "Rectangle";
+		name += to_string(compteur_rectangle);
+		compteur_rectangle++;
+		break;
+	case Primitype::ellipse:
+		name = "Ellipse";
+		name += to_string(compteur_ellipse);
+		compteur_ellipse++;
+		break;
+	case Primitype::circle:
+		name = "Circle";
+		name += to_string(compteur_circle);
+		compteur_circle++;
+		break;
+	case Primitype::image:
+		name = "Image";
+		name += to_string(compteur_image);
+		compteur_image++;
+		break;
+	default:
+		break;
+	}
+
+	gui->createSceneElement(name, shapes.back());
+
+}
+
+void DessinVec::deleteObject(SceneObject* obj) {
+	auto shapes_it = std::find(shapes.begin(), shapes.end(), obj);
+	if (shapes_it != shapes.end()) {
+		shapes.erase(shapes_it);
+		fbo.begin();
+		ofClear(0, 0, 0, 0);
+		draw_buffer();
+		fbo.end();
+	}
 }
 
 void DessinVec::mousePressed(ofMouseEventArgs& args)
@@ -215,7 +262,7 @@ void DessinVec::draw()
 void DessinVec::draw_buffer() {
 	for (auto & shape : shapes)
 	{
-		switch (shape->type)
+		switch (shape->getType())
 		{
 		case Primitype::none:
 			break;
@@ -250,40 +297,40 @@ ofFbo DessinVec::getFbo() const {
 	return fbo;
 }
 
-void DessinVec::draw_rectangle(PrimitiveVectorielle prim) const {
+void DessinVec::draw_rectangle(VecObject obj) const {
 	ofPushStyle();
 
 	ofFill();
-	ofSetLineWidth(prim.stroke_width);
-	ofSetColor(prim.fill_color);
+	ofSetLineWidth(obj.getStrokeWidth());
+	ofSetColor(obj.getFillColor());
 
-	ofDrawRectangle(glm::vec2(prim.position1[0], prim.position1[1]), prim.position2[0] - prim.position1[0], prim.position2[1] - prim.position1[1]);
+	ofDrawRectangle(obj.getPosition(), obj.getDimensions().x, obj.getDimensions().y);
 
 	ofNoFill();
-	ofSetColor(prim.stroke_color);
-	ofDrawRectangle(glm::vec2(prim.position1[0], prim.position1[1]), prim.position2[0] - prim.position1[0], prim.position2[1] - prim.position1[1]);
+	ofSetColor(obj.getStrokeColor());
+	ofDrawRectangle(obj.getPosition(), obj.getDimensions().x, obj.getDimensions().y);
 
 	ofPopStyle();
 }
 
-void DessinVec::draw_line(PrimitiveVectorielle prim) const {
+void DessinVec::draw_line(VecObject obj) const {
 	ofPolyline line;
 
 	ofPushStyle();
 
-	ofSetLineWidth(prim.stroke_width);
-	ofSetColor(prim.stroke_color);
+	ofSetLineWidth(obj.getStrokeWidth());
+	ofSetColor(obj.getStrokeColor());
 
-	line.addVertex(prim.position1[0], prim.position1[1]);
-	line.addVertex(prim.position2[0], prim.position2[1]);
+	line.addVertex(obj.getPosition());
+	line.addVertex(obj.getDimensions() + obj.getPosition());
 	line.draw();
 
 	ofPopStyle();
 }
 
-void DessinVec::draw_square(PrimitiveVectorielle prim) const {
-	int formatX = prim.position2[0] - prim.position1[0];
-	int formatY = prim.position2[1] - prim.position1[1];
+void DessinVec::draw_square(VecObject obj) const {
+	int formatX = obj.getDimensions().x;
+	int formatY = obj.getDimensions().y;
 
 	if (formatX < 0 && formatY < 0) {
 		if (abs(formatX) > abs(formatY)) {
@@ -312,51 +359,51 @@ void DessinVec::draw_square(PrimitiveVectorielle prim) const {
 
 	ofPushStyle();
 
-	ofSetLineWidth(prim.stroke_width);
-	ofSetColor(prim.fill_color);
+	ofSetLineWidth(obj.getStrokeWidth());
+	ofSetColor(obj.getFillColor());
 
-	ofDrawRectangle(glm::vec2(prim.position1[0], prim.position1[1]), formatX, formatY);
+	ofDrawRectangle(obj.getPosition(), formatX, formatY);
 
 	ofNoFill();
-	ofSetColor(prim.stroke_color);
-	ofDrawRectangle(glm::vec2(prim.position1[0], prim.position1[1]), formatX, formatY);
+	ofSetColor(obj.getStrokeColor());
+	ofDrawRectangle(obj.getPosition(), formatX, formatY);
 
 	ofPopStyle();
 }
 
-void DessinVec::draw_circle(PrimitiveVectorielle prim) const {
+void DessinVec::draw_circle(VecObject obj) const {
 
-	int radius = sqrt(pow(prim.position2[0] - prim.position1[0], 2) + pow(prim.position2[1] - prim.position1[1], 2));
+	int radius = sqrt(pow(obj.getDimensions().x, 2) + pow(obj.getDimensions().y, 2));
 
 	ofPushStyle();
 	ofFill();
 
 	ofSetCircleResolution(100);
 
-	ofSetLineWidth(prim.stroke_width);
-	ofSetColor(prim.fill_color);
+	ofSetLineWidth(obj.getStrokeWidth());
+	ofSetColor(obj.getFillColor());
 
-	ofDrawCircle(glm::vec2(prim.position1[0], prim.position1[1]), radius);
+	ofDrawCircle(obj.getPosition(), radius);
 
 	ofNoFill();
-	ofSetColor(prim.stroke_color);
-	ofDrawCircle(glm::vec2(prim.position1[0], prim.position1[1]), radius);
+	ofSetColor(obj.getStrokeColor());
+	ofDrawCircle(obj.getPosition(), radius);
 
 	ofPopStyle();
 }
 
-void DessinVec::draw_ellipse(PrimitiveVectorielle prim) const {
+void DessinVec::draw_ellipse(VecObject obj) const {
 	ofPushStyle();
 
 	ofFill();
-	ofSetLineWidth(prim.stroke_width);
-	ofSetColor(prim.fill_color);
+	ofSetLineWidth(obj.getStrokeWidth());
+	ofSetColor(obj.getFillColor());
 
-	ofDrawEllipse(glm::vec2(prim.position1[0], prim.position1[1]), 2 * (prim.position2[0] - prim.position1[0]), 2 * (prim.position2[1] - prim.position1[1]));
+	ofDrawEllipse(obj.getPosition(), 2 * obj.getDimensions().x, 2 * obj.getDimensions().y);
 
 	ofNoFill();
-	ofSetColor(prim.stroke_color);
-	ofDrawEllipse(glm::vec2(prim.position1[0], prim.position1[1]), 2 * (prim.position2[0] - prim.position1[0]), 2 * (prim.position2[1] - prim.position1[1]));
+	ofSetColor(obj.getStrokeColor());
+	ofDrawEllipse(obj.getPosition(), 2 * obj.getDimensions().x, 2 * obj.getDimensions().y);
 
 	ofPopStyle();
 }

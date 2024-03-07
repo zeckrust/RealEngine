@@ -49,6 +49,8 @@ class Gui
 		ofRectangle getDrawingPanelShape(void);
 		ofRectangle getTransformPanelShape(void);
 
+		void createSceneElement(std::string name, SceneObject* obj_ptr);
+
 		// Singleton
 		static Gui* getInstance();
 		Gui(const Gui& obj) = delete;
