@@ -94,6 +94,8 @@ void DessinVec::add_vector_shape()
 		compteur_circle++;
 		break;
 	case Primitype::image:
+		shapes.back()->setImage(gui->getImportedImage());
+		gui->setIsImageImported(false);
 		name = "Image";
 		name += to_string(compteur_image);
 		compteur_image++;
@@ -125,7 +127,12 @@ void DessinVec::mousePressed(ofMouseEventArgs& args)
 		mouse_press_y = args.y - scene2DShape.getPosition().y;
 		mouse_current_x = args.x - scene2DShape.getPosition().x;
 		mouse_current_y = args.y - scene2DShape.getPosition().y;
-		mode = gui->getTypePrimitive();
+		if (gui->getIsImageImported()) {
+			mode = Primitype::image;
+		}
+		else {
+			mode = gui->getTypePrimitive();
+		}
 	}
 }
 
@@ -242,6 +249,9 @@ void DessinVec::mouseDragged(ofMouseEventArgs& args)
 			ofDrawCircle(glm::vec2(mouse_press_x, mouse_press_y), radius);
 
 			break;
+		case Primitype::image:
+			gui->getImportedImage().draw(glm::vec2(mouse_press_x, mouse_press_y), mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y);
+			break;
 		default:
 			break;
 		}
@@ -285,6 +295,9 @@ void DessinVec::draw_buffer() {
 
 		case Primitype::circle:
 			draw_circle(*shape);
+			break;
+		case Primitype::image:
+			shape->getImage().draw(shape->getPosition().x, shape->getPosition().y, shape->getDimensions().x, shape->getDimensions().y);
 			break;
 
 		default:
