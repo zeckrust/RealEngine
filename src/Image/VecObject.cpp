@@ -20,6 +20,10 @@ ofColor VecObject::getStrokeColor() {
 	return stroke_color;
 }
 
+ofImage VecObject::getImage() {
+	return imported_image;
+}
+
 void VecObject::setType(Primitype vType) {
 	type = vType;
 }
@@ -34,4 +38,8 @@ void VecObject::setStrokeColor(ofColor color) {
 
 void VecObject::setFillColor(ofColor color) {
 	fill_color = color;
+}
+
+void VecObject::setImage(ofImage _imported_image) {
+	imported_image = _imported_image;
 }

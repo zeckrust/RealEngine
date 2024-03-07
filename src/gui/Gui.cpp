@@ -22,6 +22,7 @@ void Gui::setup() {
 	histogramPerspective.setup(scene2d.getX(), scene2d.getY(), scene2d.getWidth(), scene2d.getHeight());
 	selectedUserMode = DRAWING;
 	isHistogramShowing = false;
+	isImageImported = false;
 }
 
 void Gui::setupPanels() {
@@ -113,17 +114,17 @@ void Gui::saveScenes() {
 
 void Gui::saveScene(Scene & scene, std::string filePath) {
 	ofImage imageScene;
-	ofLog() << filePath;
 	imageScene.grabScreen(scene.getX(), scene.getY(), scene.getWidth(), scene.getHeight());
 	imageScene.save(filePath);
 }
 
 void Gui::importFile() {
-	ofLog() << "## NOT IMPLEMENTED ##";
+	ofFileDialogResult result = ofSystemLoadDialog("What file do you want to import", false, "");
+	imageBuffer.load(result.getPath());
+	isImageImported = true;
 }
 
 void Gui::showHistogram() {
-	// ofLog() << "## NOT IMPLEMENTED ##";
 	isHistogramShowing = !isHistogramShowing;
 }
 
@@ -180,4 +181,16 @@ ofRectangle Gui::getDrawingPanelShape(void) {
 
 ofRectangle Gui::getTransformPanelShape(void) {
 	return transformPanel.getShape();
+}
+
+bool Gui::getIsImageImported(void) {
+	return isImageImported;
+}
+
+ofImage Gui::getImportedImage(void) {
+	return imageBuffer;
+}
+
+void Gui::setIsImageImported(bool _isImageImported) {
+	isImageImported = _isImageImported;
 }
