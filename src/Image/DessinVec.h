@@ -31,6 +31,11 @@ class DessinVec
 		void draw_square(VecObject obj) const;
 		void draw_circle(VecObject obj) const;
 		void draw_ellipse(VecObject obj) const;
+		void draw_stage_1(VecObject obj) const;
+		void draw_stage_2(VecObject obj) const;
+		void dynamic_stage_1() const;
+		void dynamic_stage_2() const;
+
 
 		Primitype mode;
 		std::vector<VecObject*> shapes;
@@ -50,6 +55,9 @@ class DessinVec
 		uint32_t compteur_rectangle;
 		uint32_t compteur_line;
 		uint32_t compteur_image;
+		uint32_t compteur_stage_1;
+		uint32_t compteur_stage_2;
+
 
 		ofPolyline ligne;
 

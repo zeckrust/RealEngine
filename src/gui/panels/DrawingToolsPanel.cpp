@@ -6,6 +6,8 @@ DrawingToolsPanel::DrawingToolsPanel() : CustomPanel() {
 	drawingButtons[2] = &drawLineButton;
 	drawingButtons[3] = &drawSquareButton;
 	drawingButtons[4] = &drawRectButton;
+	drawingButtons[5] = &drawStage1Button;
+	drawingButtons[6] = &drawStage2Button;
 }
 
 void DrawingToolsPanel::setup(std::string panelName, float x, float y) {
@@ -22,12 +24,16 @@ void DrawingToolsPanel::setupButtons(void) {
 	drawLineButton.setup("Line", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 	drawSquareButton.setup("Square", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 	drawRectButton.setup("Rectangle", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
+	drawStage1Button.setup("Stage 1", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
+	drawStage2Button.setup("Stage 2", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 
 	add(&drawCircleButton);
 	add(&drawEllipseButton);
 	add(&drawLineButton);
 	add(&drawSquareButton);
 	add(&drawRectButton);
+	add(&drawStage1Button);
+	add(&drawStage2Button);
 }	
 
 void DrawingToolsPanel::setupFields(void) {
@@ -121,6 +127,12 @@ void DrawingToolsPanel::setSelectedDrawingTool(CustomButton* button) {
 		}
 		else if (button == &drawRectButton) {
 			typePrimitive = Primitype::rectangle;
+		}
+		else if (button == &drawStage1Button) {
+			typePrimitive = Primitype::stage1;
+		}
+		else if (button == &drawStage2Button) {
+			typePrimitive = Primitype::stage2;
 		}
 	}
 	for (int i = 0; i < std::size(drawingButtons); i++) {
