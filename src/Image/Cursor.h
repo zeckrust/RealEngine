@@ -21,12 +21,13 @@ class Cursor
 		void setup();
 		void update();
 		void draw();
+		void mouseMoved(ofMouseEventArgs& args);
 		void mouseExited();
 		void mouseEntered();
 		void changeCurrentCursor(CursorType cursorChange);
 
 	private:
-		void setCursorPosition();
+		void handleMouseExit();
 		void updateCursorType();
 		void handleTransformCursorType();
 		void loadCursors();
