@@ -9,6 +9,8 @@ class VecObject : public SceneObject
 {
 	public :
 		VecObject(Primitype vType);
+		VecObject(Primitype vType, float sWidth, ofColor sColor, ofColor fColor, ofImage image);
+		VecObject(Primitype vType, float sWidth, ofColor sColor, ofColor fColor);
 		Primitype getType(void);
 		float getStrokeWidth(void);
 		ofColor getStrokeColor(void);
@@ -20,8 +22,17 @@ class VecObject : public SceneObject
 		void setStrokeColor(ofColor color);
 		void setFillColor(ofColor color);
 		void setImage(ofImage img);
+		void draw(void) override;
 
 	private :
+		void draw_line() const;
+		void draw_rectangle() const;
+		void draw_square() const;
+		void draw_circle() const;
+		void draw_ellipse() const;
+		void draw_stage_1() const;
+		void draw_stage_2() const;
+
 		Primitype type;
 		float stroke_width;
 		ofColor stroke_color;
