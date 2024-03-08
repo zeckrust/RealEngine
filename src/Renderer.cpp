@@ -52,7 +52,6 @@ void Renderer::mouseReleased(ofMouseEventArgs& args) {
 
 void Renderer::mouseMoved(ofMouseEventArgs& args) {
 	gui->mouseMoved(args);
-	cursors.mouseMoved(args);
 }
 
 void Renderer::mouseDragged(ofMouseEventArgs& args) {

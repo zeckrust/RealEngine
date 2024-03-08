@@ -13,15 +13,15 @@ void Cursor::setup() {
 }
 
 void Cursor::update() {
-	handleMouseExit();
+	setCursorPosition();
 	updateCursorType();
 }
 
 void Cursor::updateCursorType() {
 	ofRectangle scene2DShape = gui->getScene2DShape();
 	ofRectangle scene3DShape = gui->getScene3DShape();
-	bool insideScene2D = scene2DShape.inside(cursorPosition.x, cursorPosition.y);
-	bool insideScene3D = scene3DShape.inside(cursorPosition.x, cursorPosition.y);
+	bool insideScene2D = scene2DShape.inside(ofGetMouseX(), ofGetMouseY());
+	bool insideScene3D = scene3DShape.inside(ofGetMouseX(), ofGetMouseY());
 
 	if (insideScene2D || insideScene3D) {
 		switch (gui->getSelectedUserMode()) {
@@ -52,11 +52,6 @@ void Cursor::draw() {
 	ofPopStyle();
 }
 
-void Cursor::mouseMoved(ofMouseEventArgs& args) {
-	cursorPosition.x = args.x;
-	cursorPosition.y = args.y;
-}
-
 void Cursor::mouseExited() {
 	isMouseExited = true;
 }
@@ -71,9 +66,12 @@ void Cursor::changeCurrentCursor(CursorType newCursor) {
 	currentCursor.load(cursorsMap[newCursor]);
 }
 
-void Cursor::handleMouseExit() {
+void Cursor::setCursorPosition() {
 	if (isMouseExited) {
 		cursorPosition = glm::vec2(-100, -100);
+	}
+	else {
+		cursorPosition = glm::vec2(ofGetMouseX(), ofGetMouseY());
 	}
 }
 
