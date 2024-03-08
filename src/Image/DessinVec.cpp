@@ -9,7 +9,7 @@ void DessinVec::setup()
 {
 	mode = Primitype::none;
 
-	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = 0;
+	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = mouse_last_x = mouse_last_y = 0;
 	mouse_pressed = false;
 
 	compteur_square = 0;
@@ -29,6 +29,15 @@ void DessinVec::setup()
 	fbo.begin();
 	ofClear(0, 0, 0, 0);
 	fbo.end();
+
+	//ofEnableDepthTest();
+
+	camera.enableOrtho();
+	camera_position = { 0.0f, 0.0f, 20.0f };
+	camera_target =   { 0.0f, 0.0f, 0.0f };
+	camera.setPosition(camera_position);
+	camera.lookAt(camera_target);
+	//camera.rotate(180, glm::vec3(0, 0, 1));
 
 	histogramOrthogonal.setup(fbo, scene2DShape.getY());
 }
@@ -141,10 +150,12 @@ void DessinVec::mousePressed(ofMouseEventArgs& args)
 
 	if (isInsideScene && isDrawingToolSelected) {
 		mouse_pressed = true;
-		mouse_press_x = args.x - scene2DShape.getPosition().x;
-		mouse_press_y = args.y - scene2DShape.getPosition().y;
-		mouse_current_x = args.x - scene2DShape.getPosition().x;
-		mouse_current_y = args.y - scene2DShape.getPosition().y;
+		mouse_press_x = args.x - scene2DShape.getPosition().x - scene2DShape.getWidth() / 2;
+		mouse_press_y = -(args.y - scene2DShape.getPosition().y - scene2DShape.getHeight() / 2);
+		mouse_current_x = args.x - scene2DShape.getPosition().x - scene2DShape.getWidth() / 2;
+		mouse_current_y = -(args.y - scene2DShape.getPosition().y - scene2DShape.getHeight() / 2);
+		mouse_last_x = mouse_current_x;
+		mouse_last_y = mouse_current_y;
 		if (isInDrawingMode) {
 			if (gui->getIsImageImported()) {
 				mode = Primitype::image;
@@ -168,9 +179,9 @@ void DessinVec::mouseReleased(ofMouseEventArgs& args)
 void DessinVec::mouseDragged(ofMouseEventArgs& args)
 {
 	if (mouse_pressed) {
+		mouse_current_x = args.x - scene2DShape.getPosition().x - scene2DShape.getWidth() / 2;
+		mouse_current_y = -(args.y - scene2DShape.getPosition().y - scene2DShape.getHeight() / 2);
 		if (gui->getSelectedUserMode() == DRAWING) {
-			mouse_current_x = args.x - scene2DShape.getPosition().x;
-			mouse_current_y = args.y - scene2DShape.getPosition().y;
 			int formatX = 0;
 			int formatY = 0;
 			int radius = 0;
@@ -179,7 +190,7 @@ void DessinVec::mouseDragged(ofMouseEventArgs& args)
 			fbo.begin();
 			ofClear(0, 0, 0, 0);
 			draw_buffer();
-
+			camera.begin();
 			switch (mode)
 			{
 			case Primitype::none:
@@ -285,13 +296,11 @@ void DessinVec::mouseDragged(ofMouseEventArgs& args)
 			default:
 				break;
 			}
-
+			camera.end();
 			fbo.end();
 			ofPopStyle();
 		}
 		else if (gui->getSelectedUserMode() == TRANSFORM) {
-			mouse_current_x = args.x - scene2DShape.getPosition().x - mouse_press_x;
-			mouse_current_y = args.y - scene2DShape.getPosition().y - mouse_press_y;
 			ofLog() << "===========";
 			ofLog() << gui->getSelectedTransformTool();
 			ofLog() << *(gui->getPropertiesPanelBtnStates());
@@ -300,9 +309,9 @@ void DessinVec::mouseDragged(ofMouseEventArgs& args)
 			ofLog() << mouse_current_x;
 			ofLog() << mouse_current_y;
 
-			int x = *(gui->getPropertiesPanelBtnStates()) ? mouse_current_x : 0;
-			int y = *(gui->getPropertiesPanelBtnStates() + 1) ? mouse_current_x : 0;
-			int z = *(gui->getPropertiesPanelBtnStates() + 2) ? mouse_current_x : 0;
+			int x = *(gui->getPropertiesPanelBtnStates()) ? mouse_current_x - mouse_last_x : 0;
+			int y = *(gui->getPropertiesPanelBtnStates() + 1) ? mouse_current_y - mouse_last_y : 0;
+			int z = *(gui->getPropertiesPanelBtnStates() + 2) ? mouse_current_x - mouse_last_x : 0;
 
 			ofMatrix4x4 transformMatrix;
 			ofMatrix4x4 yaw;
@@ -315,33 +324,33 @@ void DessinVec::mouseDragged(ofMouseEventArgs& args)
 			switch (gui->getSelectedTransformTool()) {
 				case TRANSLATION:
 					transformMatrix.set(
-						1, 0, 0, *(gui->getPropertiesPanelBtnStates()) ? mouse_current_x : 0,
-						0, 1, 0, *(gui->getPropertiesPanelBtnStates() + 1) ? mouse_current_x : 0,
-						0, 0, 1, *(gui->getPropertiesPanelBtnStates() + 2) ? mouse_current_x : 0,
+						1, 0, 0, *(gui->getPropertiesPanelBtnStates()) ? mouse_current_x - mouse_last_x : 0,
+						0, 1, 0, *(gui->getPropertiesPanelBtnStates() + 1) ? mouse_current_y - mouse_last_y : 0,
+						0, 0, 1, *(gui->getPropertiesPanelBtnStates() + 2) ? mouse_current_x - mouse_last_x : 0,
 						0, 0, 0, 1
 					);
 					break;
 				case ROTATION:
 					if (*(gui->getPropertiesPanelBtnStates())) {
 						roll.set(
-							cos(y), 0, sin(y), 0,
+							cos(y * PI / 180), 0, sin(y * PI / 180), 0,
 							0, 1, 0, 0,
-							-sin(y), 0, cos(y), 0,
+							-sin(y * PI / 180), 0, cos(y * PI / 180), 0,
 							0, 0, 0, 1
 						);
 					}
 					if (*(gui->getPropertiesPanelBtnStates() + 1)) {
 						pitch.set(
 							1, 0, 0, 0,
-							0, cos(x), -sin(x), 0,
-							0, sin(x), cos(x), 0,
+							0, cos(x * PI / 180), -sin(x * PI / 180), 0,
+							0, sin(x * PI / 180), cos(x * PI / 180), 0,
 							0, 0, 0, 1
 						);
 					}
 					if (*(gui->getPropertiesPanelBtnStates() + 2)) {
 						roll.set(
-							cos(z), -sin(z), 0, 0,
-							sin(z), cos(z), 0, 0,
+							cos(z * PI / 180), -sin(z * PI / 180), 0, 0,
+							sin(z * PI / 180), cos(z * PI / 180), 0, 0,
 							0, 0, 1, 0,
 							0, 0, 0, 1
 						);
@@ -350,24 +359,30 @@ void DessinVec::mouseDragged(ofMouseEventArgs& args)
 					break;
 				case SCALE:
 					transformMatrix.set(
-						*(gui->getPropertiesPanelBtnStates()) ? mouse_current_x : 1, 0, 0, 0,
-						0, *(gui->getPropertiesPanelBtnStates() + 1) ? mouse_current_x : 1, 0, 0,
-						0, 0, *(gui->getPropertiesPanelBtnStates() + 2) ? mouse_current_x : 1, 0,
+						*(gui->getPropertiesPanelBtnStates()) ? mouse_current_x - mouse_last_x : 1, 0, 0, 0,
+						0, *(gui->getPropertiesPanelBtnStates() + 1) ? mouse_current_y - mouse_last_y : 1, 0, 0,
+						0, 0, *(gui->getPropertiesPanelBtnStates() + 2) ? mouse_current_x - mouse_last_x : 1, 0,
 						0, 0, 0, 1
 					);
 					break;
 				default:
 					break;
 			}
-			
+			mouse_last_x = mouse_current_x;
+			mouse_last_y = mouse_current_y;
 
 			vector<SceneElement*> sceneElements = gui->getSelectedElements();
 			for (int i = 0; i < size(sceneElements); i++) {
 				ofLog() << sceneElements.at(i)->getSceneObjectPtr();
+
 				SceneObject* obj = sceneElements.at(i)->getSceneObjectPtr();
 				ofVec3f pos = ofVec3f(obj->getPosition().x, obj->getPosition().y, obj->getPosition().z);
-				obj->setTransformMatrix(transformMatrix * obj->getTransformMatrix());
-				obj->setPosition(pos * obj->getTransformMatrix());
+
+				//transformMatrix = transformMatrix * obj->getTransformMatrix();
+				glm::vec3 newPosition = transformMatrix * pos;
+
+				//obj->setTransformMatrix(transformMatrix);
+				obj->setPosition(newPosition);
 			}
 			redraw();
 		}
@@ -393,10 +408,15 @@ void DessinVec::redraw() {
 }
 
 void DessinVec::draw_buffer() {
+	camera.begin();
+	ofNode test;
+	test.setPosition(0, 0, 0);
+	test.draw();
 	for (auto & shape : shapes)
 	{
 		shape->draw();
 	}
+	camera.end();
 }
 
 void DessinVec::dynamic_stage_1() const {

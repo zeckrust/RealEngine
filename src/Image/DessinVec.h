@@ -41,6 +41,9 @@ class DessinVec
 		int mouse_current_x;
 		int mouse_current_y;
 
+		int mouse_last_x;
+		int mouse_last_y;
+
 		bool mouse_pressed;
 
 		uint32_t compteur_square;
@@ -61,4 +64,8 @@ class DessinVec
 
 		Histogram histogramOrthogonal;
 		Histogram histogramPerspective;
+
+		ofCamera camera;
+		ofVec3f camera_position;
+		ofVec3f camera_target;
 };

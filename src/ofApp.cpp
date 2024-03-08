@@ -4,7 +4,7 @@
 void ofApp::setup() {
 	ofSetWindowTitle("Real Engine");
 	renderer = Renderer::getInstance();
-	renderer->setup(&camera2d);
+	renderer->setup();
 }
 
 //--------------------------------------------------------------
