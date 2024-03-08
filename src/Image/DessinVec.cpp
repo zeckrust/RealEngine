@@ -153,7 +153,7 @@ void DessinVec::mousePressed(ofMouseEventArgs& args)
 {
 	is_drawing_mode = gui->getSelectedUserMode() == DRAWING;
 	is_transform_mode = gui->getSelectedUserMode() == TRANSFORM;
-	is_scroll_clicked = args.button == 1;
+	is_scroll_clicked = args.button == OF_MOUSE_BUTTON_MIDDLE;
 	bool isInsideScene = scene2DShape.inside(args.x, args.y);
 	bool isDrawingToolSelected = gui->getTypePrimitive() != Primitype::none;
 
