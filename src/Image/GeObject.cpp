@@ -94,20 +94,6 @@ void GeObject::draw_prisme_rect() {
 	//ofFill();
 	//ofSetColor(fill_color);
 	mesh.drawFaces();
-
-	/*ofBoxPrimitive newBox;
-	newBox.setPosition(position.x, position.y, position.z);
-	newBox.set(dimensions.x, dimensions.y, dimensions.z);
-
-	ofNoFill();
-	ofSetColor(fill_color);
-	newBox.drawWireframe();*/
-	
-	//newBox.draw();
-	//ofDrawBox(position, dimensions.x);
-	//ofNoFill();
-	//ofSetColor(stroke_color);
-	//ofDrawBox(position, sqrt(pow(dimensions.x, 2) + pow(dimensions.y, 2)));
 }
 
 Geotype GeObject::getType(void) {
