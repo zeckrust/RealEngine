@@ -19,12 +19,14 @@ class SceneElement : public ofxLabel
 		virtual bool mouseReleased(ofMouseEventArgs &args) override;
 		virtual bool mouseMoved(ofMouseEventArgs &args) override;
 		std::vector<SceneElement*> getChildren();
+		std::vector<SceneElement*> getDeepChildren();
 		uint32_t getDepth();
 		bool isElementAlreadyChild(SceneElement *element);
 		bool isSelected(void);
 		bool isDeleteRequested(void);
 
 		SceneObject* getSceneObjectPtr(void);
+		std::vector<SceneElement*> getSelectedChildren(void);
 
 	private:
 		void setupFont();

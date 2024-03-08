@@ -28,6 +28,9 @@ void Gui::setupPanels() {
 	drawingPanel.setup("Drawing", 0, titleBar.getHeight());
 	transformPanel.setup("Transform", 0, 0); // Dynamically positioned in update()
 	propertiesPanel.setup("Axis", 0, 0); // Dynamically positioned in update()
+	drawingPanel.minimize();
+	transformPanel.minimize();
+	propertiesPanel.minimize();
 }
 
 void Gui::update() {

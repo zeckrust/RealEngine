@@ -91,6 +91,17 @@ std::vector<SceneElement*> SceneElement::getChildren() {
 	return children;
 }
 
+std::vector<SceneElement*> SceneElement::getDeepChildren() {
+	std::vector<SceneElement*> deepChildren = children;
+	for (int i = 0; i < std::size(children); i++) {
+		if (children[i] != nullptr) {
+			std::vector<SceneElement*> subDeepChildren = children[i]->getDeepChildren();
+			deepChildren.insert(deepChildren.end(), subDeepChildren.begin(), subDeepChildren.end());
+		}
+	}
+	return deepChildren;
+}
+
 uint32_t SceneElement::getDepth() {
 	return depth;
 }
@@ -126,4 +137,25 @@ bool SceneElement::isDeleteRequested(void) {
 
 SceneObject* SceneElement::getSceneObjectPtr(void) {
 	return object_ptr;
+}
+
+std::vector<SceneElement*> SceneElement::getSelectedChildren(void) {
+	std::vector<SceneElement*> selectedElements;
+	for (int i = 0; i < std::size(children); i++) {
+		if (children[i] != nullptr) {
+			std::vector<SceneElement*> subChildren = children[i]->getChildren();
+			if (children[i]->isSelected()) {
+				selectedElements.push_back(children[i]);
+				std::vector<SceneElement*> deepChildren = children[i]->getDeepChildren();
+				selectedElements.insert(selectedElements.end(), deepChildren.begin(), deepChildren.end());
+			}
+			else {
+				std::vector<SceneElement*> selectedChildren = children[i]->getSelectedChildren();
+				if (std::size(selectedChildren) > 0) {
+					selectedElements.insert(selectedElements.end(), selectedChildren.begin(), selectedChildren.end());
+				}
+			}
+		}
+	}
+	return selectedElements;
 }
