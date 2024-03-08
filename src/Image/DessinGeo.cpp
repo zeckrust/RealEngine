@@ -26,6 +26,28 @@ void DessinGeo::setup() {
 	ofClear(0, 0, 0, 0);
 	fbo.end();
 
+	camera_x_offset = 0.0f;
+	camera_y_offset = 0.0f;
+	camera_z_offset = 200.0f;
+	target_x_offset = 0.0f;
+	target_y_offset = 0.0f;
+	target_z_offset = 0.0f;
+
+	move_step = 2;
+
+	camera_position = { camera_x_offset, camera_y_offset, camera_z_offset };
+	camera_target = { target_x_offset, target_y_offset, target_z_offset };
+
+	camera_near = 50.0f;
+	camera_far = 1750.0f;
+
+	camera_fov = 60.0f;
+
+	camera.setupPerspective(false, camera_fov, camera_near, camera_far, ofVec2f(0, 0));
+
+	camera.setPosition(camera_position);
+	camera.lookAt(camera_target);
+
 	histogramPerspective.setup(fbo, scene3DShape.getY());
 
 	transformMatrix.makeIdentityMatrix();
@@ -76,12 +98,15 @@ void DessinGeo::redraw() {
 }
 
 void DessinGeo::draw_buffer() {
-	//camera.begin();
+	camera.begin();
+	ofNode node;
+	node.setPosition(0, 0, 0);
+	node.draw();
 	for (auto& shape : shapes)
 	{
 		shape->draw();
 	}
-	//camera.end();
+	camera.end();
 }
 
 void DessinGeo::mousePressed(ofMouseEventArgs& args)
@@ -184,6 +209,84 @@ void DessinGeo::deleteObject(SceneObject* obj) {
 		shapes.erase(shapes_it);
 		redraw();
 	}
+}
+
+void DessinGeo::moveLeft(void) {
+	camera_x_offset = camera_x_offset - move_step;
+	camera.setPosition(camera_x_offset, camera_y_offset, camera_z_offset);
+	redraw();
+}
+
+void DessinGeo::moveRight(void) {
+	camera_x_offset = camera_x_offset + move_step;
+	camera.setPosition(camera_x_offset, camera_y_offset, camera_z_offset);
+	redraw();
+}
+
+void DessinGeo::moveUp(void) {
+	camera_y_offset = camera_y_offset + move_step;
+	camera.setPosition(camera_x_offset, camera_y_offset, camera_z_offset);
+	redraw();
+}
+
+void DessinGeo::moveDown(void) {
+	camera_y_offset = camera_y_offset - move_step;
+	camera.setPosition(camera_x_offset, camera_y_offset, camera_z_offset);
+	redraw();
+}
+
+void DessinGeo::moveForward(void) {
+	camera_z_offset = camera_z_offset - move_step;
+	camera.setPosition(camera_x_offset, camera_y_offset, camera_z_offset);
+	redraw();
+}
+
+void DessinGeo::moveBackward(void) {
+	camera_z_offset = camera_z_offset + move_step;
+	camera.setPosition(camera_x_offset, camera_y_offset, camera_z_offset);
+	redraw();
+}
+
+void DessinGeo::tiltUp(void) {
+	target_y_offset = target_y_offset + move_step;
+	camera_target = { target_x_offset, target_y_offset, target_z_offset };
+	camera.lookAt(camera_target);
+	redraw();
+}
+
+void DessinGeo::tiltDown(void) {
+	target_y_offset = target_y_offset - move_step;
+	camera_target = { target_x_offset, target_y_offset, target_z_offset };
+	camera.lookAt(camera_target);
+	redraw();
+}
+
+void DessinGeo::panLeft(void) {
+	target_x_offset = target_x_offset - move_step;
+	camera_target = { target_x_offset, target_y_offset, target_z_offset };
+	camera.lookAt(camera_target);
+	redraw();
+}
+
+void DessinGeo::panRight(void) {
+	target_x_offset = target_x_offset + move_step;
+	camera_target = { target_x_offset, target_y_offset, target_z_offset };
+	camera.lookAt(camera_target);
+	redraw();
+}
+
+void DessinGeo::rollLeft(void) {
+	target_z_offset = target_z_offset + move_step;
+	camera_target = { target_x_offset, target_y_offset, target_z_offset };
+	camera.lookAt(camera_target);
+	redraw();
+}
+
+void DessinGeo::rollRight(void) {
+	target_z_offset = target_z_offset - move_step;
+	camera_target = { target_x_offset, target_y_offset, target_z_offset };
+	camera.lookAt(camera_target);
+	redraw();
 }
 
 DessinGeo::~DessinGeo() {

@@ -157,6 +157,7 @@ Geotype Gui::getTypeGeometrique() {
 ofColor Gui::getFillColor() {
 	return drawingPanel.getFillColor();
 }
+
 ofRectangle Gui::getScene2DShape(void) {
 	return scene2d;
 }

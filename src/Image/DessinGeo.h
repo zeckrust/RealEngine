@@ -23,6 +23,19 @@ class DessinGeo
 		void mouseReleased(ofMouseEventArgs& args);
 		void mouseDragged(ofMouseEventArgs& args);
 
+		void moveLeft(void);
+		void moveRight(void);
+		void moveUp(void);
+		void moveDown(void);
+		void moveForward(void);
+		void moveBackward(void);
+		void tiltUp(void);
+		void tiltDown(void);
+		void panRight(void);
+		void panLeft(void);
+		void rollRight(void);
+		void rollLeft(void);
+
 		void deleteObject(SceneObject* obj);
 
 		~DessinGeo();
@@ -61,6 +74,18 @@ class DessinGeo
 		ofCamera camera;
 		ofVec3f camera_position;
 		ofVec3f camera_target;
+		float camera_near;
+		float camera_far;
+		float camera_fov;
+		float camera_x_offset;
+		float camera_y_offset;
+		float camera_z_offset;
+		float target_x_offset;
+		float target_y_offset;
+		float target_z_offset;
+
+		float move_step;
+
 
 		ofMatrix4x4 transformMatrix;
 		ofMatrix4x4 lastTransformMatrixInversed;
