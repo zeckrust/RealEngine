@@ -45,9 +45,7 @@ void VecObject::draw() {
 		draw_circle();
 		break;
 	case Primitype::image:
-		ofSetColor(255, 255, 255, 255);
-		//shape->getImage().draw(shape->getPosition().x, shape->getPosition().y, shape->getDimensions().x, shape->getDimensions().y);
-		imported_image.draw(position.x, position.y, dimensions.x, dimensions.y);
+		draw_image();
 		break;
 
 	case Primitype::stage1:
@@ -63,17 +61,41 @@ void VecObject::draw() {
 }
 
 void VecObject::draw_rectangle() const {
+	draw_rectangle_from_param(position, dimensions);
+}
+
+void VecObject::draw_rectangle_from_param(ofVec3f _position, ofVec3f _dimension) const {
 	ofPushStyle();
 
 	ofFill();
 	ofSetLineWidth(stroke_width);
 	ofSetColor(fill_color);
 
-	ofDrawRectangle(position, dimensions.x, dimensions.y);
+	ofVec3f v0 = ofVec3f(_position.x, _position.y, _position.z);
+	ofVec3f v1 = ofVec3f(_position.x + _dimension.x, _position.y, _position.z);
+	ofVec3f v2 = ofVec3f(_position.x + _dimension.x, _position.y + _dimension.y, _position.z);
+	ofVec3f v3 = ofVec3f(_position.x, _position.y + _dimension.y, _position.z);
+
+
+	ofBeginShape();
+
+	ofVertex(transformMatrix * v0);
+	ofVertex(transformMatrix * v1);
+	ofVertex(transformMatrix * v2);
+	ofVertex(transformMatrix * v3);
+
+	ofEndShape(true);
 
 	ofNoFill();
 	ofSetColor(stroke_color);
-	ofDrawRectangle(position, dimensions.x, dimensions.y);
+	ofBeginShape();
+
+	ofVertex(transformMatrix * v0);
+	ofVertex(transformMatrix * v1);
+	ofVertex(transformMatrix * v2);
+	ofVertex(transformMatrix * v3);
+
+	ofEndShape(true);
 
 	ofPopStyle();
 }
@@ -85,9 +107,9 @@ void VecObject::draw_line() const {
 
 	ofSetLineWidth(stroke_width);
 	ofSetColor(stroke_color);
-
-	line.addVertex(position);
-	line.addVertex(dimensions + position);
+	
+	line.addVertex(transformMatrix * position);
+	line.addVertex(transformMatrix * (dimensions + position));
 	line.draw();
 
 	ofPopStyle();
@@ -121,19 +143,9 @@ void VecObject::draw_square() const {
 			formatX = formatY;
 		}
 	}
+	ofVec3f _dimension = ofVec3f(formatX, formatY, 0);
 
-	ofPushStyle();
-
-	ofSetLineWidth(stroke_width);
-	ofSetColor(fill_color);
-
-	ofDrawRectangle(position, formatX, formatY);
-
-	ofNoFill();
-	ofSetColor(stroke_color);
-	ofDrawRectangle(position, formatX, formatY);
-
-	ofPopStyle();
+	draw_rectangle_from_param(position, _dimension);
 }
 
 void VecObject::draw_circle() const {
@@ -148,11 +160,11 @@ void VecObject::draw_circle() const {
 	ofSetLineWidth(stroke_width);
 	ofSetColor(fill_color);
 
-	ofDrawCircle(position, radius);
+	ofDrawCircle(transformMatrix * position, transformMatrix.getScale().x * radius);
 
 	ofNoFill();
 	ofSetColor(stroke_color);
-	ofDrawCircle(position, radius);
+	ofDrawCircle(transformMatrix * position, transformMatrix.getScale().x * radius);
 
 	ofPopStyle();
 }
@@ -164,11 +176,11 @@ void VecObject::draw_ellipse() const {
 	ofSetLineWidth(stroke_width);
 	ofSetColor(fill_color);
 
-	ofDrawEllipse(position, 2 * dimensions.x, 2 * dimensions.y);
+	ofDrawEllipse(transformMatrix * position, transformMatrix.getScale().x * 2 * dimensions.x, transformMatrix.getScale().y * 2 * dimensions.y);
 
 	ofNoFill();
 	ofSetColor(stroke_color);
-	ofDrawEllipse(position, 2 * dimensions.x, 2 * dimensions.y);
+	ofDrawEllipse(transformMatrix * position, transformMatrix.getScale().x * 2 * dimensions.x, transformMatrix.getScale().y * 2 * dimensions.y);
 
 	ofPopStyle();
 }
@@ -181,25 +193,25 @@ void VecObject::draw_stage_1() const {
 	ofSetLineWidth(stroke_width);
 	ofSetColor(fill_color);
 
-	glm::vec3 v0 = glm::vec3(position.x, position.y, position.z);
-	glm::vec3 v1 = glm::vec3(position.x + dimensions.x, position.y, position.z);
-	glm::vec3 v2 = glm::vec3(position.x + (dimensions.x * 0.9), position.y + (dimensions.y * 0.5), position.z);
-	glm::vec3 v3 = glm::vec3(position.x + (dimensions.x * 0.95), position.y + dimensions.y, position.z);
-	glm::vec3 v4 = glm::vec3(position.x + (dimensions.x * 0.5), position.y + (dimensions.y * 0.9), position.z);
-	glm::vec3 v5 = glm::vec3(position.x + (dimensions.x * 0.05), position.y + dimensions.y, position.z);
-	glm::vec3 v6 = glm::vec3(position.x + (dimensions.x * 0.1), position.y + (dimensions.y * 0.5), position.z);
-	glm::vec3 v7 = glm::vec3(position.x, position.y, position.z);
+	ofVec3f v0 = ofVec3f(position.x, position.y, position.z);
+	ofVec3f v1 = ofVec3f(position.x + dimensions.x, position.y, position.z);
+	ofVec3f v2 = ofVec3f(position.x + (dimensions.x * 0.9), position.y + (dimensions.y * 0.5), position.z);
+	ofVec3f v3 = ofVec3f(position.x + (dimensions.x * 0.95), position.y + dimensions.y, position.z);
+	ofVec3f v4 = ofVec3f(position.x + (dimensions.x * 0.5), position.y + (dimensions.y * 0.9), position.z);
+	ofVec3f v5 = ofVec3f(position.x + (dimensions.x * 0.05), position.y + dimensions.y, position.z);
+	ofVec3f v6 = ofVec3f(position.x + (dimensions.x * 0.1), position.y + (dimensions.y * 0.5), position.z);
+	ofVec3f v7 = ofVec3f(position.x, position.y, position.z);
 
 	ofBeginShape();
 
-	ofVertex(v0);
-	ofVertex(v1);
-	ofVertex(v2);
-	ofVertex(v3);
-	ofVertex(v4);
-	ofVertex(v5);
-	ofVertex(v6);
-	ofVertex(v7);
+	ofVertex(transformMatrix * v0);
+	ofVertex(transformMatrix * v1);
+	ofVertex(transformMatrix * v2);
+	ofVertex(transformMatrix * v3);
+	ofVertex(transformMatrix * v4);
+	ofVertex(transformMatrix * v5);
+	ofVertex(transformMatrix * v6);
+	ofVertex(transformMatrix * v7);
 
 	ofEndShape(true);
 
@@ -207,20 +219,19 @@ void VecObject::draw_stage_1() const {
 	ofSetColor(stroke_color);
 	ofBeginShape();
 
-	ofVertex(v0);
-	ofVertex(v1);
-	ofVertex(v2);
-	ofVertex(v3);
-	ofVertex(v4);
-	ofVertex(v5);
-	ofVertex(v6);
-	ofVertex(v7);
+	ofVertex(transformMatrix * v0);
+	ofVertex(transformMatrix * v1);
+	ofVertex(transformMatrix * v2);
+	ofVertex(transformMatrix * v3);
+	ofVertex(transformMatrix * v4);
+	ofVertex(transformMatrix * v5);
+	ofVertex(transformMatrix * v6);
+	ofVertex(transformMatrix * v7);
 
 	ofEndShape(true);
 
 	ofPopStyle();
 }
-
 
 void VecObject::draw_stage_2() const {
 	ofPushStyle();
@@ -229,31 +240,31 @@ void VecObject::draw_stage_2() const {
 	ofSetLineWidth(stroke_width);
 	ofSetColor(fill_color);
 
-	glm::vec3 v0 = glm::vec3(position.x, position.y, position.z);
-	glm::vec3 v1 = glm::vec3(position.x + dimensions.x, position.y, position.z);
+	ofVec3f v0 = ofVec3f(position.x, position.y, position.z);
+	ofVec3f v1 = ofVec3f(position.x + dimensions.x, position.y, position.z);
 
-	glm::vec3 v2 = glm::vec3(position.x + (dimensions.x * 0.9), position.y + (dimensions.y * 0.65), position.z);
-	glm::vec3 v3 = glm::vec3(position.x + (dimensions.x * 0.65), position.y + (dimensions.y * 0.65), position.z);
+	ofVec3f v2 = ofVec3f(position.x + (dimensions.x * 0.9), position.y + (dimensions.y * 0.65), position.z);
+	ofVec3f v3 = ofVec3f(position.x + (dimensions.x * 0.65), position.y + (dimensions.y * 0.65), position.z);
 
-	glm::vec3 v4 = glm::vec3(position.x + (dimensions.x * 0.65), position.y + dimensions.y, position.z);
-	glm::vec3 v5 = glm::vec3(position.x + (dimensions.x * 0.35), position.y + dimensions.y, position.z);
+	ofVec3f v4 = ofVec3f(position.x + (dimensions.x * 0.65), position.y + dimensions.y, position.z);
+	ofVec3f v5 = ofVec3f(position.x + (dimensions.x * 0.35), position.y + dimensions.y, position.z);
 
-	glm::vec3 v6 = glm::vec3(position.x + (dimensions.x * 0.35), position.y + (dimensions.y * 0.65), position.z);
-	glm::vec3 v7 = glm::vec3(position.x + (dimensions.x * 0.1), position.y + (dimensions.y * 0.65), position.z);
+	ofVec3f v6 = ofVec3f(position.x + (dimensions.x * 0.35), position.y + (dimensions.y * 0.65), position.z);
+	ofVec3f v7 = ofVec3f(position.x + (dimensions.x * 0.1), position.y + (dimensions.y * 0.65), position.z);
 
-	glm::vec3 v8 = glm::vec3(position.x, position.y, position.z);
+	ofVec3f v8 = ofVec3f(position.x, position.y, position.z);
 
 	ofBeginShape();
 
-	ofVertex(v0);
-	ofVertex(v1);
-	ofVertex(v2);
-	ofVertex(v3);
-	ofVertex(v4);
-	ofVertex(v5);
-	ofVertex(v6);
-	ofVertex(v7);
-	ofVertex(v8);
+	ofVertex(transformMatrix * v0);
+	ofVertex(transformMatrix * v1);
+	ofVertex(transformMatrix * v2);
+	ofVertex(transformMatrix * v3);
+	ofVertex(transformMatrix * v4);
+	ofVertex(transformMatrix * v5);
+	ofVertex(transformMatrix * v6);
+	ofVertex(transformMatrix * v7);
+	ofVertex(transformMatrix * v8);
 
 	ofEndShape(true);
 
@@ -261,20 +272,30 @@ void VecObject::draw_stage_2() const {
 	ofSetColor(stroke_color);
 	ofBeginShape();
 
-	ofVertex(v0);
-	ofVertex(v1);
-	ofVertex(v2);
-	ofVertex(v3);
-	ofVertex(v4);
-	ofVertex(v5);
-	ofVertex(v6);
-	ofVertex(v7);
-	ofVertex(v8);
+	ofVertex(transformMatrix * v0);
+	ofVertex(transformMatrix * v1);
+	ofVertex(transformMatrix * v2);
+	ofVertex(transformMatrix * v3);
+	ofVertex(transformMatrix * v4);
+	ofVertex(transformMatrix * v5);
+	ofVertex(transformMatrix * v6);
+	ofVertex(transformMatrix * v7);
+	ofVertex(transformMatrix * v8);
 
 	ofEndShape(true);
 
 
 	ofPopStyle();
+}
+
+void VecObject::draw_image() const {
+	ofSetColor(255, 255, 255, 255);
+	ofVec4f test = transformMatrix.getRowAsVec4f(0);
+	imported_image.draw(
+		transformMatrix.getRowAsVec4f(0).w + position.x,
+		transformMatrix.getRowAsVec4f(1).w + position.y,
+		transformMatrix.getScale().x * dimensions.x,
+		transformMatrix.getScale().y * dimensions.y);
 }
 
 Primitype VecObject::getType() {

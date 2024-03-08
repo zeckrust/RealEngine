@@ -27,11 +27,13 @@ class VecObject : public SceneObject
 	private :
 		void draw_line() const;
 		void draw_rectangle() const;
+		void draw_rectangle_from_param(ofVec3f position, ofVec3f dimension) const;
 		void draw_square() const;
 		void draw_circle() const;
 		void draw_ellipse() const;
 		void draw_stage_1() const;
 		void draw_stage_2() const;
+		void draw_image() const;
 
 		Primitype type;
 		float stroke_width;

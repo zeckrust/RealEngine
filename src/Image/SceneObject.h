@@ -10,14 +10,14 @@ class SceneObject
 		void setPosition(glm::vec3 _position);
 		void setDimensions(glm::vec3 _dimensions);
 		void setTransformMatrix(ofMatrix4x4 _transformMatrix);
-		glm::vec3 getPosition();
-		glm::vec3 getDimensions();
+		ofVec3f getPosition();
+		ofVec3f getDimensions();
 		ofMatrix4x4 getTransformMatrix(void);
 		virtual void draw()=0;
 
 	protected:
-		glm::vec3 position;
-		glm::vec3 dimensions;
+		ofVec3f position;
+		ofVec3f dimensions;
 		ofMatrix4x4 transformMatrix;
 		int radius;
 

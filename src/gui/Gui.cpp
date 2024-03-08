@@ -27,7 +27,7 @@ void Gui::setupPanels() {
 	sceneHierarchyPanel.setup("Scene Elements", 0, titleBar.getHeight());
 	drawingPanel.setup("Drawing", 0, titleBar.getHeight());
 	transformPanel.setup("Transform", 0, 0); // Dynamically positioned in update()
-	propertiesPanel.setup("axis", 0, 0); // Dynamically positioned in update()
+	propertiesPanel.setup("Axis", 0, 0); // Dynamically positioned in update()
 }
 
 void Gui::update() {
