@@ -13,6 +13,8 @@ void DessinGeo::setup() {
 
 	compteur_prism = 0;
 	compteur_cylinder = 0;
+	default_pos_z = 15;
+	default_dim_z = 40;
 
 	gui = Gui::getInstance();
 
@@ -91,10 +93,12 @@ void DessinGeo::mousePressed(ofMouseEventArgs& args)
 
 	if (isInsideScene) {
 		mouse_pressed = true;
-		mouse_press_x = args.x - scene3DShape.getPosition().x - scene3DShape.getWidth() / 2;
-		mouse_press_y = -(args.y - scene3DShape.getPosition().y - scene3DShape.getHeight() / 2);
-		mouse_current_x = args.x - scene3DShape.getPosition().x - scene3DShape.getWidth() / 2;
-		mouse_current_y = -(args.y - scene3DShape.getPosition().y - scene3DShape.getHeight() / 2);
+		//mouse_press_x = args.x - scene3DShape.getPosition().x - scene3DShape.getWidth() / 2;
+		//mouse_press_y = -(args.y - scene3DShape.getPosition().y - scene3DShape.getHeight() / 2);
+		//mouse_current_x = args.x - scene3DShape.getPosition().x - scene3DShape.getWidth() / 2;
+		//mouse_current_y = -(args.y - scene3DShape.getPosition().y - scene3DShape.getHeight() / 2);
+		mouse_press_x = ofGetMouseX() - scene3DShape.getPosition().x;
+		mouse_press_y = -(ofGetMouseY() - (scene3DShape.getPosition().y + scene3DShape.getHeight()/2));
 		mouse_last_x = mouse_current_x;
 		mouse_last_y = mouse_current_y;
 		if (is_drawing_mode) {
@@ -116,8 +120,10 @@ void DessinGeo::mouseReleased(ofMouseEventArgs& args)
 
 void DessinGeo::mouseDragged(ofMouseEventArgs& args) {
 	if (mouse_pressed) {
-		mouse_current_x = args.x - scene3DShape.getPosition().x - scene3DShape.getWidth() / 2;
-		mouse_current_y = -(args.y - scene3DShape.getPosition().y - scene3DShape.getHeight() / 2);
+		//mouse_current_x = args.x - scene3DShape.getPosition().x - scene3DShape.getWidth() / 2;
+		//mouse_current_y = -(args.y - scene3DShape.getPosition().y - scene3DShape.getHeight() / 2);
+		mouse_current_x = ofGetMouseX() - scene3DShape.getPosition().x;
+		mouse_current_y = -(ofGetMouseY() - (scene3DShape.getPosition().y + scene3DShape.getHeight()/2));
 		if (is_drawing_mode) {
 
 			ofPushStyle();
@@ -126,8 +132,8 @@ void DessinGeo::mouseDragged(ofMouseEventArgs& args) {
 			draw_buffer();
 
 			GeObject obj = GeObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor());
-			obj.setPosition(glm::vec3(mouse_press_x, mouse_press_y, 15));
-			obj.setDimensions(glm::vec3(mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y, 40));
+			obj.setPosition(glm::vec3(mouse_press_x, mouse_press_y, default_pos_z));
+			obj.setDimensions(glm::vec3(mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y, default_dim_z));
 			
 			obj.draw();
 
@@ -140,8 +146,8 @@ void DessinGeo::mouseDragged(ofMouseEventArgs& args) {
 void DessinGeo::add_geo_shape() {
 	shapes.push_back(new GeObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor()));
 
-	shapes.back()->setPosition(glm::vec3(mouse_press_x, mouse_press_y, 0));
-	shapes.back()->setDimensions(glm::vec3(mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y, 0));
+	shapes.back()->setPosition(glm::vec3(mouse_press_x, mouse_press_y, default_pos_z));
+	shapes.back()->setDimensions(glm::vec3(mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y, default_dim_z));
 
 	mouse_pressed = false;
 	histogramPerspective.update(fbo, scene3DShape.getY());

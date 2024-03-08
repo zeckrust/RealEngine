@@ -25,20 +25,104 @@ void GeObject::draw() {
 
 void GeObject::draw_cylindre() {
 
-	ofEnableDepthTest();
+	ofMesh mesh;
 
-	ofCylinderPrimitive newCylinder;
-	newCylinder.setPosition(position.x, position.y, position.z);
-	newCylinder.set(dimensions.x/2, dimensions.y);
+	mesh.setMode(OF_PRIMITIVE_LINES);
+	mesh.enableColors();
+	mesh.enableIndices();
+
+	float radius = sqrt(pow(dimensions.x/2, 2) + pow(dimensions.z/2, 2));
+
+	// Top octogone
+	mesh.addVertex(ofPoint(position.x - radius, position.y, position.z)); //V0
+	mesh.addColor(stroke_color);
+	mesh.addVertex(ofPoint(position.x - (radius * sqrt(2) / 2), position.y, position.z + (radius * sqrt(2) / 2))); //V1
+	mesh.addColor(stroke_color);
+	mesh.addVertex(ofPoint(position.x, position.y, position.z + radius)); //V2
+	mesh.addColor(stroke_color);
+	mesh.addVertex(ofPoint(position.x + (radius * sqrt(2) / 2), position.y, position.z + (radius * sqrt(2) / 2))); //V3
+	mesh.addColor(stroke_color);
+	mesh.addVertex(ofPoint(position.x + radius, position.y, position.z)); //V4
+	mesh.addColor(stroke_color);
+	mesh.addVertex(ofPoint(position.x + (radius * sqrt(2) / 2), position.y, position.z - (radius * sqrt(2) / 2))); //V5
+	mesh.addColor(stroke_color);
+	mesh.addVertex(ofPoint(position.x, position.y, position.z - radius)); //V6
+	mesh.addColor(stroke_color);
+	mesh.addVertex(ofPoint(position.x - (radius * sqrt(2) / 2), position.y, position.z - (radius * sqrt(2) / 2))); //V7
+	mesh.addColor(stroke_color);
+
+	//Botom octogone
+	mesh.addVertex(ofPoint(position.x - radius, position.y - dimensions.y, position.z)); //V8
+	mesh.addColor(stroke_color);
+	mesh.addVertex(ofPoint(position.x - (radius * sqrt(2) / 2), position.y - dimensions.y, position.z + (radius * sqrt(2) / 2))); //V9
+	mesh.addColor(stroke_color);
+	mesh.addVertex(ofPoint(position.x, position.y - dimensions.y, position.z + radius)); //V10
+	mesh.addColor(stroke_color);
+	mesh.addVertex(ofPoint(position.x + (radius * sqrt(2) / 2), position.y - dimensions.y, position.z + (radius * sqrt(2) / 2))); //V11
+	mesh.addColor(stroke_color);
+	mesh.addVertex(ofPoint(position.x + radius, position.y - dimensions.y, position.z)); //V12
+	mesh.addColor(stroke_color);
+	mesh.addVertex(ofPoint(position.x + (radius * sqrt(2) / 2), position.y - dimensions.y, position.z - (radius * sqrt(2) / 2))); //V13
+	mesh.addColor(stroke_color);
+	mesh.addVertex(ofPoint(position.x, position.y - dimensions.y, position.z - radius)); //V14
+	mesh.addColor(stroke_color);
+	mesh.addVertex(ofPoint(position.x - (radius * sqrt(2) / 2), position.y - dimensions.y, position.z - (radius * sqrt(2) / 2))); //V15
+	mesh.addColor(stroke_color);
+
+	mesh.addIndex(0);
+	mesh.addIndex(1);
+	mesh.addIndex(1);
+	mesh.addIndex(2);
+	mesh.addIndex(2);
+	mesh.addIndex(3);
+	mesh.addIndex(3);
+	mesh.addIndex(4);
+	mesh.addIndex(4);
+	mesh.addIndex(5);
+	mesh.addIndex(5);
+	mesh.addIndex(6);
+	mesh.addIndex(6);
+	mesh.addIndex(7);
+	mesh.addIndex(7);
+	mesh.addIndex(0);
+
+	mesh.addIndex(0);
+	mesh.addIndex(8);
+	mesh.addIndex(1);
+	mesh.addIndex(9);
+	mesh.addIndex(2);
+	mesh.addIndex(10);
+	mesh.addIndex(3);
+	mesh.addIndex(11);
+	mesh.addIndex(4);
+	mesh.addIndex(12);
+	mesh.addIndex(5);
+	mesh.addIndex(13);
+	mesh.addIndex(6);
+	mesh.addIndex(14);
+	mesh.addIndex(7);
+	mesh.addIndex(15);
+
+	mesh.addIndex(8);
+	mesh.addIndex(9);
+	mesh.addIndex(9);
+	mesh.addIndex(10);
+	mesh.addIndex(10);
+	mesh.addIndex(11);
+	mesh.addIndex(11);
+	mesh.addIndex(12);
+	mesh.addIndex(12);
+	mesh.addIndex(13);
+	mesh.addIndex(13);
+	mesh.addIndex(14);
+	mesh.addIndex(14);
+	mesh.addIndex(15);
+	mesh.addIndex(15);
+	mesh.addIndex(8);
 
 	ofFill();
 	ofSetColor(fill_color);
-	
-	newCylinder.draw();
-	ofSetColor(stroke_color);
-	newCylinder.drawWireframe();
-	
-	ofDisableDepthTest();
+	mesh.drawWireframe();
 }
 
 void GeObject::draw_prisme_rect() {
@@ -91,9 +175,10 @@ void GeObject::draw_prisme_rect() {
 	mesh.addIndex(7);
 	mesh.addIndex(4);
 
-	//ofFill();
-	//ofSetColor(fill_color);
-	mesh.drawFaces();
+	ofFill();
+	ofSetColor(fill_color);
+	//mesh.drawFaces();
+	mesh.draw(OF_MESH_FILL);
 }
 
 Geotype GeObject::getType(void) {
