@@ -147,6 +147,10 @@ Primitype Gui::getTypePrimitive() {
 	return drawingPanel.getDrawMode();
 }
 
+Geotype Gui::getTypeGeometrique() {
+	return drawingPanel.getGeometricType();
+}
+
 ofColor Gui::getFillColor() {
 	return drawingPanel.getFillColor();
 }

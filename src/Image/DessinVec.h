@@ -67,7 +67,6 @@ class DessinVec
 		ofRectangle oldScene2dShape;
 
 		Histogram histogramOrthogonal;
-		Histogram histogramPerspective;
 
 		ofCamera camera;
 		ofVec3f camera_position;
