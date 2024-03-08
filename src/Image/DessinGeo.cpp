@@ -22,6 +22,19 @@ void DessinGeo::setup() {
 	ofClear(0, 0, 0, 0);
 	fbo.end();
 
+	camera_position = { 0.0f, 0.0f, 20.0f };
+	camera_target = { 0.0f, 0.0f, 0.0f };
+
+	camera_near = 50.0f;
+	camera_far = 1750.0f;
+
+	camera_fov = 60.0f;
+
+	camera.setPosition(camera_position);
+	camera.lookAt(camera_target);
+
+	camera.setupPerspective(false, camera_fov, camera_near, camera_far, ofVec2f(0, 0));
+
 	histogramPerspective.setup(fbo, scene3DShape.getY());
 
 	transformMatrix.makeIdentityMatrix();
@@ -72,12 +85,15 @@ void DessinGeo::redraw() {
 }
 
 void DessinGeo::draw_buffer() {
-	//camera.begin();
+	camera.begin();
+	ofNode node;
+	node.setPosition(0, 0, 0);
+	node.draw();
 	for (auto& shape : shapes)
 	{
 		shape->draw();
 	}
-	//camera.end();
+	camera.end();
 }
 
 void DessinGeo::mousePressed(ofMouseEventArgs& args)

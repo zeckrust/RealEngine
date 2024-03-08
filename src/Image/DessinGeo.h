@@ -57,6 +57,9 @@ class DessinGeo
 		ofCamera camera;
 		ofVec3f camera_position;
 		ofVec3f camera_target;
+		float camera_near;
+		float camera_far;
+		float camera_fov;
 
 		ofMatrix4x4 transformMatrix;
 		ofMatrix4x4 lastTransformMatrixInversed;
