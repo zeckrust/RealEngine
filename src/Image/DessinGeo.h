@@ -45,6 +45,7 @@ class DessinGeo
 		bool is_drawing_mode;
 		bool is_transform_mode;
 
+
 		int default_dim_z;
 		int default_pos_z;
 

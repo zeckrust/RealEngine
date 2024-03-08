@@ -24,7 +24,6 @@ void GeObject::draw() {
 }
 
 void GeObject::draw_cylindre() {
-
 	ofMesh mesh;
 
 	mesh.setMode(OF_PRIMITIVE_LINES);
@@ -123,6 +122,7 @@ void GeObject::draw_cylindre() {
 	ofFill();
 	ofSetColor(fill_color);
 	mesh.drawWireframe();
+
 }
 
 void GeObject::draw_prisme_rect() {
@@ -175,9 +175,6 @@ void GeObject::draw_prisme_rect() {
 	mesh.addIndex(7);
 	mesh.addIndex(4);
 
-	ofFill();
-	ofSetColor(fill_color);
-	//mesh.drawFaces();
 	mesh.draw(OF_MESH_FILL);
 }
 

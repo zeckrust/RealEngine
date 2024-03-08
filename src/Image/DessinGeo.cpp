@@ -13,8 +13,10 @@ void DessinGeo::setup() {
 
 	compteur_prism = 0;
 	compteur_cylinder = 0;
+
 	default_pos_z = 15;
 	default_dim_z = 40;
+
 
 	gui = Gui::getInstance();
 
@@ -93,14 +95,14 @@ void DessinGeo::mousePressed(ofMouseEventArgs& args)
 
 	if (isInsideScene) {
 		mouse_pressed = true;
-		//mouse_press_x = args.x - scene3DShape.getPosition().x - scene3DShape.getWidth() / 2;
-		//mouse_press_y = -(args.y - scene3DShape.getPosition().y - scene3DShape.getHeight() / 2);
-		//mouse_current_x = args.x - scene3DShape.getPosition().x - scene3DShape.getWidth() / 2;
-		//mouse_current_y = -(args.y - scene3DShape.getPosition().y - scene3DShape.getHeight() / 2);
-		mouse_press_x = ofGetMouseX() - scene3DShape.getPosition().x;
-		mouse_press_y = -(ofGetMouseY() - (scene3DShape.getPosition().y + scene3DShape.getHeight()/2));
+
+		mouse_press_x = args.x - scene3DShape.getPosition().x;
+		mouse_press_y = -(args.y - (scene3DShape.getPosition().y + scene3DShape.getHeight()/2));
+		mouse_current_x = mouse_press_x;
+		mouse_current_y = mouse_press_y;
 		mouse_last_x = mouse_current_x;
 		mouse_last_y = mouse_current_y;
+    
 		if (is_drawing_mode) {
 			if (isDrawingToolSelected) {
 				mode = gui->getTypeGeometrique();
@@ -120,10 +122,10 @@ void DessinGeo::mouseReleased(ofMouseEventArgs& args)
 
 void DessinGeo::mouseDragged(ofMouseEventArgs& args) {
 	if (mouse_pressed) {
-		//mouse_current_x = args.x - scene3DShape.getPosition().x - scene3DShape.getWidth() / 2;
-		//mouse_current_y = -(args.y - scene3DShape.getPosition().y - scene3DShape.getHeight() / 2);
-		mouse_current_x = ofGetMouseX() - scene3DShape.getPosition().x;
-		mouse_current_y = -(ofGetMouseY() - (scene3DShape.getPosition().y + scene3DShape.getHeight()/2));
+
+		mouse_current_x = args.x - scene3DShape.getPosition().x;
+		mouse_current_y = -(args.y - (scene3DShape.getPosition().y + scene3DShape.getHeight()/2));
+
 		if (is_drawing_mode) {
 
 			ofPushStyle();
@@ -132,9 +134,10 @@ void DessinGeo::mouseDragged(ofMouseEventArgs& args) {
 			draw_buffer();
 
 			GeObject obj = GeObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor());
+
 			obj.setPosition(glm::vec3(mouse_press_x, mouse_press_y, default_pos_z));
 			obj.setDimensions(glm::vec3(mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y, default_dim_z));
-			
+
 			obj.draw();
 
 			fbo.end();

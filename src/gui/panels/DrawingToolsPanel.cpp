@@ -44,7 +44,7 @@ void DrawingToolsPanel::setupButtons(void) {
 }	
 
 void DrawingToolsPanel::setupFields(void) {
-	lineWidthField.setup("Line width :", 5);
+	lineWidthField.setup("Line width :", 2);
 	lineWidthField.setMin(0);
 	add(&lineWidthField);
 }
