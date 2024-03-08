@@ -32,7 +32,8 @@ void DessinVec::setup()
 
 
 	camera.enableOrtho();
-	camera_position = { 0.0f, 0.0f, 20.0f };
+	camera_offset = 20.0f;
+	camera_position = { 0.0f, 0.0f, camera_offset};
 	camera_target =   { 0.0f, 0.0f, 0.0f };
 	camera.setPosition(camera_position);
 	camera.lookAt(camera_target);
@@ -152,17 +153,19 @@ void DessinVec::mousePressed(ofMouseEventArgs& args)
 {
 	is_drawing_mode = gui->getSelectedUserMode() == DRAWING;
 	is_transform_mode = gui->getSelectedUserMode() == TRANSFORM;
+	is_scroll_clicked = args.button == 1;
 	bool isInsideScene = scene2DShape.inside(args.x, args.y);
 	bool isDrawingToolSelected = gui->getTypePrimitive() != Primitype::none;
 
 	mode = Primitype::none;
 
+	mouse_press_x = args.x - scene2DShape.getPosition().x - scene2DShape.getWidth() / 2;
+	mouse_press_y = -(args.y - scene2DShape.getPosition().y - scene2DShape.getHeight() / 2);
+	mouse_current_x = args.x - scene2DShape.getPosition().x - scene2DShape.getWidth() / 2;
+	mouse_current_y = -(args.y - scene2DShape.getPosition().y - scene2DShape.getHeight() / 2);
+
 	if (isInsideScene) {
 		mouse_pressed = true;
-		mouse_press_x = args.x - scene2DShape.getPosition().x - scene2DShape.getWidth() / 2;
-		mouse_press_y = -(args.y - scene2DShape.getPosition().y - scene2DShape.getHeight() / 2);
-		mouse_current_x = args.x - scene2DShape.getPosition().x - scene2DShape.getWidth() / 2;
-		mouse_current_y = -(args.y - scene2DShape.getPosition().y - scene2DShape.getHeight() / 2);
 		mouse_last_x = mouse_current_x;
 		mouse_last_y = mouse_current_y;
 		if (is_drawing_mode) {
@@ -178,16 +181,17 @@ void DessinVec::mousePressed(ofMouseEventArgs& args)
 
 void DessinVec::mouseReleased(ofMouseEventArgs& args)
 {
-	if (mouse_pressed) {
+	if (mouse_pressed && !is_scroll_clicked) {
 		if (is_drawing_mode && mode != Primitype::none) {
 			add_vector_shape();
 		}
 	}
+	is_scroll_clicked = false;
 }
 
 void DessinVec::mouseDragged(ofMouseEventArgs& args)
 {
-	if (mouse_pressed) {
+	if (mouse_pressed && !is_scroll_clicked) {
 		mouse_current_x = args.x - scene2DShape.getPosition().x - scene2DShape.getWidth() / 2;
 		mouse_current_y = -(args.y - scene2DShape.getPosition().y - scene2DShape.getHeight() / 2);
 		if (is_drawing_mode) {
@@ -396,6 +400,16 @@ void DessinVec::mouseDragged(ofMouseEventArgs& args)
 			}
 			redraw();
 		}
+	}
+	if (is_scroll_clicked) {
+		mouse_current_y = -(args.y - scene2DShape.getPosition().y - scene2DShape.getHeight() / 2);
+		camera_offset = camera_offset + (mouse_current_y - mouse_last_y);
+		camera_offset = camera_offset < 5.0f ? 5.0f : camera_offset;
+
+		camera.setPosition(0.0f, 0.0f, camera_offset);
+
+		mouse_last_y = mouse_current_y;
+		redraw();
 	}
 }
 
