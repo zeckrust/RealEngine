@@ -53,6 +53,9 @@ class Gui
 		bool getIsHistogramShowing(void);
 		void setIsImageImported(bool _isImageImported);
 
+		bool* getPropertiesPanelBtnStates(void);
+		vector<SceneElement*> getSelectedElements(void);
+
 		void createSceneElement(std::string name, SceneObject* obj_ptr);
 
 		// Singleton

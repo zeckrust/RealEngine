@@ -14,8 +14,7 @@ Renderer* Renderer::getInstance() {
 	}
 }
 
-void Renderer::setup(Camera2d* _camera) {
-	camera2d = _camera;
+void Renderer::setup() {
 	gui = Gui::getInstance();
 	gui->setup();
 	ofSetFrameRate(FRAME_RATE);
@@ -38,7 +37,6 @@ void Renderer::draw() {
 
 void Renderer::mousePressed(ofMouseEventArgs& args) {
 	gui->mousePressed(args);
-	camera2d->setLastMousePosition(glm::vec2(args.x, args.y));
 	dessinateur.mousePressed(args);
 }
 
@@ -52,7 +50,6 @@ void Renderer::mouseMoved(ofMouseEventArgs& args) {
 }
 
 void Renderer::mouseDragged(ofMouseEventArgs& args) {
-	camera2d->moveCamera(args.x, args.y);
 	dessinateur.mouseDragged(args);
 }
 

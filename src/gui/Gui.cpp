@@ -27,7 +27,7 @@ void Gui::setupPanels() {
 	sceneHierarchyPanel.setup("Scene Elements", 0, titleBar.getHeight());
 	drawingPanel.setup("Drawing", 0, titleBar.getHeight());
 	transformPanel.setup("Transform", 0, 0); // Dynamically positioned in update()
-	propertiesPanel.setup("Properties", 0, 0); // Dynamically positioned in update()
+	propertiesPanel.setup("axis", 0, 0); // Dynamically positioned in update()
 }
 
 void Gui::update() {
@@ -188,4 +188,12 @@ void Gui::setIsImageImported(bool _isImageImported) {
 
 bool Gui::getIsHistogramShowing(void) {
 	return isHistogramShowing;
+}
+
+bool* Gui::getPropertiesPanelBtnStates(void) {
+	return propertiesPanel.getBtnStates();
+}
+
+vector<SceneElement*> Gui::getSelectedElements(void) {
+	return sceneHierarchyPanel.getSelectedSceneElements();
 }

@@ -18,6 +18,8 @@ class SceneHierarchyPanel : public CustomPanel
 		virtual bool mouseReleased(ofMouseEventArgs &args) override;
 		virtual bool mouseMoved(ofMouseEventArgs &args) override;
 
+		vector<SceneElement*> getSelectedSceneElements(void);
+
 	private:
 		void add(ofxBaseGui *element) override;
 		void removeElementChildren(ofxBaseGui *element);

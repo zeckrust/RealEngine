@@ -10,7 +10,7 @@ class Renderer
 {
 	public:
 		Renderer();
-		void setup(Camera2d* _camera);
+		void setup();
 		void update();
 		void draw();
 		void windowResized(int width, int height);
@@ -31,7 +31,6 @@ class Renderer
 	private:
 
 		Gui* gui;
-		Camera2d* camera2d = nullptr;
 		Cursor cursors;
 		DessinVec dessinateur;
 

@@ -9,7 +9,7 @@ void DessinVec::setup()
 {
 	mode = Primitype::none;
 
-	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = 0;
+	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = mouse_last_x = mouse_last_y = 0;
 	mouse_pressed = false;
 
 	compteur_square = 0;
@@ -29,6 +29,15 @@ void DessinVec::setup()
 	fbo.begin();
 	ofClear(0, 0, 0, 0);
 	fbo.end();
+
+	//ofEnableDepthTest();
+
+	camera.enableOrtho();
+	camera_position = { 0.0f, 0.0f, 20.0f };
+	camera_target =   { 0.0f, 0.0f, 0.0f };
+	camera.setPosition(camera_position);
+	camera.lookAt(camera_target);
+	//camera.rotate(180, glm::vec3(0, 0, 1));
 
 	histogramOrthogonal.setup(fbo, scene2DShape.getY());
 }
@@ -139,17 +148,21 @@ void DessinVec::mousePressed(ofMouseEventArgs& args)
 	bool isInsideScene = scene2DShape.inside(args.x, args.y);
 	bool isDrawingToolSelected = gui->getTypePrimitive() != Primitype::none;
 
-	if (isInDrawingMode && isInsideScene && isDrawingToolSelected) {
+	if (isInsideScene && isDrawingToolSelected) {
 		mouse_pressed = true;
-		mouse_press_x = args.x - scene2DShape.getPosition().x;
-		mouse_press_y = args.y - scene2DShape.getPosition().y;
-		mouse_current_x = args.x - scene2DShape.getPosition().x;
-		mouse_current_y = args.y - scene2DShape.getPosition().y;
-		if (gui->getIsImageImported()) {
-			mode = Primitype::image;
-		}
-		else {
-			mode = gui->getTypePrimitive();
+		mouse_press_x = args.x - scene2DShape.getPosition().x - scene2DShape.getWidth() / 2;
+		mouse_press_y = -(args.y - scene2DShape.getPosition().y - scene2DShape.getHeight() / 2);
+		mouse_current_x = args.x - scene2DShape.getPosition().x - scene2DShape.getWidth() / 2;
+		mouse_current_y = -(args.y - scene2DShape.getPosition().y - scene2DShape.getHeight() / 2);
+		mouse_last_x = mouse_current_x;
+		mouse_last_y = mouse_current_y;
+		if (isInDrawingMode) {
+			if (gui->getIsImageImported()) {
+				mode = Primitype::image;
+			}
+			else {
+				mode = gui->getTypePrimitive();
+			}
 		}
 	}
 }
@@ -157,132 +170,222 @@ void DessinVec::mousePressed(ofMouseEventArgs& args)
 void DessinVec::mouseReleased(ofMouseEventArgs& args)
 {
 	if (mouse_pressed) {
-		add_vector_shape();
+		if (gui->getSelectedUserMode() == DRAWING) {
+			add_vector_shape();
+		}
 	}
 }
 
 void DessinVec::mouseDragged(ofMouseEventArgs& args)
 {
 	if (mouse_pressed) {
-		mouse_current_x = args.x - scene2DShape.getPosition().x;
-		mouse_current_y = args.y - scene2DShape.getPosition().y;
-		int formatX = 0;
-		int formatY = 0;
-		int radius = 0;
+		mouse_current_x = args.x - scene2DShape.getPosition().x - scene2DShape.getWidth() / 2;
+		mouse_current_y = -(args.y - scene2DShape.getPosition().y - scene2DShape.getHeight() / 2);
+		if (gui->getSelectedUserMode() == DRAWING) {
+			int formatX = 0;
+			int formatY = 0;
+			int radius = 0;
 
-		ofPushStyle();
-		fbo.begin();
-		ofClear(0, 0, 0, 0);
-		draw_buffer();
+			ofPushStyle();
+			fbo.begin();
+			ofClear(0, 0, 0, 0);
+			draw_buffer();
+			camera.begin();
+			switch (mode)
+			{
+			case Primitype::none:
+				break;
+			case Primitype::square:
 
-		switch (mode)
-		{
-		case Primitype::none:
-			break;
-		case Primitype::square:
+				ofSetLineWidth(gui->getLineWidth());
+				ofSetColor(gui->getFillColor());
 
-			ofSetLineWidth(gui->getLineWidth());
-			ofSetColor(gui->getFillColor());
+				formatX = mouse_current_x - mouse_press_x;
+				formatY = mouse_current_y - mouse_press_y;
 
-			formatX = mouse_current_x - mouse_press_x;
-			formatY = mouse_current_y - mouse_press_y;
-
-			if (formatX < 0 && formatY < 0) {
-				if (abs(formatX) > abs(formatY)) {
-					formatY = formatX;
+				if (formatX < 0 && formatY < 0) {
+					if (abs(formatX) > abs(formatY)) {
+						formatY = formatX;
+					}
+					else {
+						formatX = formatY;
+					}
+				}
+				else if ((formatX > 0 && formatY < 0) || (formatX < 0 && formatY > 0)) {
+					if (abs(formatX) > abs(formatY)) {
+						formatY = -formatX;
+					}
+					else {
+						formatX = -formatY;
+					}
 				}
 				else {
-					formatX = formatY;
+					if (formatX > formatY) {
+						formatY = formatX;
+					}
+					else {
+						formatX = formatY;
+					}
 				}
+
+				ofDrawRectangle(glm::vec2(mouse_press_x, mouse_press_y), formatX, formatY);
+
+				ofNoFill();
+				ofSetColor(gui->getLineColor());
+				ofDrawRectangle(glm::vec2(mouse_press_x, mouse_press_y), formatX, formatY);
+
+				break;
+			case Primitype::line:
+
+				ofSetLineWidth(gui->getLineWidth());
+				ofSetColor(gui->getLineColor());
+
+				ligne.clear();
+				ligne.addVertex(mouse_press_x, mouse_press_y);
+				ligne.addVertex(mouse_current_x, mouse_current_y);
+				ligne.draw();
+				break;
+			case Primitype::rectangle:
+
+				ofSetLineWidth(gui->getLineWidth());
+				ofSetColor(gui->getFillColor());
+				ofDrawRectangle(glm::vec2(mouse_press_x, mouse_press_y), mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y);
+
+				ofNoFill();
+				ofSetColor(gui->getLineColor());
+				ofDrawRectangle(glm::vec2(mouse_press_x, mouse_press_y), mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y);
+
+				break;
+			case Primitype::ellipse:
+
+				ofSetLineWidth(gui->getLineWidth());
+				ofSetColor(gui->getFillColor());
+
+				ofDrawEllipse(glm::vec2(mouse_press_x, mouse_press_y), 2 * (mouse_current_x - mouse_press_x), 2 * (mouse_current_y - mouse_press_y));
+
+				ofNoFill();
+				ofSetColor(gui->getLineColor());
+				ofDrawEllipse(glm::vec2(mouse_press_x, mouse_press_y), 2 * (mouse_current_x - mouse_press_x), 2 * (mouse_current_y - mouse_press_y));
+
+				break;
+			case Primitype::circle:
+				ofSetLineWidth(gui->getLineWidth());
+				ofSetColor(gui->getFillColor());
+
+				ofSetCircleResolution(100);
+
+				radius = sqrt(pow(mouse_current_x - mouse_press_x, 2) + pow(mouse_current_y - mouse_press_y, 2));
+
+				ofDrawCircle(glm::vec2(mouse_press_x, mouse_press_y), radius);
+
+				ofNoFill();
+				ofSetColor(gui->getLineColor());
+				ofDrawCircle(glm::vec2(mouse_press_x, mouse_press_y), radius);
+				break;
+
+			case Primitype::stage1:
+				dynamic_stage_1();
+				break;
+			case Primitype::stage2:
+				dynamic_stage_2();
+				break;
+			case Primitype::image:
+				ofSetColor(255, 255, 255, 255);
+				gui->getImportedImage().draw(glm::vec2(mouse_press_x, mouse_press_y), mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y);
+				break;
+			default:
+				break;
 			}
-			else if ((formatX > 0 && formatY < 0) || (formatX < 0 && formatY > 0)) {
-				if (abs(formatX) > abs(formatY)) {
-					formatY = -formatX;
-				}
-				else {
-					formatX = -formatY;
-				}
-			}
-			else {
-				if (formatX > formatY) {
-					formatY = formatX;
-				}
-				else {
-					formatX = formatY;
-				}
-			}
-			
-			ofDrawRectangle(glm::vec2(mouse_press_x, mouse_press_y), formatX, formatY);
-
-			ofNoFill();
-			ofSetColor(gui->getLineColor());
-			ofDrawRectangle(glm::vec2(mouse_press_x, mouse_press_y), formatX, formatY);
-
-			break;
-		case Primitype::line:
-
-			ofSetLineWidth(gui->getLineWidth());
-			ofSetColor(gui->getLineColor());
-
-			ligne.clear();
-			ligne.addVertex(mouse_press_x, mouse_press_y);
-			ligne.addVertex(mouse_current_x, mouse_current_y);
-			ligne.draw();
-			break;
-		case Primitype::rectangle:
-
-			ofSetLineWidth(gui->getLineWidth());
-			ofSetColor(gui->getFillColor());
-			ofDrawRectangle(glm::vec2(mouse_press_x, mouse_press_y), mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y);
-
-			ofNoFill();
-			ofSetColor(gui->getLineColor());
-			ofDrawRectangle(glm::vec2(mouse_press_x, mouse_press_y), mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y);
-
-			break;
-		case Primitype::ellipse:
-
-			ofSetLineWidth(gui->getLineWidth());
-			ofSetColor(gui->getFillColor());
-
-			ofDrawEllipse(glm::vec2(mouse_press_x, mouse_press_y), 2*(mouse_current_x - mouse_press_x), 2*(mouse_current_y - mouse_press_y));
-
-			ofNoFill();
-			ofSetColor(gui->getLineColor());
-			ofDrawEllipse(glm::vec2(mouse_press_x, mouse_press_y), 2*(mouse_current_x - mouse_press_x), 2 * (mouse_current_y - mouse_press_y));
-
-			break;
-		case Primitype::circle:
-			ofSetLineWidth(gui->getLineWidth());
-			ofSetColor(gui->getFillColor());
-
-			ofSetCircleResolution(100);
-
-			radius = sqrt(pow(mouse_current_x - mouse_press_x, 2) + pow(mouse_current_y - mouse_press_y, 2));
-
-			ofDrawCircle(glm::vec2(mouse_press_x, mouse_press_y), radius);
-
-			ofNoFill();
-			ofSetColor(gui->getLineColor());
-			ofDrawCircle(glm::vec2(mouse_press_x, mouse_press_y), radius);
-			break;
-        
-		case Primitype::stage1:
-			dynamic_stage_1();
-			break;
-		case Primitype::stage2:
-			dynamic_stage_2();
-      break;
-		case Primitype::image:
-			ofSetColor(255, 255, 255, 255);
-			gui->getImportedImage().draw(glm::vec2(mouse_press_x, mouse_press_y), mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y);
-			break;
-		default:
-			break;
+			camera.end();
+			fbo.end();
+			ofPopStyle();
 		}
+		else if (gui->getSelectedUserMode() == TRANSFORM) {
+			ofLog() << "===========";
+			ofLog() << gui->getSelectedTransformTool();
+			ofLog() << *(gui->getPropertiesPanelBtnStates());
+			ofLog() << *(gui->getPropertiesPanelBtnStates() + 1);
+			ofLog() << *(gui->getPropertiesPanelBtnStates() + 2);
+			ofLog() << mouse_current_x;
+			ofLog() << mouse_current_y;
 
-		fbo.end();
-		ofPopStyle();
+			int x = *(gui->getPropertiesPanelBtnStates()) ? mouse_current_x - mouse_last_x : 0;
+			int y = *(gui->getPropertiesPanelBtnStates() + 1) ? mouse_current_y - mouse_last_y : 0;
+			int z = *(gui->getPropertiesPanelBtnStates() + 2) ? mouse_current_x - mouse_last_x : 0;
+
+			ofMatrix4x4 transformMatrix;
+			ofMatrix4x4 yaw;
+			ofMatrix4x4 pitch;
+			ofMatrix4x4 roll;
+			transformMatrix.makeIdentityMatrix();
+			yaw.makeIdentityMatrix();
+			pitch.makeIdentityMatrix();
+			roll.makeIdentityMatrix();
+			switch (gui->getSelectedTransformTool()) {
+				case TRANSLATION:
+					transformMatrix.set(
+						1, 0, 0, *(gui->getPropertiesPanelBtnStates()) ? mouse_current_x - mouse_last_x : 0,
+						0, 1, 0, *(gui->getPropertiesPanelBtnStates() + 1) ? mouse_current_y - mouse_last_y : 0,
+						0, 0, 1, *(gui->getPropertiesPanelBtnStates() + 2) ? mouse_current_x - mouse_last_x : 0,
+						0, 0, 0, 1
+					);
+					break;
+				case ROTATION:
+					if (*(gui->getPropertiesPanelBtnStates())) {
+						roll.set(
+							cos(y * PI / 180), 0, sin(y * PI / 180), 0,
+							0, 1, 0, 0,
+							-sin(y * PI / 180), 0, cos(y * PI / 180), 0,
+							0, 0, 0, 1
+						);
+					}
+					if (*(gui->getPropertiesPanelBtnStates() + 1)) {
+						pitch.set(
+							1, 0, 0, 0,
+							0, cos(x * PI / 180), -sin(x * PI / 180), 0,
+							0, sin(x * PI / 180), cos(x * PI / 180), 0,
+							0, 0, 0, 1
+						);
+					}
+					if (*(gui->getPropertiesPanelBtnStates() + 2)) {
+						roll.set(
+							cos(z * PI / 180), -sin(z * PI / 180), 0, 0,
+							sin(z * PI / 180), cos(z * PI / 180), 0, 0,
+							0, 0, 1, 0,
+							0, 0, 0, 1
+						);
+					}
+					transformMatrix = roll * pitch * yaw;
+					break;
+				case SCALE:
+					transformMatrix.set(
+						*(gui->getPropertiesPanelBtnStates()) ? mouse_current_x - mouse_last_x : 1, 0, 0, 0,
+						0, *(gui->getPropertiesPanelBtnStates() + 1) ? mouse_current_y - mouse_last_y : 1, 0, 0,
+						0, 0, *(gui->getPropertiesPanelBtnStates() + 2) ? mouse_current_x - mouse_last_x : 1, 0,
+						0, 0, 0, 1
+					);
+					break;
+				default:
+					break;
+			}
+			mouse_last_x = mouse_current_x;
+			mouse_last_y = mouse_current_y;
+
+			vector<SceneElement*> sceneElements = gui->getSelectedElements();
+			for (int i = 0; i < size(sceneElements); i++) {
+				ofLog() << sceneElements.at(i)->getSceneObjectPtr();
+
+				SceneObject* obj = sceneElements.at(i)->getSceneObjectPtr();
+				ofVec3f pos = ofVec3f(obj->getPosition().x, obj->getPosition().y, obj->getPosition().z);
+
+				//transformMatrix = transformMatrix * obj->getTransformMatrix();
+				glm::vec3 newPosition = transformMatrix * pos;
+
+				//obj->setTransformMatrix(transformMatrix);
+				obj->setPosition(newPosition);
+			}
+			redraw();
+		}
 	}
 }
 
@@ -305,10 +408,15 @@ void DessinVec::redraw() {
 }
 
 void DessinVec::draw_buffer() {
+	camera.begin();
+	ofNode test;
+	test.setPosition(0, 0, 0);
+	test.draw();
 	for (auto & shape : shapes)
 	{
 		shape->draw();
 	}
+	camera.end();
 }
 
 void DessinVec::dynamic_stage_1() const {
