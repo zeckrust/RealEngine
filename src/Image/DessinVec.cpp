@@ -167,6 +167,8 @@ void DessinVec::mousePressed(ofMouseEventArgs& args)
 		mouse_pressed = true;
 		mouse_last_x = mouse_current_x;
 		mouse_last_y = mouse_current_y;
+		sceneElements = gui->getSelectedElements();
+
 		if (is_drawing_mode) {
 			if (gui->getIsImageImported()) {
 				mode = Primitype::image;
@@ -184,6 +186,7 @@ void DessinVec::mouseReleased(ofMouseEventArgs& args)
 		if (is_drawing_mode && mode != Primitype::none) {
 			add_vector_shape();
 		}
+		sceneElements.clear();
 	}
 	is_scroll_clicked = false;
 }
@@ -373,7 +376,6 @@ void DessinVec::mouseDragged(ofMouseEventArgs& args)
 			mouse_last_y = mouse_current_y;
 			lastTransformMatrixInversed = transformMatrix.getInverse();
 
-			sceneElements = gui->getSelectedElements();
 			SceneObject* obj;
 			ofVec3f pos;
 			ofVec3f dim;
