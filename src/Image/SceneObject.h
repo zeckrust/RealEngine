@@ -13,8 +13,9 @@ class SceneObject
 		glm::vec3 getPosition();
 		glm::vec3 getDimensions();
 		ofMatrix4x4 getTransformMatrix(void);
+		virtual void draw()=0;
 
-	private:
+	protected:
 		glm::vec3 position;
 		glm::vec3 dimensions;
 		ofMatrix4x4 transformMatrix;

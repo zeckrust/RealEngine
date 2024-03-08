@@ -22,7 +22,6 @@ void DessinVec::setup()
 	compteur_stage_1 = 0;
 	compteur_stage_2 = 0;
 
-
 	gui = Gui::getInstance();
 
 	scene2DShape = gui->getScene2DShape();
@@ -57,12 +56,15 @@ void DessinVec::reset()
 
 void DessinVec::add_vector_shape() 
 {
-	shapes.push_back(new VecObject(mode));
+	if (mode == Primitype::image) {
+		shapes.push_back(new VecObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor(), gui->getImportedImage()));
+	}
+	else {
+		shapes.push_back(new VecObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor()));
+	}
+
 	shapes.back()->setPosition(glm::vec3(mouse_press_x, mouse_press_y, 0));
 	shapes.back()->setDimensions(glm::vec3(mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y, 0));
-	shapes.back()->setStrokeColor(gui->getLineColor());
-	shapes.back()->setStrokeWidth(gui->getLineWidth());
-	shapes.back()->setFillColor(gui->getFillColor());
 
 	mouse_pressed = false;
 	histogramOrthogonal.update(fbo, scene2DShape.getY());
@@ -98,7 +100,7 @@ void DessinVec::add_vector_shape()
 		compteur_circle++;
 		break;
 	case Primitype::image:
-		shapes.back()->setImage(gui->getImportedImage());
+		//shapes.back()->setImage(gui->getImportedImage());
 		gui->setIsImageImported(false);
 		name = "Image";
 		name += to_string(compteur_image);
@@ -393,265 +395,8 @@ void DessinVec::redraw() {
 void DessinVec::draw_buffer() {
 	for (auto & shape : shapes)
 	{
-		switch (shape->getType())
-		{
-		case Primitype::none:
-			break;
-
-		case Primitype::square:
-			draw_square(*shape);
-			break;
-
-		case Primitype::line:
-			draw_line(*shape);
-			break;
-
-		case Primitype::rectangle:
-			draw_rectangle(*shape);
-			break;
-
-		case Primitype::ellipse:
-			draw_ellipse(*shape);
-			break;
-
-		case Primitype::circle:
-			draw_circle(*shape);
-			break;
-		case Primitype::image:
-			ofSetColor(255, 255, 255, 255);
-			shape->getImage().draw(shape->getPosition().x, shape->getPosition().y, shape->getDimensions().x, shape->getDimensions().y);
-			break;
-
-		case Primitype::stage1:
-			draw_stage_1(*shape);
-			break;
-
-		case Primitype::stage2:
-			draw_stage_2(*shape);
-			break;
-		default:
-			break;
-		}
+		shape->draw();
 	}
-}
-
-ofFbo DessinVec::getFbo() const {
-	return fbo;
-}
-
-void DessinVec::draw_rectangle(VecObject obj) const {
-	ofPushStyle();
-
-	ofFill();
-	ofSetLineWidth(obj.getStrokeWidth());
-	ofSetColor(obj.getFillColor());
-
-	ofDrawRectangle(obj.getPosition(), obj.getDimensions().x, obj.getDimensions().y);
-
-	ofNoFill();
-	ofSetColor(obj.getStrokeColor());
-	ofDrawRectangle(obj.getPosition(), obj.getDimensions().x, obj.getDimensions().y);
-
-	ofPopStyle();
-}
-
-void DessinVec::draw_line(VecObject obj) const {
-	ofPolyline line;
-
-	ofPushStyle();
-
-	ofSetLineWidth(obj.getStrokeWidth());
-	ofSetColor(obj.getStrokeColor());
-
-	line.addVertex(obj.getPosition());
-	line.addVertex(obj.getDimensions() + obj.getPosition());
-	line.draw();
-
-	ofPopStyle();
-}
-
-void DessinVec::draw_square(VecObject obj) const {
-	int formatX = obj.getDimensions().x;
-	int formatY = obj.getDimensions().y;
-
-	if (formatX < 0 && formatY < 0) {
-		if (abs(formatX) > abs(formatY)) {
-			formatY = formatX;
-		}
-		else {
-			formatX = formatY;
-		}
-	}
-	else if ((formatX > 0 && formatY < 0) || (formatX < 0 && formatY > 0)) {
-		if (abs(formatX) > abs(formatY)) {
-			formatY = -formatX;
-		}
-		else {
-			formatX = -formatY;
-		}
-	}
-	else {
-		if (formatX > formatY) {
-			formatY = formatX;
-		}
-		else {
-			formatX = formatY;
-		}
-	}
-
-	ofPushStyle();
-
-	ofSetLineWidth(obj.getStrokeWidth());
-	ofSetColor(obj.getFillColor());
-
-	ofDrawRectangle(obj.getPosition(), formatX, formatY);
-
-	ofNoFill();
-	ofSetColor(obj.getStrokeColor());
-	ofDrawRectangle(obj.getPosition(), formatX, formatY);
-
-	ofPopStyle();
-}
-
-void DessinVec::draw_circle(VecObject obj) const {
-
-	int radius = sqrt(pow(obj.getDimensions().x, 2) + pow(obj.getDimensions().y, 2));
-
-	ofPushStyle();
-	ofFill();
-
-	ofSetCircleResolution(100);
-
-	ofSetLineWidth(obj.getStrokeWidth());
-	ofSetColor(obj.getFillColor());
-
-	ofDrawCircle(obj.getPosition(), radius);
-
-	ofNoFill();
-	ofSetColor(obj.getStrokeColor());
-	ofDrawCircle(obj.getPosition(), radius);
-
-	ofPopStyle();
-}
-
-void DessinVec::draw_ellipse(VecObject obj) const {
-	ofPushStyle();
-
-	ofFill();
-	ofSetLineWidth(obj.getStrokeWidth());
-	ofSetColor(obj.getFillColor());
-
-	ofDrawEllipse(obj.getPosition(), 2 * obj.getDimensions().x, 2 * obj.getDimensions().y);
-
-	ofNoFill();
-	ofSetColor(obj.getStrokeColor());
-	ofDrawEllipse(obj.getPosition(), 2 * obj.getDimensions().x, 2 * obj.getDimensions().y);
-
-	ofPopStyle();
-}
-
-void DessinVec::draw_stage_1(VecObject obj) const {
-
-	ofPushStyle();
-
-	ofFill();
-	ofSetLineWidth(obj.getStrokeWidth());
-	ofSetColor(obj.getFillColor());
-
-	glm::vec3 v0 = glm::vec3(obj.getPosition().x, obj.getPosition().y, obj.getPosition().z);
-	glm::vec3 v1 = glm::vec3(obj.getPosition().x + obj.getDimensions().x, obj.getPosition().y, obj.getPosition().z);
-	glm::vec3 v2 = glm::vec3(obj.getPosition().x + (obj.getDimensions().x * 0.9), obj.getPosition().y + (obj.getDimensions().y * 0.5), obj.getPosition().z);
-	glm::vec3 v3 = glm::vec3(obj.getPosition().x + (obj.getDimensions().x * 0.95), obj.getPosition().y + obj.getDimensions().y, obj.getPosition().z);
-	glm::vec3 v4 = glm::vec3(obj.getPosition().x + (obj.getDimensions().x * 0.5), obj.getPosition().y + (obj.getDimensions().y * 0.9), obj.getPosition().z);
-	glm::vec3 v5 = glm::vec3(obj.getPosition().x + (obj.getDimensions().x * 0.05), obj.getPosition().y + obj.getDimensions().y, obj.getPosition().z);
-	glm::vec3 v6 = glm::vec3(obj.getPosition().x + (obj.getDimensions().x * 0.1), obj.getPosition().y + (obj.getDimensions().y * 0.5), obj.getPosition().z);
-	glm::vec3 v7 = glm::vec3(obj.getPosition().x, obj.getPosition().y, obj.getPosition().z);
-
-	ofBeginShape();
-
-	ofVertex(v0);
-	ofVertex(v1);
-	ofVertex(v2);
-	ofVertex(v3);
-	ofVertex(v4);
-	ofVertex(v5);
-	ofVertex(v6);
-	ofVertex(v7);
-
-	ofEndShape(true);
-
-	ofNoFill();
-	ofSetColor(obj.getStrokeColor());
-	ofBeginShape();
-
-	ofVertex(v0);
-	ofVertex(v1);
-	ofVertex(v2);
-	ofVertex(v3);
-	ofVertex(v4);
-	ofVertex(v5);
-	ofVertex(v6);
-	ofVertex(v7);
-
-	ofEndShape(true);
-  
-  ofPopStyle();
-}
-
-
-void DessinVec::draw_stage_2(VecObject obj) const {
-	ofPushStyle();
-
-	ofFill();
-	ofSetLineWidth(obj.getStrokeWidth());
-	ofSetColor(obj.getFillColor());
-
-	glm::vec3 v0 = glm::vec3(obj.getPosition().x, obj.getPosition().y, obj.getPosition().z);
-	glm::vec3 v1 = glm::vec3(obj.getPosition().x + obj.getDimensions().x, obj.getPosition().y, obj.getPosition().z);
-
-	glm::vec3 v2 = glm::vec3(obj.getPosition().x + (obj.getDimensions().x * 0.9), obj.getPosition().y + (obj.getDimensions().y * 0.65), obj.getPosition().z);
-	glm::vec3 v3 = glm::vec3(obj.getPosition().x + (obj.getDimensions().x * 0.65), obj.getPosition().y + (obj.getDimensions().y * 0.65), obj.getPosition().z);
-
-	glm::vec3 v4 = glm::vec3(obj.getPosition().x + (obj.getDimensions().x * 0.65), obj.getPosition().y + obj.getDimensions().y, obj.getPosition().z);
-	glm::vec3 v5 = glm::vec3(obj.getPosition().x + (obj.getDimensions().x * 0.35), obj.getPosition().y + obj.getDimensions().y, obj.getPosition().z);
-
-	glm::vec3 v6 = glm::vec3(obj.getPosition().x + (obj.getDimensions().x * 0.35), obj.getPosition().y + (obj.getDimensions().y * 0.65), obj.getPosition().z);
-	glm::vec3 v7 = glm::vec3(obj.getPosition().x + (obj.getDimensions().x * 0.1), obj.getPosition().y + (obj.getDimensions().y * 0.65), obj.getPosition().z);
-
-	glm::vec3 v8 = glm::vec3(obj.getPosition().x, obj.getPosition().y, obj.getPosition().z);
-
-	ofBeginShape();
-
-	ofVertex(v0);
-	ofVertex(v1);
-	ofVertex(v2);
-	ofVertex(v3);
-	ofVertex(v4);
-	ofVertex(v5);
-	ofVertex(v6);
-	ofVertex(v7);
-	ofVertex(v8);
-
-	ofEndShape(true);
-
-	ofNoFill();
-	ofSetColor(obj.getStrokeColor());
-	ofBeginShape();
-
-	ofVertex(v0);
-	ofVertex(v1);
-	ofVertex(v2);
-	ofVertex(v3);
-	ofVertex(v4);
-	ofVertex(v5);
-	ofVertex(v6);
-	ofVertex(v7);
-	ofVertex(v8);
-
-	ofEndShape(true);
-
-
-	ofPopStyle();
 }
 
 void DessinVec::dynamic_stage_1() const {
