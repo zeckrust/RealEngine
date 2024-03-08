@@ -19,30 +19,35 @@ void Renderer::setup() {
 	gui->setup();
 	ofSetFrameRate(FRAME_RATE);
 	cursors.setup();
-	dessinateur.setup();
+	dessinateurVectoriel.setup();
+	dessinateurOrthogonal.setup();
 }
 
 void Renderer::update() {
 	ofSetBackgroundColor(BACKGROUND_COLOR);
 	gui->update();
-	dessinateur.update();
+	dessinateurVectoriel.update();
+	dessinateurOrthogonal.update();
 	cursors.update();
 }
 
 void Renderer::draw() {
 	gui->draw();
-	dessinateur.draw();
+	dessinateurVectoriel.draw();
+	dessinateurOrthogonal.draw();
 	cursors.draw();
 }
 
 void Renderer::mousePressed(ofMouseEventArgs& args) {
 	gui->mousePressed(args);
-	dessinateur.mousePressed(args);
+	dessinateurVectoriel.mousePressed(args);
+	dessinateurOrthogonal.mousePressed(args);
 }
 
 void Renderer::mouseReleased(ofMouseEventArgs& args) {
 	gui->mouseReleased(args);
-	dessinateur.mouseReleased(args);
+	dessinateurVectoriel.mouseReleased(args);
+	dessinateurOrthogonal.mouseReleased(args);
 }
 
 void Renderer::mouseMoved(ofMouseEventArgs& args) {
@@ -50,7 +55,8 @@ void Renderer::mouseMoved(ofMouseEventArgs& args) {
 }
 
 void Renderer::mouseDragged(ofMouseEventArgs& args) {
-	dessinateur.mouseDragged(args);
+	dessinateurVectoriel.mouseDragged(args);
+	dessinateurOrthogonal.mouseDragged(args);
 }
 
 void Renderer::mouseExited() {
@@ -72,5 +78,6 @@ void Renderer::keyPressed(ofKeyEventArgs& args) {
 }
 
 void Renderer::deleteSceneObject(SceneObject* obj) {
-	dessinateur.deleteObject(obj);
+	dessinateurVectoriel.deleteObject(obj);
+	dessinateurOrthogonal.deleteObject(obj);
 }

@@ -11,6 +11,7 @@
 #include "scene/SceneElement.h"
 #include "Histogram.h"
 #include "../Image/DessinVec.h"
+#include "../Image/DessinGeo.h"
 
 enum UserMode {
 	DRAWING = 0,
@@ -35,6 +36,7 @@ class Gui
 		ofColor getLineColor();
 		ofColor getFillColor();
 		Primitype getTypePrimitive();
+		Geotype getTypeGeometrique();
 
 
 		void setUserModeDrawing(void);

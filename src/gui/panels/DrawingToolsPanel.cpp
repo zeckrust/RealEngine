@@ -8,6 +8,8 @@ DrawingToolsPanel::DrawingToolsPanel() : CustomPanel() {
 	drawingButtons[4] = &drawRectButton;
 	drawingButtons[5] = &drawStage1Button;
 	drawingButtons[6] = &drawStage2Button;
+	drawingButtons[7] = &drawCylinderButton;
+	drawingButtons[8] = &drawPrismButton;
 }
 
 void DrawingToolsPanel::setup(std::string panelName, float x, float y) {
@@ -16,6 +18,7 @@ void DrawingToolsPanel::setup(std::string panelName, float x, float y) {
 	setupFields();
 	setupColorPanels();
 	typePrimitive = Primitype::none;
+	typeGeo = Geotype::none;
 }
 
 void DrawingToolsPanel::setupButtons(void) {
@@ -26,6 +29,8 @@ void DrawingToolsPanel::setupButtons(void) {
 	drawRectButton.setup("Rectangle", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 	drawStage1Button.setup("Stage 1", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 	drawStage2Button.setup("Stage 2", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
+	drawCylinderButton.setup("Cylinder", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
+	drawPrismButton.setup("RecPrism", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 
 	add(&drawCircleButton);
 	add(&drawEllipseButton);
@@ -34,6 +39,8 @@ void DrawingToolsPanel::setupButtons(void) {
 	add(&drawRectButton);
 	add(&drawStage1Button);
 	add(&drawStage2Button);
+	add(&drawCylinderButton);
+	add(&drawPrismButton);
 }	
 
 void DrawingToolsPanel::setupFields(void) {
@@ -134,6 +141,19 @@ void DrawingToolsPanel::setSelectedDrawingTool(CustomButton* button) {
 		else if (button == &drawStage2Button) {
 			typePrimitive = Primitype::stage2;
 		}
+		else {
+			typePrimitive = Primitype::none;
+		}
+
+		if (button == &drawCylinderButton) {
+			typeGeo = Geotype::cylindre;
+		}
+		else if (button == &drawPrismButton) {
+			typeGeo = Geotype::rectangulaire;
+		}
+		else {
+			typeGeo = Geotype::none;
+		}
 	}
 	for (int i = 0; i < std::size(drawingButtons); i++) {
 		if (drawingButtons[i] != nullptr && drawingButtons[i] != button) {
@@ -170,4 +190,8 @@ ofColor DrawingToolsPanel::getSceneBackgroundColor(void) {
 
 Primitype DrawingToolsPanel::getDrawMode(void) {
 	return typePrimitive;
+}
+
+Geotype DrawingToolsPanel::getGeometricType(void) {
+	return typeGeo;
 }

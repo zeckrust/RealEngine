@@ -4,6 +4,7 @@
 #include "../buttons/CustomButton.h"
 #include "../GuiConst.h"
 #include "../apps/RealEngine/src/Image/DessinVec.h"
+#include "../apps/RealEngine/src/Image/DessinGeo.h"
 
 class DrawingToolsPanel : public CustomPanel 
 {
@@ -24,13 +25,14 @@ class DrawingToolsPanel : public CustomPanel
 		ofColor getFillColor(void);
 		ofColor getSceneBackgroundColor(void);
 		Primitype getDrawMode(void);
+		Geotype getGeometricType(void);
 
 	private:
 		void setupButtons(void);
 		void setupFields(void);
 		void setupColorPanels(void);
 
-		static const uint8_t NB_DRAWING_BUTTONS = 7;
+		static const uint8_t NB_DRAWING_BUTTONS = 9;
 		CustomButton* drawingButtons[NB_DRAWING_BUTTONS];
 
 		CustomButton* selectedDrawingTool = nullptr;
@@ -41,12 +43,15 @@ class DrawingToolsPanel : public CustomPanel
 		CustomButton drawRectButton;
 		CustomButton drawStage1Button;
 		CustomButton drawStage2Button;
+		CustomButton drawCylinderButton;
+		CustomButton drawPrismButton;
 		
 		ofxInputField<int> lineWidthField;
 		ColorPanel lineColorPanel;
 		ColorPanel fillColorPanel;
 		ColorPanel backgroundColorPanel;
 		Primitype typePrimitive;
+		Geotype typeGeo;
 
 		const ofColor SELECTED_BUTTON_COLOR = ofColor(90, 90, 90, 255);
 };
