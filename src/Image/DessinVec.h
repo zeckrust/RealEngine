@@ -59,10 +59,13 @@ class DessinVec
 		uint32_t compteur_image;
 		uint32_t compteur_stage_1;
 		uint32_t compteur_stage_2;
+		uint32_t compteur_sample;
 
 
 		ofPolyline ligne;
+
 		ofImage imageSampled;
+		ofPixels fboPixels;
 
 		ofFbo fbo;
 		ofRectangle scene2DShape;

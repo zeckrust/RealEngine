@@ -18,6 +18,7 @@ void DessinVec::setup()
 	compteur_rectangle = 0;
 	compteur_line = 0;
 	compteur_image = 0;
+	compteur_sample = 0;
 
 	compteur_stage_1 = 0;
 	compteur_stage_2 = 0;
@@ -30,6 +31,7 @@ void DessinVec::setup()
 	ofClear(0, 0, 0, 0);
 	fbo.end();
 
+	fboPixels.allocate(scene2DShape.getWidth(), scene2DShape.getHeight(), OF_IMAGE_COLOR_ALPHA);
 
 	camera.enableOrtho();
 	camera_offset = 20.0f;
@@ -39,7 +41,6 @@ void DessinVec::setup()
 	camera.lookAt(camera_target);
 
 	histogramOrthogonal.setup(fbo, scene2DShape.getY());
-
 
 	transformMatrix.makeIdentityMatrix();
 	lastTransformMatrixInversed.makeIdentityMatrix();
@@ -58,6 +59,7 @@ void DessinVec::update()
 
 	if (hasPositionChanged || hasWidthChanged || hasHeightChanged) {
 		fbo.allocate(scene2DShape.getWidth(), scene2DShape.getHeight(), GL_RGBA);
+		fboPixels.allocate(scene2DShape.getWidth(), scene2DShape.getHeight(), OF_IMAGE_COLOR_ALPHA);
 		redraw();
 	}
 
@@ -77,6 +79,8 @@ void DessinVec::add_vector_shape()
 	}
 	else if (mode == Primitype::sample) {
 		shapes.push_back(new VecObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor(), imageSampled));
+		imageSampled.clear();
+		fboPixels.clear();
 	}
 	else {
 		shapes.push_back(new VecObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor()));
@@ -134,6 +138,11 @@ void DessinVec::add_vector_shape()
 		name += to_string(compteur_stage_2);
 		compteur_stage_2++;
 		break;
+	case Primitype::sample:
+		name = "Sample";
+		name += to_string(compteur_sample);
+		compteur_sample++;
+		break;
 	default:
 		break;
 	}
@@ -181,7 +190,7 @@ void DessinVec::mousePressed(ofMouseEventArgs& args)
 				mode = gui->getTypePrimitive();
 			}
 		}
-		if (is_sample_mode) {
+		else if (is_sample_mode) {
 			mode = Primitype::sample;
 		}
 	}
@@ -194,10 +203,9 @@ void DessinVec::mouseReleased(ofMouseEventArgs& args)
 			add_vector_shape();
 		}
 		else if (is_sample_mode) {
-			imageSampled.grabScreen(mouse_press_x + gui->getScene2DShape().getPosition().x, 
-									mouse_press_y - gui->getScene2DShape().getPosition().y, 
-									mouse_current_x - mouse_press_x,
-									mouse_current_y - mouse_press_y);
+			fbo.readToPixels(fboPixels);
+			fboPixels.crop(mouse_press_x, mouse_press_y, mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y);
+			imageSampled.setFromPixels(fboPixels);
 			add_vector_shape();
 		}
 		sceneElements.clear();
@@ -419,8 +427,8 @@ void DessinVec::mouseDragged(ofMouseEventArgs& args)
 			ofPushStyle();
 			fbo.begin();
 			ofClear(0, 0, 0, 0);
-			draw_buffer();
 			camera.begin();
+			draw_buffer();
 
 			ofSetLineWidth(1);
 			ofSetColor(ofColor::white);

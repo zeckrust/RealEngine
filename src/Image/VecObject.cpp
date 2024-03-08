@@ -45,6 +45,7 @@ void VecObject::draw() {
 		draw_circle();
 		break;
 	case Primitype::image:
+	case Primitype::sample:
 		draw_image();
 		break;
 
