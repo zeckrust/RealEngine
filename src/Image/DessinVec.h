@@ -48,7 +48,6 @@ class DessinVec
 		bool mouse_pressed;
 		bool is_drawing_mode;
 		bool is_transform_mode;
-		bool is_scroll_clicked;
 
 		uint32_t compteur_square;
 		uint32_t compteur_circle;
