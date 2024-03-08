@@ -30,14 +30,12 @@ void DessinVec::setup()
 	ofClear(0, 0, 0, 0);
 	fbo.end();
 
-	//ofEnableDepthTest();
 
 	camera.enableOrtho();
 	camera_position = { 0.0f, 0.0f, 20.0f };
 	camera_target =   { 0.0f, 0.0f, 0.0f };
 	camera.setPosition(camera_position);
 	camera.lookAt(camera_target);
-	//camera.rotate(180, glm::vec3(0, 0, 1));
 
 	histogramOrthogonal.setup(fbo, scene2DShape.getY());
 
@@ -152,11 +150,14 @@ void DessinVec::deleteObject(SceneObject* obj) {
 
 void DessinVec::mousePressed(ofMouseEventArgs& args)
 {
-	bool isInDrawingMode = gui->getSelectedUserMode() == DRAWING;
+	is_drawing_mode = gui->getSelectedUserMode() == DRAWING;
+	is_transform_mode = gui->getSelectedUserMode() == TRANSFORM;
 	bool isInsideScene = scene2DShape.inside(args.x, args.y);
 	bool isDrawingToolSelected = gui->getTypePrimitive() != Primitype::none;
 
-	if (isInsideScene && isDrawingToolSelected) {
+	mode = Primitype::none;
+
+	if (isInsideScene) {
 		mouse_pressed = true;
 		mouse_press_x = args.x - scene2DShape.getPosition().x - scene2DShape.getWidth() / 2;
 		mouse_press_y = -(args.y - scene2DShape.getPosition().y - scene2DShape.getHeight() / 2);
@@ -164,11 +165,11 @@ void DessinVec::mousePressed(ofMouseEventArgs& args)
 		mouse_current_y = -(args.y - scene2DShape.getPosition().y - scene2DShape.getHeight() / 2);
 		mouse_last_x = mouse_current_x;
 		mouse_last_y = mouse_current_y;
-		if (isInDrawingMode) {
+		if (is_drawing_mode) {
 			if (gui->getIsImageImported()) {
 				mode = Primitype::image;
 			}
-			else {
+			else if (isDrawingToolSelected) {
 				mode = gui->getTypePrimitive();
 			}
 		}
@@ -178,7 +179,7 @@ void DessinVec::mousePressed(ofMouseEventArgs& args)
 void DessinVec::mouseReleased(ofMouseEventArgs& args)
 {
 	if (mouse_pressed) {
-		if (gui->getSelectedUserMode() == DRAWING) {
+		if (is_drawing_mode && mode != Primitype::none) {
 			add_vector_shape();
 		}
 	}
@@ -189,7 +190,7 @@ void DessinVec::mouseDragged(ofMouseEventArgs& args)
 	if (mouse_pressed) {
 		mouse_current_x = args.x - scene2DShape.getPosition().x - scene2DShape.getWidth() / 2;
 		mouse_current_y = -(args.y - scene2DShape.getPosition().y - scene2DShape.getHeight() / 2);
-		if (gui->getSelectedUserMode() == DRAWING) {
+		if (is_drawing_mode) {
 			int formatX = 0;
 			int formatY = 0;
 			int radius = 0;
@@ -308,7 +309,7 @@ void DessinVec::mouseDragged(ofMouseEventArgs& args)
 			fbo.end();
 			ofPopStyle();
 		}
-		else if (gui->getSelectedUserMode() == TRANSFORM) {
+		else if (is_transform_mode) {
 			bool x_cond = *(gui->getPropertiesPanelBtnStates());
 			bool y_cond = *(gui->getPropertiesPanelBtnStates() + 1);
 			bool z_cond = *(gui->getPropertiesPanelBtnStates() + 2);
@@ -418,9 +419,6 @@ void DessinVec::redraw() {
 
 void DessinVec::draw_buffer() {
 	camera.begin();
-	ofNode test;
-	test.setPosition(0, 0, 0);
-	test.draw();
 	for (auto & shape : shapes)
 	{
 		shape->draw();

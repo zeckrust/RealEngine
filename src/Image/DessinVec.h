@@ -46,6 +46,8 @@ class DessinVec
 		int mouse_last_y;
 
 		bool mouse_pressed;
+		bool is_drawing_mode;
+		bool is_transform_mode;
 
 		uint32_t compteur_square;
 		uint32_t compteur_circle;

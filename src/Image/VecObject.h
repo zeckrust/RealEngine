@@ -33,6 +33,7 @@ class VecObject : public SceneObject
 		void draw_ellipse() const;
 		void draw_stage_1() const;
 		void draw_stage_2() const;
+		void draw_image() const;
 
 		Primitype type;
 		float stroke_width;

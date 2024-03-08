@@ -45,9 +45,7 @@ void VecObject::draw() {
 		draw_circle();
 		break;
 	case Primitype::image:
-		ofSetColor(255, 255, 255, 255);
-		//shape->getImage().draw(shape->getPosition().x, shape->getPosition().y, shape->getDimensions().x, shape->getDimensions().y);
-		imported_image.draw(position.x, position.y, dimensions.x, dimensions.y);
+		draw_image();
 		break;
 
 	case Primitype::stage1:
@@ -235,7 +233,6 @@ void VecObject::draw_stage_1() const {
 	ofPopStyle();
 }
 
-
 void VecObject::draw_stage_2() const {
 	ofPushStyle();
 
@@ -289,6 +286,16 @@ void VecObject::draw_stage_2() const {
 
 
 	ofPopStyle();
+}
+
+void VecObject::draw_image() const {
+	ofSetColor(255, 255, 255, 255);
+	ofVec4f test = transformMatrix.getRowAsVec4f(0);
+	imported_image.draw(
+		transformMatrix.getRowAsVec4f(0).w + position.x,
+		transformMatrix.getRowAsVec4f(1).w + position.y,
+		transformMatrix.getScale().x * dimensions.x,
+		transformMatrix.getScale().y * dimensions.y);
 }
 
 Primitype VecObject::getType() {
