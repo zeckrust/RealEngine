@@ -134,6 +134,10 @@ void Gui::setUserModeTransform(void) {
 	selectedUserMode = TRANSFORM;
 }
 
+void Gui::setUserModeSample(void) {
+	selectedUserMode = SAMPLE;
+}
+
 ofColor Gui::getSceneBackgroundColor(void) {
 	return drawingPanel.getSceneBackgroundColor();
 }

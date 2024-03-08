@@ -15,7 +15,8 @@
 
 enum UserMode {
 	DRAWING = 0,
-	TRANSFORM
+	TRANSFORM,
+	SAMPLE
 };
 
 class Gui
@@ -41,6 +42,7 @@ class Gui
 
 		void setUserModeDrawing(void);
 		void setUserModeTransform(void);
+		void setUserModeSample(void);
 		
 		ofColor getSceneBackgroundColor(void);
 		ofRectangle getScene2DShape(void);

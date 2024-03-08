@@ -75,6 +75,9 @@ void DessinVec::add_vector_shape()
 	if (mode == Primitype::image) {
 		shapes.push_back(new VecObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor(), gui->getImportedImage()));
 	}
+	else if (mode == Primitype::sample) {
+		shapes.push_back(new VecObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor(), imageSampled));
+	}
 	else {
 		shapes.push_back(new VecObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor()));
 	}
@@ -152,6 +155,7 @@ void DessinVec::mousePressed(ofMouseEventArgs& args)
 {
 	is_drawing_mode = gui->getSelectedUserMode() == DRAWING;
 	is_transform_mode = gui->getSelectedUserMode() == TRANSFORM;
+	is_sample_mode = gui->getSelectedUserMode() == SAMPLE;
 	is_scroll_clicked = args.button == OF_MOUSE_BUTTON_MIDDLE;
 	bool isInsideScene = scene2DShape.inside(args.x, args.y);
 	bool isDrawingToolSelected = gui->getTypePrimitive() != Primitype::none;
@@ -177,6 +181,9 @@ void DessinVec::mousePressed(ofMouseEventArgs& args)
 				mode = gui->getTypePrimitive();
 			}
 		}
+		if (is_sample_mode) {
+			mode = Primitype::sample;
+		}
 	}
 }
 
@@ -184,6 +191,13 @@ void DessinVec::mouseReleased(ofMouseEventArgs& args)
 {
 	if (mouse_pressed && !is_scroll_clicked) {
 		if (is_drawing_mode && mode != Primitype::none) {
+			add_vector_shape();
+		}
+		else if (is_sample_mode) {
+			imageSampled.grabScreen(mouse_press_x + gui->getScene2DShape().getPosition().x, 
+									mouse_press_y - gui->getScene2DShape().getPosition().y, 
+									mouse_current_x - mouse_press_x,
+									mouse_current_y - mouse_press_y);
 			add_vector_shape();
 		}
 		sceneElements.clear();
@@ -400,6 +414,22 @@ void DessinVec::mouseDragged(ofMouseEventArgs& args)
 				obj->setTransformMatrix(newMatrix);
 			}
 			redraw();
+		}
+		else if (is_sample_mode) {
+			ofPushStyle();
+			fbo.begin();
+			ofClear(0, 0, 0, 0);
+			draw_buffer();
+			camera.begin();
+
+			ofSetLineWidth(1);
+			ofSetColor(ofColor::white);
+			ofNoFill();
+			ofDrawRectangle(mouse_press_x, mouse_press_y, mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y);
+
+			camera.end();
+			fbo.end();
+			ofPopStyle();
 		}
 	}
 	if (is_scroll_clicked) {

@@ -48,6 +48,7 @@ class DessinVec
 		bool mouse_pressed;
 		bool is_drawing_mode;
 		bool is_transform_mode;
+		bool is_sample_mode;
 		bool is_scroll_clicked;
 
 		uint32_t compteur_square;
@@ -61,6 +62,7 @@ class DessinVec
 
 
 		ofPolyline ligne;
+		ofImage imageSampled;
 
 		ofFbo fbo;
 		ofRectangle scene2DShape;

@@ -37,6 +37,7 @@ class TitleBar
 		CustomButton importButton;
 		CustomButton exportButton;
 		CustomButton transformButton;
+		CustomButton sampleButton;
 		CustomButton drawingButton;
 		CustomButton histogramButton;
 };
