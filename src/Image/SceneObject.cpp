@@ -22,11 +22,11 @@ void SceneObject::setTransformMatrix(ofMatrix4x4 _transformMatrix) {
 	transformMatrix = _transformMatrix;
 }
 
-glm::vec3 SceneObject::getPosition() {
+ofVec3f SceneObject::getPosition() {
 	return position;
 }
 
-glm::vec3 SceneObject::getDimensions() {
+ofVec3f SceneObject::getDimensions() {
 	return dimensions;
 }
 

@@ -3,6 +3,7 @@
 #include "VecObject.h"
 #include "../gui/Histogram.h"
 #include "GeObject.h"
+#include "../gui/scene/SceneElement.h"
 
 class Gui;
 
@@ -68,4 +69,13 @@ class DessinVec
 		ofCamera camera;
 		ofVec3f camera_position;
 		ofVec3f camera_target;
+
+		ofMatrix4x4 transformMatrix;
+		ofMatrix4x4 lastTransformMatrixInversed;
+		ofMatrix4x4 yaw;
+		ofMatrix4x4 pitch;
+		ofMatrix4x4 roll;
+		ofMatrix4x4 originRotation;
+
+		vector<SceneElement*> sceneElements;
 };
