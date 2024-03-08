@@ -187,14 +187,25 @@ void SceneHierarchyPanel::updateDisplay() {
 	}
 }
 
-// TODO add children to selected
-vector<SceneElement*> SceneHierarchyPanel::getSelectedSceneElements(void) {
+std::vector<SceneElement*> SceneHierarchyPanel::getSelectedSceneElements(void) {
 	std::vector<SceneElement*> selectedElements;
 	for (int i = 0; i < std::size(collection); i++) {
 		if (collection[i] != nullptr) {
 			SceneElement* sceneElement = (SceneElement*)collection[i];
-			if (sceneElement->isSelected()) {
+			auto selectedElements_it = std::find(selectedElements.begin(), selectedElements.end(), sceneElement);
+			bool isNotAlreadyAdded = selectedElements_it == selectedElements.end();
+			std::vector<SceneElement*> children = sceneElement->getChildren();
+
+			if (sceneElement->isSelected() && isNotAlreadyAdded) {
 				selectedElements.push_back(sceneElement);
+				std::vector<SceneElement*> deepChildren = sceneElement->getDeepChildren();
+				selectedElements.insert(selectedElements.end(), deepChildren.begin(), deepChildren.end());
+			}
+			else if (isNotAlreadyAdded) {
+				std::vector<SceneElement*> selectedChildren = sceneElement->getSelectedChildren();
+				if (std::size(selectedChildren) > 0) {
+					selectedElements.insert(selectedElements.end(), selectedChildren.begin(), selectedChildren.end());
+				}
 			}
 		}
 	}
