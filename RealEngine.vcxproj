@@ -119,6 +119,7 @@
     <ClCompile Include="src\gui\scene\SceneElementExtension.cpp" />
     <ClCompile Include="src\gui\TitleBar.cpp" />
     <ClCompile Include="src\Image\Cursor.cpp" />
+    <ClCompile Include="src\Image\DessinGeo.cpp" />
     <ClCompile Include="src\Image\DessinVec.cpp" />
     <ClCompile Include="src\Image\GeObject.cpp" />
     <ClCompile Include="src\Image\SceneObject.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="src\gui\scene\SceneElementExtension.h" />
     <ClInclude Include="src\gui\TitleBar.h" />
     <ClInclude Include="src\Image\Cursor.h" />
+    <ClInclude Include="src\Image\DessinGeo.h" />
     <ClInclude Include="src\Image\DessinVec.h" />
     <ClInclude Include="src\Image\GeObject.h" />
     <ClInclude Include="src\Image\SceneObject.h" />

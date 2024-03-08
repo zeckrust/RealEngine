@@ -32,7 +32,8 @@ class Renderer
 
 		Gui* gui;
 		Cursor cursors;
-		DessinVec dessinateur;
+		DessinVec dessinateurVectoriel;
+		DessinGeo dessinateurOrthogonal;
 
 		static Renderer* instancePtr;
 };

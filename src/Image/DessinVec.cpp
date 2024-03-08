@@ -116,7 +116,6 @@ void DessinVec::add_vector_shape()
 		compteur_circle++;
 		break;
 	case Primitype::image:
-		//shapes.back()->setImage(gui->getImportedImage());
 		gui->setIsImageImported(false);
 		name = "Image";
 		name += to_string(compteur_image);
