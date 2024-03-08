@@ -2,6 +2,7 @@
 #include "ofMain.h"
 #include "VecObject.h"
 #include "../gui/Histogram.h"
+#include "GeObject.h"
 
 class Gui;
 
@@ -23,23 +24,15 @@ class DessinVec
 
 		void deleteObject(SceneObject* obj);
 
-		ofFbo getFbo() const;
 		~DessinVec();
 
 	private :
-		void draw_line(VecObject obj) const;
-		void draw_rectangle(VecObject obj) const;
-		void draw_square(VecObject obj) const;
-		void draw_circle(VecObject obj) const;
-		void draw_ellipse(VecObject obj) const;
-		void draw_stage_1(VecObject obj) const;
-		void draw_stage_2(VecObject obj) const;
 		void dynamic_stage_1() const;
 		void dynamic_stage_2() const;
 
 
 		Primitype mode;
-		std::vector<VecObject*> shapes;
+		std::vector<SceneObject*> shapes;
 		Gui* gui = nullptr;
 
 		int mouse_press_x;

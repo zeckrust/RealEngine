@@ -109,6 +109,9 @@
     <ClCompile Include="src\Image\VecObject.cpp">
       <Filter>src\Image</Filter>
     </ClCompile>
+    <ClCompile Include="src\Image\GeObject.cpp">
+      <Filter>src\Image</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -540,6 +543,9 @@
       <Filter>src\Image</Filter>
     </ClInclude>
     <ClInclude Include="src\Image\VecObject.h">
+      <Filter>src\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Image\GeObject.h">
       <Filter>src\Image</Filter>
     </ClInclude>
   </ItemGroup>

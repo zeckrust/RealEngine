@@ -8,6 +8,8 @@ SceneObject::SceneObject() {
 
 }
 
+//void SceneObject::draw(void) {}
+
 void SceneObject::setPosition(glm::vec3 _position) {
 	position = _position;
 }
