@@ -103,7 +103,7 @@ void Gui::windowResized(int width, int height) {
 void Gui::saveScenes() {
 	ofFileDialogResult result = ofSystemLoadDialog("Where to save 2d and 3d scenes", true, "");
 	saveScene(scene2d, result.getPath() + "\\scene2d.png");
-	saveScene(scene2d, result.getPath() + "\\scene3d.png");
+	saveScene(scene3d, result.getPath() + "\\scene3d.png");
 }
 
 void Gui::saveScene(Scene & scene, std::string filePath) {

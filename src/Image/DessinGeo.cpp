@@ -99,9 +99,6 @@ void DessinGeo::redraw() {
 
 void DessinGeo::draw_buffer() {
 	camera.begin();
-	ofNode node;
-	node.setPosition(0, 0, 0);
-	node.draw();
 	for (auto& shape : shapes)
 	{
 		shape->draw();
