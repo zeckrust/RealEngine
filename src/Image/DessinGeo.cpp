@@ -127,6 +127,7 @@ void DessinGeo::mousePressed(ofMouseEventArgs& args)
 		mouse_current_y = mouse_press_y;
 		mouse_last_x = mouse_current_x;
 		mouse_last_y = mouse_current_y;
+		sceneElements = gui->getSelectedElements();
     
 		if (is_drawing_mode) {
 			if (isDrawingToolSelected) {
@@ -142,6 +143,7 @@ void DessinGeo::mouseReleased(ofMouseEventArgs& args)
 		if (is_drawing_mode && mode != Geotype::none) {
 			add_geo_shape();
 		}
+		sceneElements.clear();
 	}
 }
 
@@ -167,6 +169,92 @@ void DessinGeo::mouseDragged(ofMouseEventArgs& args) {
 
 			fbo.end();
 			ofPopStyle();
+		}
+		else if (is_transform_mode) {
+			bool x_cond = *(gui->getPropertiesPanelBtnStates());
+			bool y_cond = *(gui->getPropertiesPanelBtnStates() + 1);
+			bool z_cond = *(gui->getPropertiesPanelBtnStates() + 2);
+
+			float x = x_cond ? mouse_current_x - mouse_last_x : 0;
+			float y = y_cond ? mouse_current_y - mouse_last_y : 0;
+			float z = z_cond ? mouse_current_x - mouse_last_x : 0;
+
+
+			switch (gui->getSelectedTransformTool()) {
+			case TRANSLATION:
+				transformMatrix.set(
+					1, 0, 0, x,
+					0, 1, 0, y,
+					0, 0, 1, z,
+					0, 0, 0, 1
+				);
+				break;
+			case ROTATION:
+				if (y_cond) {
+					roll.set(
+						cos(y * PI / 180), 0, sin(y * PI / 180), 0,
+						0, 1, 0, 0,
+						-sin(y * PI / 180), 0, cos(y * PI / 180), 0,
+						0, 0, 0, 1
+					);
+				}
+				if (x_cond) {
+					pitch.set(
+						1, 0, 0, 0,
+						0, cos(x * PI / 180), -sin(x * PI / 180), 0,
+						0, sin(x * PI / 180), cos(x * PI / 180), 0,
+						0, 0, 0, 1
+					);
+				}
+				if (z_cond) {
+					roll.set(
+						cos(z * PI / 180), -sin(z * PI / 180), 0, 0,
+						sin(z * PI / 180), cos(z * PI / 180), 0, 0,
+						0, 0, 1, 0,
+						0, 0, 0, 1
+					);
+				}
+				transformMatrix = roll * pitch * yaw;
+				break;
+			case SCALE:
+				transformMatrix.set(
+					exp(x / 100), 0, 0, 0,
+					0, exp(y / 100), 0, 0,
+					0, 0, exp(z / 100), 0,
+					0, 0, 0, 1
+				);
+				break;
+			default:
+				break;
+			}
+			mouse_last_x = mouse_current_x;
+			mouse_last_y = mouse_current_y;
+			lastTransformMatrixInversed = transformMatrix.getInverse();
+
+			SceneObject* obj;
+			ofVec3f pos;
+			ofVec3f dim;
+			ofMatrix4x4 mat;
+			for (int i = 0; i < size(sceneElements); i++) {
+				obj = sceneElements.at(i)->getSceneObjectPtr();
+				mat = obj->getTransformMatrix();
+
+				if (gui->getSelectedTransformTool() == ROTATION) {
+					pos = mat * obj->getPosition();
+					originRotation.set(
+						1, 0, 0, -(pos.x),
+						0, 1, 0, -(pos.y),
+						0, 0, 1, -(pos.z),
+						0, 0, 0, 1
+					);
+					transformMatrix = originRotation.getInverse() * transformMatrix * originRotation;
+				}
+
+				ofMatrix4x4 newMatrix = transformMatrix * mat;
+
+				obj->setTransformMatrix(newMatrix);
+			}
+			redraw();
 		}
 	}
 }

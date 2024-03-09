@@ -334,7 +334,7 @@ void DessinVec::mouseDragged(ofMouseEventArgs& args)
 					);
 					break;
 				case ROTATION:
-					if (*(gui->getPropertiesPanelBtnStates())) {
+					if (y_cond) {
 						roll.set(
 							cos(y * PI / 180), 0, sin(y * PI / 180), 0,
 							0, 1, 0, 0,
@@ -342,7 +342,7 @@ void DessinVec::mouseDragged(ofMouseEventArgs& args)
 							0, 0, 0, 1
 						);
 					}
-					if (*(gui->getPropertiesPanelBtnStates() + 1)) {
+					if (x_cond) {
 						pitch.set(
 							1, 0, 0, 0,
 							0, cos(x * PI / 180), -sin(x * PI / 180), 0,
@@ -350,7 +350,7 @@ void DessinVec::mouseDragged(ofMouseEventArgs& args)
 							0, 0, 0, 1
 						);
 					}
-					if (*(gui->getPropertiesPanelBtnStates() + 2)) {
+					if (z_cond) {
 						roll.set(
 							cos(z * PI / 180), -sin(z * PI / 180), 0, 0,
 							sin(z * PI / 180), cos(z * PI / 180), 0, 0,

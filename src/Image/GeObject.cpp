@@ -33,39 +33,39 @@ void GeObject::draw_cylindre() {
 	float radius = sqrt(pow(dimensions.x/2, 2) + pow(dimensions.z/2, 2));
 
 	// Top octogone
-	mesh.addVertex(ofPoint(position.x - radius, position.y, position.z)); //V0
+	mesh.addVertex(transformMatrix * ofPoint(position.x - radius, position.y, position.z)); //V0
 	mesh.addColor(stroke_color);
-	mesh.addVertex(ofPoint(position.x - (radius * sqrt(2) / 2), position.y, position.z + (radius * sqrt(2) / 2))); //V1
+	mesh.addVertex(transformMatrix * ofPoint(position.x - (radius * sqrt(2) / 2), position.y, position.z + (radius * sqrt(2) / 2))); //V1
 	mesh.addColor(stroke_color);
-	mesh.addVertex(ofPoint(position.x, position.y, position.z + radius)); //V2
+	mesh.addVertex(transformMatrix * ofPoint(position.x, position.y, position.z + radius)); //V2
 	mesh.addColor(stroke_color);
-	mesh.addVertex(ofPoint(position.x + (radius * sqrt(2) / 2), position.y, position.z + (radius * sqrt(2) / 2))); //V3
+	mesh.addVertex(transformMatrix * ofPoint(position.x + (radius * sqrt(2) / 2), position.y, position.z + (radius * sqrt(2) / 2))); //V3
 	mesh.addColor(stroke_color);
-	mesh.addVertex(ofPoint(position.x + radius, position.y, position.z)); //V4
+	mesh.addVertex(transformMatrix * ofPoint(position.x + radius, position.y, position.z)); //V4
 	mesh.addColor(stroke_color);
-	mesh.addVertex(ofPoint(position.x + (radius * sqrt(2) / 2), position.y, position.z - (radius * sqrt(2) / 2))); //V5
+	mesh.addVertex(transformMatrix * ofPoint(position.x + (radius * sqrt(2) / 2), position.y, position.z - (radius * sqrt(2) / 2))); //V5
 	mesh.addColor(stroke_color);
-	mesh.addVertex(ofPoint(position.x, position.y, position.z - radius)); //V6
+	mesh.addVertex(transformMatrix * ofPoint(position.x, position.y, position.z - radius)); //V6
 	mesh.addColor(stroke_color);
-	mesh.addVertex(ofPoint(position.x - (radius * sqrt(2) / 2), position.y, position.z - (radius * sqrt(2) / 2))); //V7
+	mesh.addVertex(transformMatrix * ofPoint(position.x - (radius * sqrt(2) / 2), position.y, position.z - (radius * sqrt(2) / 2))); //V7
 	mesh.addColor(stroke_color);
 
 	//Botom octogone
-	mesh.addVertex(ofPoint(position.x - radius, position.y - dimensions.y, position.z)); //V8
+	mesh.addVertex(transformMatrix * ofPoint(position.x - radius, position.y - dimensions.y, position.z)); //V8
 	mesh.addColor(stroke_color);
-	mesh.addVertex(ofPoint(position.x - (radius * sqrt(2) / 2), position.y - dimensions.y, position.z + (radius * sqrt(2) / 2))); //V9
+	mesh.addVertex(transformMatrix * ofPoint(position.x - (radius * sqrt(2) / 2), position.y - dimensions.y, position.z + (radius * sqrt(2) / 2))); //V9
 	mesh.addColor(stroke_color);
-	mesh.addVertex(ofPoint(position.x, position.y - dimensions.y, position.z + radius)); //V10
+	mesh.addVertex(transformMatrix * ofPoint(position.x, position.y - dimensions.y, position.z + radius)); //V10
 	mesh.addColor(stroke_color);
-	mesh.addVertex(ofPoint(position.x + (radius * sqrt(2) / 2), position.y - dimensions.y, position.z + (radius * sqrt(2) / 2))); //V11
+	mesh.addVertex(transformMatrix * ofPoint(position.x + (radius * sqrt(2) / 2), position.y - dimensions.y, position.z + (radius * sqrt(2) / 2))); //V11
 	mesh.addColor(stroke_color);
-	mesh.addVertex(ofPoint(position.x + radius, position.y - dimensions.y, position.z)); //V12
+	mesh.addVertex(transformMatrix * ofPoint(position.x + radius, position.y - dimensions.y, position.z)); //V12
 	mesh.addColor(stroke_color);
-	mesh.addVertex(ofPoint(position.x + (radius * sqrt(2) / 2), position.y - dimensions.y, position.z - (radius * sqrt(2) / 2))); //V13
+	mesh.addVertex(transformMatrix * ofPoint(position.x + (radius * sqrt(2) / 2), position.y - dimensions.y, position.z - (radius * sqrt(2) / 2))); //V13
 	mesh.addColor(stroke_color);
-	mesh.addVertex(ofPoint(position.x, position.y - dimensions.y, position.z - radius)); //V14
+	mesh.addVertex(transformMatrix * ofPoint(position.x, position.y - dimensions.y, position.z - radius)); //V14
 	mesh.addColor(stroke_color);
-	mesh.addVertex(ofPoint(position.x - (radius * sqrt(2) / 2), position.y - dimensions.y, position.z - (radius * sqrt(2) / 2))); //V15
+	mesh.addVertex(transformMatrix * ofPoint(position.x - (radius * sqrt(2) / 2), position.y - dimensions.y, position.z - (radius * sqrt(2) / 2))); //V15
 	mesh.addColor(stroke_color);
 
 	mesh.addIndex(0);
@@ -133,21 +133,21 @@ void GeObject::draw_prisme_rect() {
 	mesh.enableColors();
 	mesh.enableIndices();
 
-	mesh.addVertex(ofPoint(position.x, position.y, position.z)); //V0
+	mesh.addVertex(transformMatrix * ofPoint(position.x, position.y, position.z)); //V0
 	mesh.addColor(stroke_color);
-	mesh.addVertex(ofPoint(position.x + dimensions.x, position.y, position.z)); //V1
+	mesh.addVertex(transformMatrix * ofPoint(position.x + dimensions.x, position.y, position.z)); //V1
 	mesh.addColor(stroke_color);
-	mesh.addVertex(ofPoint(position.x + dimensions.x, position.y, position.z + dimensions.z)); //V2
+	mesh.addVertex(transformMatrix * ofPoint(position.x + dimensions.x, position.y, position.z + dimensions.z)); //V2
 	mesh.addColor(stroke_color);
-	mesh.addVertex(ofPoint(position.x, position.y, position.z + dimensions.z)); //V3
+	mesh.addVertex(transformMatrix * ofPoint(position.x, position.y, position.z + dimensions.z)); //V3
 	mesh.addColor(stroke_color);
-	mesh.addVertex(ofPoint(position.x, position.y - dimensions.y, position.z)); //V4
+	mesh.addVertex(transformMatrix * ofPoint(position.x, position.y - dimensions.y, position.z)); //V4
 	mesh.addColor(stroke_color);
-	mesh.addVertex(ofPoint(position.x + dimensions.x, position.y - dimensions.y, position.z)); //V5
+	mesh.addVertex(transformMatrix * ofPoint(position.x + dimensions.x, position.y - dimensions.y, position.z)); //V5
 	mesh.addColor(stroke_color);
-	mesh.addVertex(ofPoint(position.x + dimensions.x, position.y - dimensions.y, position.z + dimensions.z)); //V6
+	mesh.addVertex(transformMatrix * ofPoint(position.x + dimensions.x, position.y - dimensions.y, position.z + dimensions.z)); //V6
 	mesh.addColor(stroke_color);
-	mesh.addVertex(ofPoint(position.x, position.y - dimensions.y, position.z + dimensions.z)); //V7
+	mesh.addVertex(transformMatrix * ofPoint(position.x, position.y - dimensions.y, position.z + dimensions.z)); //V7
 	mesh.addColor(stroke_color);
 
 	mesh.addIndex(0);
