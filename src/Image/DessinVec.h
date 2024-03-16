@@ -4,20 +4,21 @@
 #include "../gui/Histogram.h"
 #include "GeObject.h"
 #include "../gui/scene/SceneElement.h"
+#include "Drawer.h"
 
 class Gui;
 
-class DessinVec
+class DessinVec : public Drawer
 {
 	public :
 		DessinVec();
-		void setup();
+		void setup(std::vector<SceneObject*>* _shapes);
 		void update();
 		void draw();
 		void draw_buffer();
 		void redraw();
 		void reset();
-		void add_vector_shape();
+		void add_shape();
 
 		void mousePressed(ofMouseEventArgs& args);
 		void mouseReleased(ofMouseEventArgs& args);
@@ -33,7 +34,7 @@ class DessinVec
 
 
 		Primitype mode;
-		std::vector<SceneObject*> shapes;
+		//std::vector<SceneObject*> shapes;
 		Gui* gui = nullptr;
 
 		int mouse_press_x;

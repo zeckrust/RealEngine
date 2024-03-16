@@ -162,6 +162,7 @@
     <ClInclude Include="src\Image\Cursor.h" />
     <ClInclude Include="src\Image\DessinGeo.h" />
     <ClInclude Include="src\Image\DessinVec.h" />
+    <ClInclude Include="src\Image\Drawer.h" />
     <ClInclude Include="src\Image\GeObject.h" />
     <ClInclude Include="src\Image\SceneObject.h" />
     <ClInclude Include="src\Image\VecObject.h" />
@@ -279,6 +280,9 @@
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/D_DEBUG %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>$(OF_ROOT)\libs\openFrameworksCompiled\project\vs</AdditionalIncludeDirectories>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ProjectExtensions>

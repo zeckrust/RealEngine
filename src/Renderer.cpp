@@ -19,8 +19,8 @@ void Renderer::setup() {
 	gui->setup();
 	ofSetFrameRate(FRAME_RATE);
 	cursors.setup();
-	dessinateurOrthogonal.setup();
-	dessinateurPerspective.setup();
+	dessinateurOrthogonal.setup(&shapes);
+	dessinateurPerspective.setup(&shapes);
 }
 
 void Renderer::update() {
@@ -48,6 +48,8 @@ void Renderer::mouseReleased(ofMouseEventArgs& args) {
 	gui->mouseReleased(args);
 	dessinateurOrthogonal.mouseReleased(args);
 	dessinateurPerspective.mouseReleased(args);
+	dessinateurOrthogonal.redraw();
+	dessinateurPerspective.redraw();
 }
 
 void Renderer::mouseMoved(ofMouseEventArgs& args) {
