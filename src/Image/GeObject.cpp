@@ -26,10 +26,6 @@ void GeObject::draw() {
 void GeObject::draw_cylindre() {
 	ofMesh mesh;
 
-	//mesh.setMode(OF_PRIMITIVE_LINES);
-	//mesh.enableColors();
-	//mesh.enableIndices();
-
 	float radius = sqrt(pow(dimensions.x/2, 2) + pow(dimensions.z/2, 2));
 
 	// Top octogone
@@ -106,61 +102,6 @@ void GeObject::draw_cylindre() {
 	mesh.addTriangle(8, 13, 14);
 	mesh.addTriangle(8, 14, 15);
 
-	//mesh.addIndex(0);
-	//mesh.addIndex(1);
-	//mesh.addIndex(1);
-	//mesh.addIndex(2);
-	//mesh.addIndex(2);
-	//mesh.addIndex(3);
-	//mesh.addIndex(3);
-	//mesh.addIndex(4);
-	//mesh.addIndex(4);
-	//mesh.addIndex(5);
-	//mesh.addIndex(5);
-	//mesh.addIndex(6);
-	//mesh.addIndex(6);
-	//mesh.addIndex(7);
-	//mesh.addIndex(7);
-	//mesh.addIndex(0);
-
-	//mesh.addIndex(0);
-	//mesh.addIndex(8);
-	//mesh.addIndex(1);
-	//mesh.addIndex(9);
-	//mesh.addIndex(2);
-	//mesh.addIndex(10);
-	//mesh.addIndex(3);
-	//mesh.addIndex(11);
-	//mesh.addIndex(4);
-	//mesh.addIndex(12);
-	//mesh.addIndex(5);
-	//mesh.addIndex(13);
-	//mesh.addIndex(6);
-	//mesh.addIndex(14);
-	//mesh.addIndex(7);
-	//mesh.addIndex(15);
-
-	//mesh.addIndex(8);
-	//mesh.addIndex(9);
-	//mesh.addIndex(9);
-	//mesh.addIndex(10);
-	//mesh.addIndex(10);
-	//mesh.addIndex(11);
-	//mesh.addIndex(11);
-	//mesh.addIndex(12);
-	//mesh.addIndex(12);
-	//mesh.addIndex(13);
-	//mesh.addIndex(13);
-	//mesh.addIndex(14);
-	//mesh.addIndex(14);
-	//mesh.addIndex(15);
-	//mesh.addIndex(15);
-	//mesh.addIndex(8);
-
-	//ofFill();
-	//ofSetColor(fill_color);
-	//mesh.drawWireframe();
-
 	mesh.draw();
 
 }
@@ -168,10 +109,6 @@ void GeObject::draw_cylindre() {
 void GeObject::draw_prisme_rect() {
 
 	ofMesh mesh;
-
-	//mesh.setMode(OF_PRIMITIVE_LINES);
-	//mesh.enableColors();
-	//mesh.enableIndices();
 
 	mesh.addVertex(transformMatrix * ofPoint(position.x, position.y, position.z)); //V0
 	mesh.addColor(stroke_color);
@@ -208,32 +145,6 @@ void GeObject::draw_prisme_rect() {
 	mesh.addTriangle(6, 3, 2);
 	mesh.addTriangle(6, 3, 7);
 
-	//mesh.addIndex(0);
-	//mesh.addIndex(1);
-	//mesh.addIndex(0);
-	//mesh.addIndex(3);
-	//mesh.addIndex(0);
-	//mesh.addIndex(4);
-	//mesh.addIndex(1);
-	//mesh.addIndex(2);
-	//mesh.addIndex(1);
-	//mesh.addIndex(5);
-	//mesh.addIndex(2);
-	//mesh.addIndex(3);
-	//mesh.addIndex(2);
-	//mesh.addIndex(6);
-	//mesh.addIndex(3);
-	//mesh.addIndex(7);
-	//mesh.addIndex(4);
-	//mesh.addIndex(5);
-	//mesh.addIndex(5);
-	//mesh.addIndex(6);
-	//mesh.addIndex(6);
-	//mesh.addIndex(7);
-	//mesh.addIndex(7);
-	//mesh.addIndex(4);
-
-	//mesh.draw(OF_MESH_FILL);
 	mesh.draw();
 }
 
