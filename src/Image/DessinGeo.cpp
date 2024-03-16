@@ -5,7 +5,8 @@ DessinGeo::DessinGeo() {
 
 }
 
-void DessinGeo::setup() {
+void DessinGeo::setup(std::vector<SceneObject*>* _shapes) {
+	shapes = _shapes;
 	mode = Geotype::none;
 
 	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = mouse_last_x = mouse_last_y = 0;
@@ -76,7 +77,7 @@ void DessinGeo::update()
 
 void DessinGeo::reset()
 {
-	shapes.clear();
+	shapes->clear();
 }
 
 void DessinGeo::draw()
@@ -99,7 +100,7 @@ void DessinGeo::redraw() {
 
 void DessinGeo::draw_buffer() {
 	camera.begin();
-	for (auto& shape : shapes)
+	for (auto& shape : *shapes)
 	{
 		shape->draw();
 	}
@@ -138,7 +139,7 @@ void DessinGeo::mouseReleased(ofMouseEventArgs& args)
 {
 	if (mouse_pressed) {
 		if (is_drawing_mode && mode != Geotype::none) {
-			add_geo_shape();
+			add_shape();
 		}
 		sceneElements.clear();
 	}
@@ -256,11 +257,11 @@ void DessinGeo::mouseDragged(ofMouseEventArgs& args) {
 	}
 }
 
-void DessinGeo::add_geo_shape() {
-	shapes.push_back(new GeObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor()));
+void DessinGeo::add_shape() {
+	shapes->push_back(new GeObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor()));
 
-	shapes.back()->setPosition(glm::vec3(mouse_press_x, mouse_press_y, default_pos_z));
-	shapes.back()->setDimensions(glm::vec3(mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y, default_dim_z));
+	shapes->back()->setPosition(glm::vec3(mouse_press_x, mouse_press_y, default_pos_z));
+	shapes->back()->setDimensions(glm::vec3(mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y, default_dim_z));
 
 	mouse_pressed = false;
 	histogramPerspective.update(fbo, scene3DShape.getY());
@@ -285,13 +286,13 @@ void DessinGeo::add_geo_shape() {
 			break;
 	}
 
-	gui->createSceneElement(name, shapes.back());
+	gui->createSceneElement(name, shapes->back());
 }
 
 void DessinGeo::deleteObject(SceneObject* obj) {
-	auto shapes_it = std::find(shapes.begin(), shapes.end(), obj);
-	if (shapes_it != shapes.end()) {
-		shapes.erase(shapes_it);
+	auto shapes_it = std::find(shapes->begin(), shapes->end(), obj);
+	if (shapes_it != shapes->end()) {
+		shapes->erase(shapes_it);
 		redraw();
 	}
 }

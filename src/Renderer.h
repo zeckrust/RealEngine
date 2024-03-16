@@ -36,6 +36,8 @@ class Renderer
 		DessinGeo dessinateurPerspective;
 
 		static Renderer* instancePtr;
+
+		std::vector<SceneObject*> shapes;
 };
 
 const int FRAME_RATE = 60;

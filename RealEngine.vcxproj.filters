@@ -554,6 +554,9 @@
     <ClInclude Include="src\Image\DessinGeo.h">
       <Filter>src\Image</Filter>
     </ClInclude>
+    <ClInclude Include="src\Image\Drawer.h">
+      <Filter>src\Image</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

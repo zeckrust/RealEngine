@@ -5,8 +5,9 @@ DessinVec::DessinVec(){
 
 }
 
-void DessinVec::setup()
+void DessinVec::setup(std::vector<SceneObject*>* _shapes)
 {
+	shapes = _shapes;
 	mode = Primitype::none;
 
 	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = mouse_last_x = mouse_last_y = 0;
@@ -68,20 +69,20 @@ void DessinVec::update()
 
 void DessinVec::reset()
 {
-	shapes.clear();
+	shapes->clear();
 }
 
-void DessinVec::add_vector_shape() 
+void DessinVec::add_shape() 
 {
 	if (mode == Primitype::image) {
-		shapes.push_back(new VecObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor(), gui->getImportedImage()));
+		shapes->push_back(new VecObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor(), gui->getImportedImage()));
 	}
 	else {
-		shapes.push_back(new VecObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor()));
+		shapes->push_back(new VecObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor()));
 	}
 
-	shapes.back()->setPosition(glm::vec3(mouse_press_x, mouse_press_y, 0));
-	shapes.back()->setDimensions(glm::vec3(mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y, 0));
+	shapes->back()->setPosition(glm::vec3(mouse_press_x, mouse_press_y, 0));
+	shapes->back()->setDimensions(glm::vec3(mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y, 0));
 
 	mouse_pressed = false;
 	histogramOrthogonal.update(fbo, scene2DShape.getY());
@@ -136,14 +137,14 @@ void DessinVec::add_vector_shape()
 		break;
 	}
 
-	gui->createSceneElement(name, shapes.back());
+	gui->createSceneElement(name, shapes->back());
 
 }
 
 void DessinVec::deleteObject(SceneObject* obj) {
-	auto shapes_it = std::find(shapes.begin(), shapes.end(), obj);
-	if (shapes_it != shapes.end()) {
-		shapes.erase(shapes_it);
+	auto shapes_it = std::find(shapes->begin(), shapes->end(), obj);
+	if (shapes_it != shapes->end()) {
+		shapes->erase(shapes_it);
 		redraw();
 	}	
 
@@ -184,7 +185,7 @@ void DessinVec::mouseReleased(ofMouseEventArgs& args)
 {
 	if (mouse_pressed) {
 		if (is_drawing_mode && mode != Primitype::none) {
-			add_vector_shape();
+			add_shape();
 		}
 		sceneElements.clear();
 	}
@@ -423,7 +424,7 @@ void DessinVec::redraw() {
 
 void DessinVec::draw_buffer() {
 	camera.begin();
-	for (auto & shape : shapes)
+	for (auto & shape : *shapes)
 	{
 		shape->draw();
 	}

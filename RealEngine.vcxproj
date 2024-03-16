@@ -162,6 +162,7 @@
     <ClInclude Include="src\Image\Cursor.h" />
     <ClInclude Include="src\Image\DessinGeo.h" />
     <ClInclude Include="src\Image\DessinVec.h" />
+    <ClInclude Include="src\Image\Drawer.h" />
     <ClInclude Include="src\Image\GeObject.h" />
     <ClInclude Include="src\Image\SceneObject.h" />
     <ClInclude Include="src\Image\VecObject.h" />
