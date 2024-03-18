@@ -8,6 +8,7 @@ public:
 	void draw();
 	void setup(ofFbo fbo, int _y_position);
 	void update(ofFbo fbo, int _y_position);
+	void allocatePixelsFBO(ofFbo* fbo);
 
 private:
 	int arrayMax(int* arr, int sizeArray);
@@ -19,6 +20,7 @@ private:
 	void drawColoredLines(ofColor color, int sizeArray, glm::vec2 linesStart[], glm::vec2 linesEnd[]);
 
 	ofFbo fbo;
+	ofPixels fboPixels;
 
 	int y_position;
 

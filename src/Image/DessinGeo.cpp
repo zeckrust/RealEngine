@@ -68,11 +68,11 @@ void DessinGeo::update()
 
 	if (hasPositionChanged || hasWidthChanged || hasHeightChanged) {
 		fbo.allocate(scene3DShape.getWidth(), scene3DShape.getHeight(), GL_RGBA);
+		histogramPerspective.allocatePixelsFBO(&fbo);
 		redraw();
 	}
 
 	oldScene3dShape = scene3DShape;
-	histogramPerspective.update(fbo, scene3DShape.getY());
 }
 
 void DessinGeo::reset()

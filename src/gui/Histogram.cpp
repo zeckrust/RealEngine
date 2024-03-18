@@ -2,6 +2,7 @@
 
 //--------------------------------------------------------------
 void Histogram::setup(ofFbo _fbo, int _y_position) {
+	allocatePixelsFBO(&fbo);
 	update(_fbo, _y_position);
 }
 
@@ -34,6 +35,12 @@ void Histogram::draw() {
 	ofPopStyle();
 }
 
+void Histogram::allocatePixelsFBO(ofFbo* fbo) {
+	if (fbo != nullptr) {
+		fboPixels.allocate(fbo->getWidth(), fbo->getHeight(), GL_RGBA);
+	}
+}
+
 int Histogram::arrayMax(int* arr, int sizeArray) {
 	int max = 0;
 	for (int i = 0; i < sizeArray; i++) {
@@ -59,11 +66,9 @@ void Histogram::calculatePixelValues() {
 	clearArray(red, NUMBER_OF_COLOR_VALUE);
 	clearArray(green, NUMBER_OF_COLOR_VALUE);
 	clearArray(blue, NUMBER_OF_COLOR_VALUE);
-	ofPixels pixels;
-	pixels.allocate(fbo.getWidth(), fbo.getHeight(), GL_RGBA);
-	fbo.readToPixels(pixels);
-	for (int i = 0; i < pixels.getWidth() * pixels.getHeight(); i++) {
-		ofColor pixelColor = pixels.getColor(4 * i);
+	fbo.readToPixels(fboPixels);
+	for (int i = 0; i < fboPixels.getWidth() * fboPixels.getHeight(); i++) {
+		ofColor pixelColor = fboPixels.getColor(4 * i);
 		red[pixelColor.r]++;
 		green[pixelColor.g]++;
 		blue[pixelColor.b]++;
