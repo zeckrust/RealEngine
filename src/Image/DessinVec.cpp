@@ -60,11 +60,11 @@ void DessinVec::update()
 
 	if (hasPositionChanged || hasWidthChanged || hasHeightChanged) {
 		fbo.allocate(scene2DShape.getWidth(), scene2DShape.getHeight(), GL_RGBA);
+		histogramOrthogonal.allocatePixelsFBO(&fbo);
 		redraw();
 	}
 
 	oldScene2dShape = scene2DShape;
-	histogramOrthogonal.update(fbo, scene2DShape.getY());
 }
 
 void DessinVec::reset()
