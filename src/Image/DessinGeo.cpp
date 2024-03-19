@@ -159,6 +159,9 @@ void DessinGeo::mouseDragged(ofMouseEventArgs& args) {
 			draw_buffer();
 
 			GeObject obj = GeObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor());
+			if (gui->getIsImageImported()) {
+				obj.setTexture(gui->getImportedImage());
+			}
 
 			obj.setPosition(glm::vec3(mouse_press_x, mouse_press_y, default_pos_z));
 			obj.setDimensions(glm::vec3(mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y, default_dim_z));
@@ -258,7 +261,13 @@ void DessinGeo::mouseDragged(ofMouseEventArgs& args) {
 }
 
 void DessinGeo::add_shape() {
-	shapes->push_back(new GeObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor()));
+	GeObject *new_shape = new GeObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor());
+
+	if (gui->getIsImageImported()) {
+		new_shape->setTexture(gui->getImportedImage());
+	}
+
+	shapes->push_back(new_shape);
 
 	shapes->back()->setPosition(glm::vec3(mouse_press_x, mouse_press_y, default_pos_z));
 	shapes->back()->setDimensions(glm::vec3(mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y, default_dim_z));
@@ -281,6 +290,10 @@ void DessinGeo::add_shape() {
 			name = "RecPrism";
 			name += to_string(compteur_prism);
 			compteur_prism++;
+
+			if (gui->getIsImageImported()) {
+				gui->setIsImageImported(false);
+			}
 			break;
 		default:
 			break;
