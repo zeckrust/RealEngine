@@ -5,6 +5,7 @@
 #include "GeObject.h"
 #include "../gui/scene/SceneElement.h"
 #include "Drawer.h"
+#include "Skybox.h"
 
 class Gui;
 
@@ -42,8 +43,10 @@ class DessinGeo : public Drawer
 		~DessinGeo();
 
 	private:
+		void setup_camera();
+		void setup_skybox();
+		void setup_matrix();
 		Geotype mode;
-		//std::vector<SceneObject*> shapes;
 		Gui* gui = nullptr;
 
 		int mouse_press_x;
@@ -86,6 +89,8 @@ class DessinGeo : public Drawer
 		float target_z_offset;
 
 		float move_step;
+
+		Skybox skybox;
 
 
 		ofMatrix4x4 transformMatrix;

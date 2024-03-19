@@ -5,6 +5,7 @@
 #include "GeObject.h"
 #include "../gui/scene/SceneElement.h"
 #include "Drawer.h"
+#include "Skybox.h"
 
 class Gui;
 
@@ -31,10 +32,12 @@ class DessinVec : public Drawer
 	private :
 		void dynamic_stage_1() const;
 		void dynamic_stage_2() const;
+		void setup_camera();
+		void setup_skybox();
+		void setup_matrix();
 
 
 		Primitype mode;
-		//std::vector<SceneObject*> shapes;
 		Gui* gui = nullptr;
 
 		int mouse_press_x;
@@ -72,6 +75,8 @@ class DessinVec : public Drawer
 		ofVec3f camera_position;
 		ofVec3f camera_target;
 		float camera_offset;
+
+		Skybox skybox;
 
 		ofMatrix4x4 transformMatrix;
 		ofMatrix4x4 lastTransformMatrixInversed;

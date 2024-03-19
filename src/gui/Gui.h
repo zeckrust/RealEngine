@@ -32,6 +32,9 @@ class Gui
 		void saveScenes();
 		void importFile();
 		void showHistogram();
+		void setSkybox1();
+		void setSkybox2();
+		void setGeneratedSkybox();
 		int getLineWidth();
 		ofColor getLineColor();
 		ofColor getFillColor();
@@ -57,6 +60,11 @@ class Gui
 
 		bool* getPropertiesPanelBtnStates(void);
 		vector<SceneElement*> getSelectedElements(void);
+
+		bool getIsSkyboxChanged();
+		void setIsSkyboxChanged(bool _isSkyboxChanged);
+
+		ofImage getSkyboxImage();
 
 		void createSceneElement(std::string name, SceneObject* obj_ptr);
 
@@ -86,6 +94,9 @@ class Gui
 
 		ofImage imageBuffer;
 		bool isImageImported;
+
+		bool isSkyboxChanged;
+		ofImage skyboxImage;
 };
 
 Gui* Gui::instancePtr = nullptr;
