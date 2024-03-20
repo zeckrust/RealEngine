@@ -39,4 +39,7 @@ class TitleBar
 		CustomButton transformButton;
 		CustomButton drawingButton;
 		CustomButton histogramButton;
+		CustomButton skybox1Button;
+		CustomButton skybox2Button;
+		CustomButton skyboxGenButton;
 };

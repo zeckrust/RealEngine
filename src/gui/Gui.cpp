@@ -122,6 +122,21 @@ void Gui::showHistogram() {
 	isHistogramShowing = !isHistogramShowing;
 }
 
+void Gui::setSkybox1() {
+	skyboxImage.load("skybox\\skybox1.png");
+	isSkyboxChanged = true;
+}
+
+void Gui::setSkybox2() {
+	skyboxImage.load("skybox\\skybox2.jpg");
+	isSkyboxChanged = true;
+}
+
+void Gui::setGeneratedSkybox() {
+	skyboxImage = Skybox::generate_texture();
+	isSkyboxChanged = true;
+}
+
 void Gui::createSceneElement(std::string name, SceneObject* obj_ptr) {
 	sceneHierarchyPanel.createSceneElement(name, obj_ptr);
 }
@@ -204,4 +219,15 @@ bool* Gui::getPropertiesPanelBtnStates(void) {
 
 vector<SceneElement*> Gui::getSelectedElements(void) {
 	return sceneHierarchyPanel.getSelectedSceneElements();
+}
+
+bool Gui::getIsSkyboxChanged() {
+	return isSkyboxChanged;
+}
+void Gui::setIsSkyboxChanged(bool _isSkyboxChanged) {
+	isSkyboxChanged = _isSkyboxChanged;
+}
+
+ofImage Gui::getSkyboxImage() {
+	return skyboxImage;
 }
