@@ -32,17 +32,33 @@ void DessinVec::setup(std::vector<SceneObject*>* _shapes)
 	fbo.end();
 
 
-	camera.enableOrtho();
-	camera_offset = 20.0f;
-	camera_position = { 0.0f, 0.0f, camera_offset};
-	camera_target =   { 0.0f, 0.0f, 0.0f };
-	camera.setPosition(camera_position);
-	camera.lookAt(camera_target);
-	//camera.setupPerspective(false);
+	setup_camera();
 
 	histogramOrthogonal.setup(fbo, scene2DShape.getY());
 
+	setup_matrix();
 
+}
+
+void DessinVec::setup_camera() {
+	camera.enableOrtho();
+	camera_offset = 20.0f;
+	camera_position = { 0.0f, 0.0f, camera_offset };
+	camera_target = { 0.0f, 0.0f, 0.0f };
+	camera.setPosition(camera_position);
+	camera.lookAt(camera_target);
+	setup_skybox();
+}
+
+void DessinVec::setup_skybox() {
+	ofImage skybox_image;
+	skybox_image.load("skybox\\skybox1.png");
+	skybox.set_texture(skybox_image);
+	skybox_image.clear();
+	skybox.setPosition(camera.getPosition());
+}
+
+void DessinVec::setup_matrix() {
 	transformMatrix.makeIdentityMatrix();
 	lastTransformMatrixInversed.makeIdentityMatrix();
 	yaw.makeIdentityMatrix();
@@ -413,6 +429,9 @@ void DessinVec::draw()
 	if (gui->getIsHistogramShowing()) {
 		histogramOrthogonal.draw();
 	}
+	if (gui->getIsSkyboxChanged()) {
+		skybox.set_texture(gui->getSkyboxImage());
+	}
 }
 
 void DessinVec::redraw() {
@@ -424,6 +443,7 @@ void DessinVec::redraw() {
 
 void DessinVec::draw_buffer() {
 	camera.begin();
+	skybox.draw();
 	for (auto & shape : *shapes)
 	{
 		shape->draw();

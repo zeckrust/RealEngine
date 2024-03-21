@@ -123,6 +123,7 @@
     <ClCompile Include="src\Image\DessinVec.cpp" />
     <ClCompile Include="src\Image\GeObject.cpp" />
     <ClCompile Include="src\Image\SceneObject.cpp" />
+    <ClCompile Include="src\Image\Skybox.cpp" />
     <ClCompile Include="src\Image\VecObject.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="src\Image\Drawer.h" />
     <ClInclude Include="src\Image\GeObject.h" />
     <ClInclude Include="src\Image\SceneObject.h" />
+    <ClInclude Include="src\Image\Skybox.h" />
     <ClInclude Include="src\Image\VecObject.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="..\..\addons\ofxAssimpModelLoader\src\ofxAssimpAnimation.h" />

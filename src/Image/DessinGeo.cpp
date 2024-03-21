@@ -27,6 +27,14 @@ void DessinGeo::setup(std::vector<SceneObject*>* _shapes) {
 	ofClear(0, 0, 0, 0);
 	fbo.end();
 
+	setup_camera(); // sets up skybox too
+
+	histogramPerspective.setup(fbo, scene3DShape.getY());
+
+	setup_matrix();
+}
+
+void DessinGeo::setup_camera() {
 	camera_x_offset = 0.0f;
 	camera_y_offset = 0.0f;
 	camera_z_offset = 200.0f;
@@ -49,8 +57,18 @@ void DessinGeo::setup(std::vector<SceneObject*>* _shapes) {
 	camera.setPosition(camera_position);
 	camera.lookAt(camera_target);
 
-	histogramPerspective.setup(fbo, scene3DShape.getY());
+	setup_skybox();
+}
 
+void DessinGeo::setup_skybox() {
+	ofImage skybox_image;
+	skybox_image.load("skybox\\skybox1.png");
+	skybox.set_texture(skybox_image);
+	skybox_image.clear();
+	skybox.setPosition(camera.getPosition());
+}
+
+void DessinGeo::setup_matrix() {
 	transformMatrix.makeIdentityMatrix();
 	lastTransformMatrixInversed.makeIdentityMatrix();
 	yaw.makeIdentityMatrix();
@@ -89,6 +107,9 @@ void DessinGeo::draw()
 	if (gui->getIsHistogramShowing()) {
 		histogramPerspective.draw();
 	}
+	if (gui->getIsSkyboxChanged()) {
+		skybox.set_texture(gui->getSkyboxImage());
+	}
 }
 
 void DessinGeo::redraw() {
@@ -100,6 +121,7 @@ void DessinGeo::redraw() {
 
 void DessinGeo::draw_buffer() {
 	camera.begin();
+	skybox.draw();
 	for (auto& shape : *shapes)
 	{
 		shape->draw();
@@ -313,36 +335,42 @@ void DessinGeo::deleteObject(SceneObject* obj) {
 void DessinGeo::moveLeft(void) {
 	camera_x_offset = camera_x_offset - move_step;
 	camera.setPosition(camera_x_offset, camera_y_offset, camera_z_offset);
+	skybox.setPosition(glm::vec3(camera_x_offset, camera_y_offset, camera_z_offset));
 	redraw();
 }
 
 void DessinGeo::moveRight(void) {
 	camera_x_offset = camera_x_offset + move_step;
 	camera.setPosition(camera_x_offset, camera_y_offset, camera_z_offset);
+	skybox.setPosition(glm::vec3(camera_x_offset, camera_y_offset, camera_z_offset));
 	redraw();
 }
 
 void DessinGeo::moveUp(void) {
 	camera_y_offset = camera_y_offset + move_step;
 	camera.setPosition(camera_x_offset, camera_y_offset, camera_z_offset);
+	skybox.setPosition(glm::vec3(camera_x_offset, camera_y_offset, camera_z_offset));
 	redraw();
 }
 
 void DessinGeo::moveDown(void) {
 	camera_y_offset = camera_y_offset - move_step;
 	camera.setPosition(camera_x_offset, camera_y_offset, camera_z_offset);
+	skybox.setPosition(glm::vec3(camera_x_offset, camera_y_offset, camera_z_offset));
 	redraw();
 }
 
 void DessinGeo::moveForward(void) {
 	camera_z_offset = camera_z_offset - move_step;
 	camera.setPosition(camera_x_offset, camera_y_offset, camera_z_offset);
+	skybox.setPosition(glm::vec3(camera_x_offset, camera_y_offset, camera_z_offset));
 	redraw();
 }
 
 void DessinGeo::moveBackward(void) {
 	camera_z_offset = camera_z_offset + move_step;
 	camera.setPosition(camera_x_offset, camera_y_offset, camera_z_offset);
+	skybox.setPosition(glm::vec3(camera_x_offset, camera_y_offset, camera_z_offset));
 	redraw();
 }
 

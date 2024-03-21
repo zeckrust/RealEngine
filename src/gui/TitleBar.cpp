@@ -34,7 +34,14 @@ void TitleBar::setup() {
 
 	histogramButton.setup("Histogram", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
 	histogramButton.setPressedFunction(&Gui::showHistogram);
-	showButton.addSubButton(&histogramButton);
+	skybox1Button.setup("Skybox 1", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	skybox1Button.setPressedFunction(&Gui::setSkybox1);
+	skybox2Button.setup("Skybox 2", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	skybox2Button.setPressedFunction(&Gui::setSkybox2);
+	skyboxGenButton.setup("Generate skybox", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	skyboxGenButton.setPressedFunction(&Gui::setGeneratedSkybox);
+	std::vector<CustomButton*> showSubButtons = { &histogramButton, &skybox1Button, &skybox2Button, &skyboxGenButton };
+	showButton.setSubButtons(showSubButtons);
 }
 
 void TitleBar::setupButtons() {
