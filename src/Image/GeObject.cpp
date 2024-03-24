@@ -10,6 +10,7 @@ GeObject::GeObject(Geotype gType, float sWidth, ofColor sColor, ofColor fColor) 
 }
 
 void GeObject::draw() {
+	ofEnableDepthTest();
 	switch (type)
 	{
 	case Geotype::none:
@@ -23,6 +24,7 @@ void GeObject::draw() {
 	default:
 		break;
 	}
+	ofDisableDepthTest();
 }
 
 void GeObject::draw_cylindre() {
