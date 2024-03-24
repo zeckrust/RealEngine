@@ -24,6 +24,7 @@ class Gui
 		void setup();
 		void update();
 		void draw();
+		void drawScenes();
 
 		void mouseMoved(ofMouseEventArgs& args);
 		void mousePressed(ofMouseEventArgs& args);

@@ -59,13 +59,16 @@ void Gui::updateScenes() {
 }
 
 void Gui::draw() {
-	scene2d.draw();
-	scene3d.draw();
 	sceneHierarchyPanel.draw();
 	drawingPanel.draw();
 	transformPanel.draw();
 	propertiesPanel.draw();
 	titleBar.draw();
+}
+
+void Gui::drawScenes() {
+	scene2d.draw();
+	scene3d.draw();
 }
 
 void Gui::mouseMoved(ofMouseEventArgs& args) {
