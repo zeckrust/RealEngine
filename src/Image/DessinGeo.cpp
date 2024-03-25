@@ -183,6 +183,7 @@ void DessinGeo::mouseDragged(ofMouseEventArgs& args) {
 			GeObject obj = GeObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor());
 			if (gui->getIsImageImported()) {
 				obj.setTexture(gui->getImportedImage());
+				obj.setFilter(gui->getCurrentFilter());
 			}
 
 			obj.setPosition(glm::vec3(mouse_press_x, mouse_press_y, default_pos_z));

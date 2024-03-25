@@ -17,6 +17,7 @@ Gui* Gui::getInstance() {
 void Gui::setup() {
 	titleBar.setup();
 	setupPanels();
+	setupFilters();
 	updateScenes();
 	selectedUserMode = DRAWING;
 	isHistogramShowing = false;
@@ -31,6 +32,13 @@ void Gui::setupPanels() {
 	drawingPanel.minimize();
 	transformPanel.minimize();
 	propertiesPanel.minimize();
+}
+
+void Gui::setupFilters() {
+	grayFilter.setup(FilterType::GRAY);
+	kelvinFilter.setup(FilterType::KELVIN);
+	nashvilleFilter.setup(FilterType::NASHVILLE);
+	currentFilter = nullptr;
 }
 
 void Gui::update() {
@@ -138,6 +146,26 @@ void Gui::setSkybox2() {
 void Gui::setGeneratedSkybox() {
 	skyboxImage = Skybox::generate_texture();
 	isSkyboxChanged = true;
+}
+
+void Gui::setFilterNone() {
+	currentFilter = nullptr;
+}
+
+void Gui::setFilterGray() {
+	currentFilter = &grayFilter;
+}
+
+void Gui::setFilterKelvin() {
+	currentFilter = &kelvinFilter;
+}
+
+void Gui::setFilterNashville() {
+	currentFilter = &nashvilleFilter;
+}
+
+Filter* Gui::getCurrentFilter() {
+	return currentFilter;
 }
 
 void Gui::createSceneElement(std::string name, SceneObject* obj_ptr) {

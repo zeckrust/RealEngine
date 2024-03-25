@@ -12,6 +12,7 @@
 #include "Histogram.h"
 #include "../Image/DessinVec.h"
 #include "../Image/DessinGeo.h"
+#include "../Image/Filter.h"
 
 enum UserMode {
 	DRAWING = 0,
@@ -36,12 +37,18 @@ class Gui
 		void setSkybox1();
 		void setSkybox2();
 		void setGeneratedSkybox();
+
+		void setFilterNone();
+		void setFilterGray();
+		void setFilterKelvin();
+		void setFilterNashville();
+		Filter* getCurrentFilter();
+
 		int getLineWidth();
 		ofColor getLineColor();
 		ofColor getFillColor();
 		Primitype getTypePrimitive();
 		Geotype getTypeGeometrique();
-
 
 		void setUserModeDrawing(void);
 		void setUserModeTransform(void);
@@ -76,6 +83,7 @@ class Gui
 	private:
 		Gui();
 		void setupPanels();
+		void setupFilters();
 		void updateScenes();
 		void saveScene(Scene& scene, std::string filePath);
 
@@ -98,6 +106,11 @@ class Gui
 
 		bool isSkyboxChanged;
 		ofImage skyboxImage;
+
+		Filter* currentFilter;
+		Filter grayFilter;
+		Filter kelvinFilter;
+		Filter nashvilleFilter;
 };
 
 Gui* Gui::instancePtr = nullptr;

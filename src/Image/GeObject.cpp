@@ -6,6 +6,7 @@ GeObject::GeObject(Geotype gType, float sWidth, ofColor sColor, ofColor fColor) 
 	stroke_color = sColor;
 	fill_color = fColor;
 	imported_texture = ofImage();
+	texture_filter = nullptr;
 	is_texture_loaded = false;
 }
 
@@ -13,16 +14,16 @@ void GeObject::draw() {
 	ofEnableDepthTest();
 	switch (type)
 	{
-	case Geotype::none:
-		break;
-	case Geotype::rectangulaire:
-		draw_prisme_rect();
-		break;
-	case Geotype::cylindre:
-		draw_cylindre();
-		break;
-	default:
-		break;
+		case Geotype::none:
+			break;
+		case Geotype::rectangulaire:
+			draw_prisme_rect();
+			break;
+		case Geotype::cylindre:
+			draw_cylindre();
+			break;
+		default:
+			break;
 	}
 	ofDisableDepthTest();
 }
@@ -198,9 +199,19 @@ void GeObject::draw_prisme_rect() {
 
 		ofPushStyle();
 		ofSetColor(255, 255, 255, 255);
-		imported_texture.bind();
-		mesh.draw();
-		imported_texture.unbind();
+
+		if (texture_filter != nullptr) { 
+			texture_filter->begin();
+			texture_filter->setTexture(imported_texture);
+			mesh.draw();
+			texture_filter->end();
+		}
+		else {
+			imported_texture.bind();
+			mesh.draw();
+			imported_texture.unbind();
+		}
+
 		ofPopStyle();
 	}
 	else {
@@ -265,4 +276,8 @@ void GeObject::setFillColor(ofColor color) {
 void GeObject::setTexture(ofImage texture) {
 	imported_texture = texture;
 	is_texture_loaded = true;
+}
+
+void GeObject::setFilter(Filter *filter) {
+	texture_filter = filter;
 }
