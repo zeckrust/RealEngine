@@ -19,5 +19,4 @@ class Filter {
 
 	private:
 		ofShader shader;
-		int texture_location;
 };

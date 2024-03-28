@@ -1,12 +1,14 @@
 #version 330
 
-in vec2 surface_texture_coords;
-out vec4 fragment_color_out;
+in vec2 surface_texcoord;
+out vec4 fragment_color;
 
-uniform sampler2D texture_image; 
+uniform sampler2D image;
 
 void main() {
-    vec4 frag_color_in = texture(texture_image, surface_texture_coords);
-    float gray_mean = (frag_color_in.r + frag_color_in.g + frag_color_in.b) / 3;
-    fragment_color_out = vec4(gray_mean, gray_mean, gray_mean, frag_color_in.a);
+    vec3 texture_sample = texture(image, surface_texcoord).rgb;
+
+    float gray_mean = (texture_sample.r + texture_sample.g + texture_sample.b) / 3.0;
+    
+    fragment_color = vec4(gray_mean, gray_mean, gray_mean, 1.0);
 }
