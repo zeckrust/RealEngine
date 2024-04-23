@@ -92,6 +92,7 @@ class DessinGeo : public Drawer
 
 		Skybox skybox;
 
+		ofImage filtered_image = ofImage();
 
 		ofMatrix4x4 transformMatrix;
 		ofMatrix4x4 lastTransformMatrixInversed;

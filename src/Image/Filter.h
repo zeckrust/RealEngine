@@ -3,20 +3,15 @@
 #include "ofMain.h"
 
 enum FilterType {
-	GRAY = 0,
+	NO_FILTER = 0,
+	GRAY,
 	KELVIN,
-	NASHVILLE,
-	NO_FILTER
+	NASHVILLE
 };
 
 class Filter {
 	public:
-		Filter();
-		void setup(FilterType type);
-		void begin(void);
-		void end(void);
-		void setTexture(ofImage &texture);
-
-	private:
-		ofShader shader;
+		static ofImage toGray(ofImage &texture);
+		static ofImage toKelvin(ofImage &texture);
+		static ofImage toNashville(ofImage &texture);
 };

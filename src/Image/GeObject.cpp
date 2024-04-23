@@ -200,17 +200,9 @@ void GeObject::draw_prisme_rect() {
 		ofPushStyle();
 		ofSetColor(255, 255, 255, 255);
 
-		if (texture_filter != nullptr) { 
-			texture_filter->begin();
-			texture_filter->setTexture(imported_texture);
-			mesh.draw();
-			texture_filter->end();
-		}
-		else {
-			imported_texture.bind();
-			mesh.draw();
-			imported_texture.unbind();
-		}
+		imported_texture.bind();
+		mesh.draw();
+		imported_texture.unbind();
 
 		ofPopStyle();
 	}

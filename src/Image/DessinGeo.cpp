@@ -18,7 +18,6 @@ void DessinGeo::setup(std::vector<SceneObject*>* _shapes) {
 	default_pos_z = 15;
 	default_dim_z = 40;
 
-
 	gui = Gui::getInstance();
 
 	scene3DShape = gui->getScene3DShape();
@@ -153,6 +152,22 @@ void DessinGeo::mousePressed(ofMouseEventArgs& args)
 			if (isDrawingToolSelected) {
 				mode = gui->getTypeGeometrique();
 			}
+			if (gui->getIsImageImported()) {
+				switch (gui->getCurrentFilter()) {
+				case GRAY:
+					filtered_image = Filter::toGray(gui->getImportedImage());
+					break;
+				case KELVIN:
+					filtered_image = Filter::toKelvin(gui->getImportedImage());
+					break;
+				case NASHVILLE:
+					filtered_image = Filter::toNashville(gui->getImportedImage());
+					break;
+				default:
+					filtered_image = gui->getImportedImage();
+					break;
+				}
+			}
 		}
 	}
 }
@@ -182,8 +197,7 @@ void DessinGeo::mouseDragged(ofMouseEventArgs& args) {
 
 			GeObject obj = GeObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor());
 			if (gui->getIsImageImported()) {
-				obj.setTexture(gui->getImportedImage());
-				obj.setFilter(gui->getCurrentFilter());
+				obj.setTexture(filtered_image);
 			}
 
 			obj.setPosition(glm::vec3(mouse_press_x, mouse_press_y, default_pos_z));
@@ -287,8 +301,7 @@ void DessinGeo::add_shape() {
 	GeObject *new_shape = new GeObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor());
 
 	if (gui->getIsImageImported()) {
-		new_shape->setTexture(gui->getImportedImage());
-		new_shape->setFilter(gui->getCurrentFilter());
+		new_shape->setTexture(filtered_image);
 	}
 
 	shapes->push_back(new_shape);

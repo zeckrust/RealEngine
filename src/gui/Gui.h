@@ -42,7 +42,7 @@ class Gui
 		void setFilterGray();
 		void setFilterKelvin();
 		void setFilterNashville();
-		Filter* getCurrentFilter();
+		FilterType getCurrentFilter();
 
 		int getLineWidth();
 		ofColor getLineColor();
@@ -107,10 +107,7 @@ class Gui
 		bool isSkyboxChanged;
 		ofImage skyboxImage;
 
-		Filter* currentFilter;
-		Filter grayFilter;
-		Filter kelvinFilter;
-		Filter nashvilleFilter;
+		FilterType currentFilter;
 };
 
 Gui* Gui::instancePtr = nullptr;

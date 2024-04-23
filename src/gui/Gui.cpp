@@ -35,10 +35,7 @@ void Gui::setupPanels() {
 }
 
 void Gui::setupFilters() {
-	grayFilter.setup(FilterType::GRAY);
-	kelvinFilter.setup(FilterType::KELVIN);
-	nashvilleFilter.setup(FilterType::NASHVILLE);
-	currentFilter = nullptr;
+	currentFilter = FilterType::NO_FILTER;
 }
 
 void Gui::update() {
@@ -149,22 +146,22 @@ void Gui::setGeneratedSkybox() {
 }
 
 void Gui::setFilterNone() {
-	currentFilter = nullptr;
+	currentFilter = FilterType::NO_FILTER;
 }
 
 void Gui::setFilterGray() {
-	currentFilter = &grayFilter;
+	currentFilter = FilterType::GRAY;
 }
 
 void Gui::setFilterKelvin() {
-	currentFilter = &kelvinFilter;
+	currentFilter = FilterType::KELVIN;
 }
 
 void Gui::setFilterNashville() {
-	currentFilter = &nashvilleFilter;
+	currentFilter = FilterType::NASHVILLE;
 }
 
-Filter* Gui::getCurrentFilter() {
+FilterType Gui::getCurrentFilter() {
 	return currentFilter;
 }
 
