@@ -29,5 +29,5 @@ void Filter::end(void) {
 }
 
 void Filter::setTexture(ofImage &texture) {
-	shader.setUniformTexture("image", texture.getTexture(), 1);
+	shader.setUniformTexture("image", texture.getTexture(), 0);
 }

@@ -288,6 +288,7 @@ void DessinGeo::add_shape() {
 
 	if (gui->getIsImageImported()) {
 		new_shape->setTexture(gui->getImportedImage());
+		new_shape->setFilter(gui->getCurrentFilter());
 	}
 
 	shapes->push_back(new_shape);
