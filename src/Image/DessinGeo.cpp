@@ -66,6 +66,7 @@ void DessinGeo::setup_skybox() {
 	skybox.set_texture(skybox_image);
 	skybox_image.clear();
 	skybox.setPosition(camera.getPosition());
+	skybox.setup();
 }
 
 void DessinGeo::setup_matrix() {
@@ -107,8 +108,9 @@ void DessinGeo::draw()
 	if (gui->getIsHistogramShowing()) {
 		histogramPerspective.draw();
 	}
-	if (gui->getIsSkyboxChanged()) {
+	if (gui->getIsSkyboxPerspectiveChanged()) {
 		skybox.set_texture(gui->getSkyboxImage());
+		gui->setIsSkyboxPerspectiveChanged(false);
 	}
 }
 
@@ -121,7 +123,7 @@ void DessinGeo::redraw() {
 
 void DessinGeo::draw_buffer() {
 	camera.begin();
-	skybox.draw();
+	skybox.draw_mesh();
 	for (auto& shape : *shapes)
 	{
 		shape->draw();
