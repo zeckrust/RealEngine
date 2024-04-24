@@ -10,6 +10,8 @@ DrawingToolsPanel::DrawingToolsPanel() : CustomPanel() {
 	drawingButtons[6] = &drawStage2Button;
 	drawingButtons[7] = &drawCylinderButton;
 	drawingButtons[8] = &drawPrismButton;
+	drawingButtons[9] = &drawBezierButton;
+	bezierMode = false;
 }
 
 void DrawingToolsPanel::setup(std::string panelName, float x, float y) {
@@ -31,6 +33,7 @@ void DrawingToolsPanel::setupButtons(void) {
 	drawStage2Button.setup("Stage 2", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 	drawCylinderButton.setup("Cylinder", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 	drawPrismButton.setup("RecPrism", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
+	drawBezierButton.setup("Bezier curve", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 
 	add(&drawCircleButton);
 	add(&drawEllipseButton);
@@ -41,6 +44,7 @@ void DrawingToolsPanel::setupButtons(void) {
 	add(&drawStage2Button);
 	add(&drawCylinderButton);
 	add(&drawPrismButton);
+	add(&drawBezierButton);
 }	
 
 void DrawingToolsPanel::setupFields(void) {
@@ -145,6 +149,13 @@ void DrawingToolsPanel::setSelectedDrawingTool(CustomButton* button) {
 			typePrimitive = Primitype::none;
 		}
 
+		if (button == &drawBezierButton) {
+			bezierMode = true;
+		}
+		else {
+			bezierMode = false;
+		}
+
 		if (button == &drawCylinderButton) {
 			typeGeo = Geotype::cylindre;
 		}
@@ -194,4 +205,8 @@ Primitype DrawingToolsPanel::getDrawMode(void) {
 
 Geotype DrawingToolsPanel::getGeometricType(void) {
 	return typeGeo;
+}
+
+bool DrawingToolsPanel::getBezierMode(void) {
+	return bezierMode;
 }

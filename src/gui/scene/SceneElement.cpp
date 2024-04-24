@@ -19,9 +19,11 @@ void SceneElement::setupFont() {
 void SceneElement::update() {
 	if (isSelected()) {
 		setBackgroundColor(SELECTED_COLOR);
+		object_ptr->setSelected(true);
 	}
 	else {
 		setBackgroundColor(DEFAULT_COLOR);
+		object_ptr->setSelected(false);
 	}
 }
 

@@ -26,13 +26,14 @@ class DrawingToolsPanel : public CustomPanel
 		ofColor getSceneBackgroundColor(void);
 		Primitype getDrawMode(void);
 		Geotype getGeometricType(void);
+		bool getBezierMode(void);
 
 	private:
 		void setupButtons(void);
 		void setupFields(void);
 		void setupColorPanels(void);
 
-		static const uint8_t NB_DRAWING_BUTTONS = 9;
+		static const uint8_t NB_DRAWING_BUTTONS = 10;
 		CustomButton* drawingButtons[NB_DRAWING_BUTTONS];
 
 		CustomButton* selectedDrawingTool = nullptr;
@@ -45,6 +46,7 @@ class DrawingToolsPanel : public CustomPanel
 		CustomButton drawStage2Button;
 		CustomButton drawCylinderButton;
 		CustomButton drawPrismButton;
+		CustomButton drawBezierButton;
 		
 		ofxInputField<int> lineWidthField;
 		ColorPanel lineColorPanel;
@@ -52,6 +54,7 @@ class DrawingToolsPanel : public CustomPanel
 		ColorPanel backgroundColorPanel;
 		Primitype typePrimitive;
 		Geotype typeGeo;
+		bool bezierMode;
 
 		const ofColor SELECTED_BUTTON_COLOR = ofColor(90, 90, 90, 255);
 };
