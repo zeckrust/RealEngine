@@ -59,10 +59,6 @@ ofImage Filter::toNashville(ofImage& texture) {
             r = ofClamp(0.9 * r + 0.1 * g - 30, 0, 255);
             g = ofClamp(0.9 * r + 0.1 * b - 30, 0, 255);
             b = ofClamp(0.9 * b + 0.1 * g - 30, 0, 255);
-
-            //r = ofClamp(0.9 * r + 0.05 * g + 0.05 * b, 0, 255);
-            //g = ofClamp(0.75 * r + 0.1 * g + 0.15 * b, 0, 255);
-            //b = ofClamp(0.6 * r + 0.2 * g + 0.2 * b, 0, 255);
                         
             filteredImage.setColor(x, y, ofColor(r, g, b));
         }
