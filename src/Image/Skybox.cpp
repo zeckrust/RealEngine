@@ -1,11 +1,10 @@
 #include "Skybox.h"
 
-void Skybox::draw() {
+void Skybox::setup() {
 	calculate_vertex();
 	mesh.setupIndicesAuto();
 	calculate_normal();
 	calculate_tex_coord(image.getWidth()/4, image.getHeight()/3);
-	draw_mesh();
 }
 
 void Skybox::set_texture(ofImage _image) {

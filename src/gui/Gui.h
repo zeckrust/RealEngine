@@ -69,8 +69,10 @@ class Gui
 		bool* getPropertiesPanelBtnStates(void);
 		vector<SceneElement*> getSelectedElements(void);
 
-		bool getIsSkyboxChanged();
-		void setIsSkyboxChanged(bool _isSkyboxChanged);
+		bool getIsSkyboxOrthogonalChanged();
+		void setIsSkyboxOrthogonalChanged(bool _isSkyboxOrthogonalChanged);
+		bool getIsSkyboxPerspectiveChanged();
+		void setIsSkyboxPerspectiveChanged(bool _isSkyboxPerspectiveChanged);
 
 		ofImage getSkyboxImage();
 
@@ -104,7 +106,8 @@ class Gui
 		ofImage imageBuffer;
 		bool isImageImported;
 
-		bool isSkyboxChanged;
+		bool isSkyboxOrthogonalChanged;
+		bool isSkyboxPerspectiveChanged;
 		ofImage skyboxImage;
 
 		FilterType currentFilter;

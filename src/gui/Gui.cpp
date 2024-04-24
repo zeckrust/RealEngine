@@ -132,17 +132,20 @@ void Gui::showHistogram() {
 
 void Gui::setSkybox1() {
 	skyboxImage.load("skybox\\skybox1.png");
-	isSkyboxChanged = true;
+	isSkyboxPerspectiveChanged = true;
+	isSkyboxOrthogonalChanged = true;
 }
 
 void Gui::setSkybox2() {
 	skyboxImage.load("skybox\\skybox2.jpg");
-	isSkyboxChanged = true;
+	isSkyboxPerspectiveChanged = true;
+	isSkyboxOrthogonalChanged = true;
 }
 
 void Gui::setGeneratedSkybox() {
 	skyboxImage = Skybox::generate_texture();
-	isSkyboxChanged = true;
+	isSkyboxPerspectiveChanged = true;
+	isSkyboxOrthogonalChanged = true;
 }
 
 void Gui::setFilterNone() {
@@ -249,11 +252,18 @@ vector<SceneElement*> Gui::getSelectedElements(void) {
 	return sceneHierarchyPanel.getSelectedSceneElements();
 }
 
-bool Gui::getIsSkyboxChanged() {
-	return isSkyboxChanged;
+bool Gui::getIsSkyboxOrthogonalChanged() {
+	return isSkyboxOrthogonalChanged;
 }
-void Gui::setIsSkyboxChanged(bool _isSkyboxChanged) {
-	isSkyboxChanged = _isSkyboxChanged;
+void Gui::setIsSkyboxOrthogonalChanged(bool _isSkyboxOrthogonalChanged) {
+	isSkyboxOrthogonalChanged = _isSkyboxOrthogonalChanged;
+}
+
+bool Gui::getIsSkyboxPerspectiveChanged() {
+	return isSkyboxPerspectiveChanged;
+}
+void Gui::setIsSkyboxPerspectiveChanged(bool _isSkyboxPerspectiveChanged) {
+	isSkyboxPerspectiveChanged = _isSkyboxPerspectiveChanged;
 }
 
 ofImage Gui::getSkyboxImage() {

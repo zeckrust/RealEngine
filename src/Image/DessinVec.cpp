@@ -56,6 +56,7 @@ void DessinVec::setup_skybox() {
 	skybox.set_texture(skybox_image);
 	skybox_image.clear();
 	skybox.setPosition(camera.getPosition());
+	skybox.setup();
 }
 
 void DessinVec::setup_matrix() {
@@ -430,8 +431,9 @@ void DessinVec::draw()
 	if (gui->getIsHistogramShowing()) {
 		histogramOrthogonal.draw();
 	}
-	if (gui->getIsSkyboxChanged()) {
+	if (gui->getIsSkyboxOrthogonalChanged()) {
 		skybox.set_texture(gui->getSkyboxImage());
+		gui->setIsSkyboxOrthogonalChanged(false);
 	}
 	ofDisableDepthTest();
 }
@@ -445,7 +447,7 @@ void DessinVec::redraw() {
 
 void DessinVec::draw_buffer() {
 	camera.begin();
-	skybox.draw();
+	skybox.draw_mesh();
 	for (auto & shape : *shapes)
 	{
 		shape->draw();
