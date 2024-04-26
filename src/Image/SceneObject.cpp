@@ -2,10 +2,11 @@
 
 SceneObject::SceneObject(glm::vec3 _position, glm::vec3 _dimensions) : position(_position), dimensions(_dimensions) {
 	transformMatrix.makeIdentityMatrix();
+	selected = false;
 }
 
 SceneObject::SceneObject() {
-
+	selected = false;
 }
 
 //void SceneObject::draw(void) {}
@@ -32,4 +33,12 @@ ofVec3f SceneObject::getDimensions() {
 
 ofMatrix4x4 SceneObject::getTransformMatrix(void) {
 	return transformMatrix;
+}
+
+void SceneObject::setSelected(bool status) {
+	selected = status;
+}
+
+bool SceneObject::getSelected(void) {
+	return selected;
 }

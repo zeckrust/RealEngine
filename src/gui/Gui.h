@@ -49,6 +49,7 @@ class Gui
 		ofColor getFillColor();
 		Primitype getTypePrimitive();
 		Geotype getTypeGeometrique();
+		bool getBezierMode();
 
 		void setUserModeDrawing(void);
 		void setUserModeTransform(void);

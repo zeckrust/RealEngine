@@ -4,6 +4,7 @@
 #include "../gui/Histogram.h"
 #include "GeObject.h"
 #include "../gui/scene/SceneElement.h"
+#include "BezierObject.h"
 #include "Drawer.h"
 #include "Skybox.h"
 
@@ -20,6 +21,7 @@ class DessinVec : public Drawer
 		void redraw();
 		void reset();
 		void add_shape();
+		void add_topo();
 
 		void mousePressed(ofMouseEventArgs& args);
 		void mouseReleased(ofMouseEventArgs& args);
@@ -39,6 +41,9 @@ class DessinVec : public Drawer
 
 		Primitype mode;
 		Gui* gui = nullptr;
+		
+		bool bezier_mode;
+		std::vector<ofVec3f> ctrl_pts;
 
 		int mouse_press_x;
 		int mouse_press_y;
@@ -61,6 +66,7 @@ class DessinVec : public Drawer
 		uint32_t compteur_image;
 		uint32_t compteur_stage_1;
 		uint32_t compteur_stage_2;
+		uint32_t compteur_bezier;
 
 
 		ofPolyline ligne;

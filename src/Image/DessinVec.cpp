@@ -12,6 +12,7 @@ void DessinVec::setup(std::vector<SceneObject*>* _shapes)
 
 	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = mouse_last_x = mouse_last_y = 0;
 	mouse_pressed = false;
+	bezier_mode = false;
 
 	compteur_square = 0;
 	compteur_circle = 0;
@@ -22,6 +23,8 @@ void DessinVec::setup(std::vector<SceneObject*>* _shapes)
 
 	compteur_stage_1 = 0;
 	compteur_stage_2 = 0;
+
+	compteur_bezier = 0;
 
 	gui = Gui::getInstance();
 
@@ -66,6 +69,9 @@ void DessinVec::setup_matrix() {
 	pitch.makeIdentityMatrix();
 	roll.makeIdentityMatrix();
 	originRotation.makeIdentityMatrix();
+
+	draw();
+
 }
 
 void DessinVec::update()
@@ -87,6 +93,19 @@ void DessinVec::update()
 void DessinVec::reset()
 {
 	shapes->clear();
+}
+
+void DessinVec::add_topo() {
+	ctrl_pts.push_back(ofVec3f(mouse_press_x, mouse_press_y, 0));
+	mouse_pressed = false;
+	if (ctrl_pts.size() > 3) {
+		shapes->push_back(new BezierObject(ctrl_pts.at(0), ctrl_pts.at(1), ctrl_pts.at(2), ctrl_pts.at(3), gui->getLineWidth(), gui->getLineColor()));
+		histogramOrthogonal.update(fbo, scene2DShape.getY());
+		std::string name = "Bezier curve";
+		name += to_string(compteur_bezier);
+		gui->createSceneElement(name, shapes->back());
+		ctrl_pts.clear();
+	}
 }
 
 void DessinVec::add_shape() 
@@ -172,7 +191,7 @@ void DessinVec::mousePressed(ofMouseEventArgs& args)
 	is_drawing_mode = gui->getSelectedUserMode() == DRAWING;
 	is_transform_mode = gui->getSelectedUserMode() == TRANSFORM;
 	bool isInsideScene = scene2DShape.inside(args.x, args.y);
-	bool isDrawingToolSelected = gui->getTypePrimitive() != Primitype::none;
+	bool isDrawingToolSelected = (gui->getTypePrimitive() != Primitype::none) || (gui->getBezierMode());
 
 	mode = Primitype::none;
 
@@ -193,6 +212,7 @@ void DessinVec::mousePressed(ofMouseEventArgs& args)
 			}
 			else if (isDrawingToolSelected) {
 				mode = gui->getTypePrimitive();
+				bezier_mode = gui->getBezierMode();
 			}
 		}
 	}
@@ -201,8 +221,13 @@ void DessinVec::mousePressed(ofMouseEventArgs& args)
 void DessinVec::mouseReleased(ofMouseEventArgs& args)
 {
 	if (mouse_pressed) {
-		if (is_drawing_mode && mode != Primitype::none) {
-			add_shape();
+		if (is_drawing_mode) {
+			if (mode != Primitype::none) {
+				add_shape();
+			}
+			else if (bezier_mode) {
+				add_topo();
+			}
 		}
 		sceneElements.clear();
 	}
@@ -451,6 +476,17 @@ void DessinVec::draw_buffer() {
 	for (auto & shape : *shapes)
 	{
 		shape->draw();
+	}
+	if (ctrl_pts.size() > 0)
+	{
+		ofPushStyle();
+		ofFill();
+		ofSetCircleResolution(100);
+		ofSetColor(255, 0, 0);
+		for (ofVec3f pts : ctrl_pts) {
+			ofDrawEllipse(pts.x, pts.y, 16.0f, 16.0f);
+		}
+		ofPopStyle();
 	}
 	camera.end();
 }

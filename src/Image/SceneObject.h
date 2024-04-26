@@ -13,12 +13,16 @@ class SceneObject
 		ofVec3f getPosition();
 		ofVec3f getDimensions();
 		ofMatrix4x4 getTransformMatrix(void);
+		void setSelected(bool status);
+		bool getSelected(void);
 		virtual void draw()=0;
+
 
 	protected:
 		ofVec3f position;
 		ofVec3f dimensions;
 		ofMatrix4x4 transformMatrix;
 		int radius;
+		bool selected;
 
 };

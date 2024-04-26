@@ -200,6 +200,10 @@ Geotype Gui::getTypeGeometrique() {
 	return drawingPanel.getGeometricType();
 }
 
+bool Gui::getBezierMode() {
+	return drawingPanel.getBezierMode();
+}
+
 ofColor Gui::getFillColor() {
 	return drawingPanel.getFillColor();
 }
