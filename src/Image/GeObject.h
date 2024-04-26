@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "SceneObject.h"
+#include "Filter.h"
 
 enum class Geotype { none, rectangulaire, cylindre };
 
@@ -18,6 +19,8 @@ class GeObject : public SceneObject
 		void setStrokeWidth(float width);
 		void setStrokeColor(ofColor color);
 		void setFillColor(ofColor color);
+		void setTexture(ofImage texture);
+		void setFilter(Filter *filter);
 
 		void draw(void) override;
 
@@ -29,4 +32,8 @@ class GeObject : public SceneObject
 		float stroke_width;
 		ofColor stroke_color;
 		ofColor fill_color;
+		ofImage imported_texture;
+		Filter* texture_filter;
+
+		bool is_texture_loaded;
 };

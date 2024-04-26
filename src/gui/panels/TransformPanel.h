@@ -37,7 +37,7 @@ class TransformPanel : public CustomPanel
 		CustomButton rotationButton;
 		CustomButton scaleButton;
 
-		TransformTool selectedTransformTool = NONE;
+		TransformTool selectedTransformTool = TransformTool::NONE;
 		TransformTool transformTools[3] = { TRANSLATION, ROTATION, SCALE };
 
 		Gui* gui = nullptr;

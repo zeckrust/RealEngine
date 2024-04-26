@@ -18,7 +18,6 @@ void DessinGeo::setup(std::vector<SceneObject*>* _shapes) {
 	default_pos_z = 15;
 	default_dim_z = 40;
 
-
 	gui = Gui::getInstance();
 
 	scene3DShape = gui->getScene3DShape();
@@ -155,6 +154,22 @@ void DessinGeo::mousePressed(ofMouseEventArgs& args)
 			if (isDrawingToolSelected) {
 				mode = gui->getTypeGeometrique();
 			}
+			if (gui->getIsImageImported()) {
+				switch (gui->getCurrentFilter()) {
+				case GRAY:
+					filtered_image = Filter::toGray(gui->getImportedImage());
+					break;
+				case KELVIN:
+					filtered_image = Filter::toKelvin(gui->getImportedImage());
+					break;
+				case NASHVILLE:
+					filtered_image = Filter::toNashville(gui->getImportedImage());
+					break;
+				default:
+					filtered_image = gui->getImportedImage();
+					break;
+				}
+			}
 		}
 	}
 }
@@ -183,6 +198,9 @@ void DessinGeo::mouseDragged(ofMouseEventArgs& args) {
 			draw_buffer();
 
 			GeObject obj = GeObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor());
+			if (gui->getIsImageImported()) {
+				obj.setTexture(filtered_image);
+			}
 
 			obj.setPosition(glm::vec3(mouse_press_x, mouse_press_y, default_pos_z));
 			obj.setDimensions(glm::vec3(mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y, default_dim_z));
@@ -282,7 +300,13 @@ void DessinGeo::mouseDragged(ofMouseEventArgs& args) {
 }
 
 void DessinGeo::add_shape() {
-	shapes->push_back(new GeObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor()));
+	GeObject *new_shape = new GeObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor());
+
+	if (gui->getIsImageImported()) {
+		new_shape->setTexture(filtered_image);
+	}
+
+	shapes->push_back(new_shape);
 
 	shapes->back()->setPosition(glm::vec3(mouse_press_x, mouse_press_y, default_pos_z));
 	shapes->back()->setDimensions(glm::vec3(mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y, default_dim_z));
@@ -305,6 +329,10 @@ void DessinGeo::add_shape() {
 			name = "RecPrism";
 			name += to_string(compteur_prism);
 			compteur_prism++;
+
+			if (gui->getIsImageImported()) {
+				gui->setIsImageImported(false);
+			}
 			break;
 		default:
 			break;
