@@ -47,4 +47,7 @@ class TitleBar
 		CustomButton grayFilterButton;
 		CustomButton kelvinFilterButton;
 		CustomButton nashvilleFilterButton;
+		CustomButton reinhardFilterButton;
+		CustomButton exposition2FilterButton;
+		CustomButton exposition05FilterButton;
 };

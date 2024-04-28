@@ -42,6 +42,9 @@ class Gui
 		void setFilterGray();
 		void setFilterKelvin();
 		void setFilterNashville();
+		void setFilterReinhard();
+		void setFilterExposition2();
+		void setFilterExposition05();
 		FilterType getCurrentFilter();
 
 		int getLineWidth();

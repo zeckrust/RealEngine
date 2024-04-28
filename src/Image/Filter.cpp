@@ -68,3 +68,88 @@ ofImage Filter::toNashville(ofImage& texture) {
 
     return filteredImage;
 }
+
+ofImage Filter::toTonalMappingReinhard(ofImage& texture) {
+    ofImage filteredImage(texture);
+
+    int width = filteredImage.getWidth();
+    int height = filteredImage.getHeight();
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            ofColor color = filteredImage.getColor(x, y);
+
+            float r = color.r;
+            float g = color.g;
+            float b = color.b;
+
+            r = r / (r + 1);
+            g = g / (g + 1);
+            b = b / (b + 1);
+
+            filteredImage.setColor(x, y, ofColor(r, g, b));
+        }
+    }
+
+    filteredImage.update();
+
+    return filteredImage;
+}
+
+ofImage Filter::toTonalMappingExposition2(ofImage& texture) {
+    ofImage filteredImage(texture);
+
+    int width = filteredImage.getWidth();
+    int height = filteredImage.getHeight();
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            ofColor color = filteredImage.getColor(x, y);
+
+            float f = 2.;
+
+            float r = color.r;
+            float g = color.g;
+            float b = color.b;
+
+            r = 1 - exp(-r * f);
+            g = 1 - exp(-g * f);
+            b = 1 - exp(-b * f);
+
+            filteredImage.setColor(x, y, ofColor(r, g, b));
+        }
+    }
+
+    filteredImage.update();
+
+    return filteredImage;
+}
+
+ofImage Filter::toTonalMappingExposition05(ofImage& texture) {
+    ofImage filteredImage(texture);
+
+    int width = filteredImage.getWidth();
+    int height = filteredImage.getHeight();
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            ofColor color = filteredImage.getColor(x, y);
+
+            float f = 0.5;
+
+            float r = color.r;
+            float g = color.g;
+            float b = color.b;
+
+            r = 1 - exp(-r * f);
+            g = 1 - exp(-g * f);
+            b = 1 - exp(-b * f);
+
+            filteredImage.setColor(x, y, ofColor(r, g, b));
+        }
+    }
+
+    filteredImage.update();
+
+    return filteredImage;
+}
