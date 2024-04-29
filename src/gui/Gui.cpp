@@ -169,11 +169,11 @@ void Gui::setFilterReinhard() {
 }
 
 void Gui::setFilterExposition2() {
-	currentFilter = FilterType::REINHARD;
+	currentFilter = FilterType::EXPOSITION2;
 }
 
 void Gui::setFilterExposition05() {
-	currentFilter = FilterType::REINHARD;
+	currentFilter = FilterType::EXPOSITION05;
 }
 
 FilterType Gui::getCurrentFilter() {

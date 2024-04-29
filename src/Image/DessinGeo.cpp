@@ -165,6 +165,15 @@ void DessinGeo::mousePressed(ofMouseEventArgs& args)
 				case NASHVILLE:
 					filtered_image = Filter::toNashville(gui->getImportedImage());
 					break;
+				case REINHARD:
+					filtered_image = Filter::toTonalMappingReinhard(gui->getImportedImage());
+					break;
+				case EXPOSITION2:
+					filtered_image = Filter::toTonalMappingExposition2(gui->getImportedImage());
+					break;
+				case EXPOSITION05:
+					filtered_image = Filter::toTonalMappingExposition05(gui->getImportedImage());
+					break;
 				default:
 					filtered_image = gui->getImportedImage();
 					break;

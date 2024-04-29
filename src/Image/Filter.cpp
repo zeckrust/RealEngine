@@ -83,9 +83,9 @@ ofImage Filter::toTonalMappingReinhard(ofImage& texture) {
             float g = color.g;
             float b = color.b;
 
-            r = r / (r + 1);
-            g = g / (g + 1);
-            b = b / (b + 1);
+            r = r / ((r / 255) + 1);
+            g = g / ((g / 255) + 1);
+            b = b / ((b / 255) + 1);
 
             filteredImage.setColor(x, y, ofColor(r, g, b));
         }
@@ -112,9 +112,13 @@ ofImage Filter::toTonalMappingExposition2(ofImage& texture) {
             float g = color.g;
             float b = color.b;
 
-            r = 1 - exp(-r * f);
-            g = 1 - exp(-g * f);
-            b = 1 - exp(-b * f);
+            r = 1 - exp(-(r / 255) * f);
+            g = 1 - exp(-(g / 255) * f);
+            b = 1 - exp(-(b / 255) * f);
+
+            r *= 255;
+            g *= 255;
+            b *= 255;
 
             filteredImage.setColor(x, y, ofColor(r, g, b));
         }
@@ -141,9 +145,13 @@ ofImage Filter::toTonalMappingExposition05(ofImage& texture) {
             float g = color.g;
             float b = color.b;
 
-            r = 1 - exp(-r * f);
-            g = 1 - exp(-g * f);
-            b = 1 - exp(-b * f);
+            r = 1 - exp(-(r / 255) * f);
+            g = 1 - exp(-(g / 255) * f);
+            b = 1 - exp(-(b / 255) * f);
+
+            r *= 255;
+            g *= 255;
+            b *= 255;
 
             filteredImage.setColor(x, y, ofColor(r, g, b));
         }
