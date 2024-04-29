@@ -164,6 +164,18 @@ void Gui::setFilterNashville() {
 	currentFilter = FilterType::NASHVILLE;
 }
 
+void Gui::setFilterReinhard() {
+	currentFilter = FilterType::REINHARD;
+}
+
+void Gui::setFilterExposition2() {
+	currentFilter = FilterType::EXPOSITION2;
+}
+
+void Gui::setFilterExposition05() {
+	currentFilter = FilterType::EXPOSITION05;
+}
+
 FilterType Gui::getCurrentFilter() {
 	return currentFilter;
 }

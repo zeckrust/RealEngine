@@ -53,7 +53,21 @@ void TitleBar::setup() {
 	kelvinFilterButton.setPressedFunction(&Gui::setFilterKelvin);
 	nashvilleFilterButton.setup("Nashville", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
 	nashvilleFilterButton.setPressedFunction(&Gui::setFilterNashville);
-	std::vector<CustomButton*> filterSubButtons = { &noFilterButton, &grayFilterButton, &kelvinFilterButton, &nashvilleFilterButton };
+	reinhardFilterButton.setup("Reinhard", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	reinhardFilterButton.setPressedFunction(&Gui::setFilterReinhard);
+	exposition2FilterButton.setup("Exposition f=2.0", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	exposition2FilterButton.setPressedFunction(&Gui::setFilterExposition2);
+	exposition05FilterButton.setup("Exposition f=0.5", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	exposition05FilterButton.setPressedFunction(&Gui::setFilterExposition05);
+	std::vector<CustomButton*> filterSubButtons = { 
+		&noFilterButton, 
+		&grayFilterButton, 
+		&kelvinFilterButton, 
+		&nashvilleFilterButton, 
+		&reinhardFilterButton,
+		&exposition2FilterButton,
+		&exposition05FilterButton
+	};
 	filterButton.setSubButtons(filterSubButtons);
 }
 
