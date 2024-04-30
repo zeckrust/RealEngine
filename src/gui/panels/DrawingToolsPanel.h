@@ -19,7 +19,7 @@ class DrawingToolsPanel : public CustomPanel
 
 		void setSelectedDrawingTool(CustomButton* button);
 		bool isDrawingButton(ofxBaseGui* element);
-
+		
 		int getLineWidth(void);
 		ofColor getLineColor(void);
 		ofColor getFillColor(void);
@@ -28,6 +28,7 @@ class DrawingToolsPanel : public CustomPanel
 		Geotype getGeometricType(void);
 		bool getBezierMode(void);
 		bool getPlaneMode(void);
+		int getDepth(void);
 
 	private:
 		void setupButtons(void);
@@ -51,6 +52,7 @@ class DrawingToolsPanel : public CustomPanel
 		CustomButton drawPlaneButton;
 		
 		ofxInputField<int> lineWidthField;
+		ofxInputField<int> zAxisField;
 		ColorPanel lineColorPanel;
 		ColorPanel fillColorPanel;
 		ColorPanel backgroundColorPanel;

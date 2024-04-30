@@ -33,8 +33,6 @@ void DessinGeo::setup(std::vector<SceneObject*>* _shapes) {
 
 	histogramPerspective.setup(fbo, scene3DShape.getY());
 
-	//->push_back(new BezierPlane(ofVec3f(30, 0, 50), ofVec3f(100, 40, 100), ofVec3f(160, 80, 150), ofVec3f(200, 120, 200), 170, 120));
-
 	setup_matrix();
 }
 
@@ -142,6 +140,7 @@ void DessinGeo::draw_buffer() {
 			sphere.setPosition(pts);
 			sphere.draw();
 		}
+		ofPopStyle();
 	}
 	camera.end();
 }
@@ -206,7 +205,7 @@ void DessinGeo::mouseDragged(ofMouseEventArgs& args) {
 
 			GeObject obj = GeObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor());
 
-			obj.setPosition(glm::vec3(mouse_press_x, mouse_press_y, default_pos_z));
+			obj.setPosition(glm::vec3(mouse_press_x, mouse_press_y, -1 * gui->getDepth()));
 			obj.setDimensions(glm::vec3(mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y, default_dim_z));
 
 			obj.draw();
@@ -306,7 +305,7 @@ void DessinGeo::mouseDragged(ofMouseEventArgs& args) {
 void DessinGeo::add_shape() {
 	shapes->push_back(new GeObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor()));
 
-	shapes->back()->setPosition(glm::vec3(mouse_press_x, mouse_press_y, default_pos_z));
+	shapes->back()->setPosition(glm::vec3(mouse_press_x, mouse_press_y, -1 * gui->getDepth()));
 	shapes->back()->setDimensions(glm::vec3(mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y, default_dim_z));
 
 	mouse_pressed = false;
@@ -336,7 +335,7 @@ void DessinGeo::add_shape() {
 }
 
 void DessinGeo::add_plane() {
-	ctrl_pts.push_back(ofVec3f(mouse_press_x, mouse_press_y, 0));
+	ctrl_pts.push_back(ofVec3f(mouse_press_x, mouse_press_y, -1 * gui->getDepth()));
 	mouse_pressed = false;
 	if (ctrl_pts.size() > 3) {
 		shapes->push_back(new BezierPlane(ctrl_pts.at(0), ctrl_pts.at(1), ctrl_pts.at(2), ctrl_pts.at(3), gui->getLineWidth(), gui->getLineColor(), gui->getFillColor()));

@@ -42,7 +42,7 @@ class Gui
 		Geotype getTypeGeometrique();
 		bool getBezierMode();
 		bool getPlaneMode();
-
+		int getDepth();
 
 		void setUserModeDrawing(void);
 		void setUserModeTransform(void);

@@ -70,6 +70,7 @@ void BezierPlane::setup_mesh(void) {
 		for (double v = 0; v < resolution; v++) {
 			mesh.addVertex(curve_pts_position(double(u/resolution), double(v/resolution)));
 			mesh.addColor(fill_color);
+			//mesh.addColor(stroke_color);
 			wire_mesh.addVertex(curve_pts_position(double(u / resolution), double(v / resolution)));
 			wire_mesh.addColor(stroke_color);
 		}
@@ -86,8 +87,11 @@ void BezierPlane::setup_mesh(void) {
 }
 
 void BezierPlane::draw(void) {
+	
+	ofEnableDepthTest();
 	mesh.draw();
 	wire_mesh.drawWireframe();
+	//mesh.drawWireframe();
 
 	if (selected) {
 		ofSetColor(255, 0, 0);
@@ -100,5 +104,7 @@ void BezierPlane::draw(void) {
 			}
 		}
 	}
+
+	ofDisableDepthTest();
 }
 

@@ -184,6 +184,10 @@ ofColor Gui::getFillColor() {
 	return drawingPanel.getFillColor();
 }
 
+int Gui::getDepth() {
+	return drawingPanel.getDepth();
+}
+
 ofRectangle Gui::getScene2DShape(void) {
 	return scene2d;
 }

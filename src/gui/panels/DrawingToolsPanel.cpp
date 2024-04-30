@@ -55,6 +55,10 @@ void DrawingToolsPanel::setupFields(void) {
 	lineWidthField.setup("Line width :", 2);
 	lineWidthField.setMin(0);
 	add(&lineWidthField);
+	zAxisField.setup("Z depth : ", 30);
+	zAxisField.setMin(0);
+	add(&zAxisField);
+
 }
 
 void DrawingToolsPanel::setupColorPanels(void) {
@@ -191,6 +195,11 @@ bool DrawingToolsPanel::isDrawingButton(ofxBaseGui* element) {
 		}
 	}
 	return false;
+}
+
+int DrawingToolsPanel::getDepth(void) {
+	int depth = zAxisField;
+	return depth;
 }
 
 int DrawingToolsPanel::getLineWidth(void) {
