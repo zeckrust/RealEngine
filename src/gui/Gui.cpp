@@ -176,6 +176,10 @@ bool Gui::getBezierMode() {
 	return drawingPanel.getBezierMode();
 }
 
+bool Gui::getPlaneMode() {
+	return drawingPanel.getPlaneMode();
+}
+
 ofColor Gui::getFillColor() {
 	return drawingPanel.getFillColor();
 }

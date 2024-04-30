@@ -11,6 +11,7 @@ void DessinGeo::setup(std::vector<SceneObject*>* _shapes) {
 
 	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = mouse_last_x = mouse_last_y = 0;
 	mouse_pressed = false;
+	planeMode = false;
 
 	compteur_prism = 0;
 	compteur_cylinder = 0;
@@ -18,6 +19,7 @@ void DessinGeo::setup(std::vector<SceneObject*>* _shapes) {
 	default_pos_z = 15;
 	default_dim_z = 40;
 
+	compteur_plane = 0;
 
 	gui = Gui::getInstance();
 
@@ -30,6 +32,8 @@ void DessinGeo::setup(std::vector<SceneObject*>* _shapes) {
 	setup_camera(); // sets up skybox too
 
 	histogramPerspective.setup(fbo, scene3DShape.getY());
+
+	//->push_back(new BezierPlane(ofVec3f(30, 0, 50), ofVec3f(100, 40, 100), ofVec3f(160, 80, 150), ofVec3f(200, 120, 200), 170, 120));
 
 	setup_matrix();
 }
@@ -128,6 +132,17 @@ void DessinGeo::draw_buffer() {
 	{
 		shape->draw();
 	}
+	if (ctrl_pts.size() > 0) {
+		ofPushStyle();
+		ofFill();
+		ofSetColor(255, 0, 0);
+		ofSpherePrimitive sphere;
+		sphere.set(8.0f, 100);
+		for (ofVec3f pts : ctrl_pts) {
+			sphere.setPosition(pts);
+			sphere.draw();
+		}
+	}
 	camera.end();
 }
 
@@ -136,9 +151,10 @@ void DessinGeo::mousePressed(ofMouseEventArgs& args)
 	is_drawing_mode = gui->getSelectedUserMode() == DRAWING;
 	is_transform_mode = gui->getSelectedUserMode() == TRANSFORM;
 	bool isInsideScene = scene3DShape.inside(args.x, args.y);
-	bool isDrawingToolSelected = gui->getTypeGeometrique() != Geotype::none;
+	bool isDrawingToolSelected = (gui->getTypeGeometrique() != Geotype::none) || (gui->getPlaneMode());
 
 	mode = Geotype::none;
+	planeMode = false;
 
 	if (isInsideScene) {
 		mouse_pressed = true;
@@ -154,6 +170,7 @@ void DessinGeo::mousePressed(ofMouseEventArgs& args)
 		if (is_drawing_mode) {
 			if (isDrawingToolSelected) {
 				mode = gui->getTypeGeometrique();
+				planeMode = gui->getPlaneMode();
 			}
 		}
 	}
@@ -162,8 +179,13 @@ void DessinGeo::mousePressed(ofMouseEventArgs& args)
 void DessinGeo::mouseReleased(ofMouseEventArgs& args)
 {
 	if (mouse_pressed) {
-		if (is_drawing_mode && mode != Geotype::none) {
-			add_shape();
+		if (is_drawing_mode) {
+			if (mode != Geotype::none) {
+				add_shape();
+			}
+			else if (planeMode) {
+				add_plane();
+			}
 		}
 		sceneElements.clear();
 	}
@@ -311,6 +333,20 @@ void DessinGeo::add_shape() {
 	}
 
 	gui->createSceneElement(name, shapes->back());
+}
+
+void DessinGeo::add_plane() {
+	ctrl_pts.push_back(ofVec3f(mouse_press_x, mouse_press_y, 0));
+	mouse_pressed = false;
+	if (ctrl_pts.size() > 3) {
+		shapes->push_back(new BezierPlane(ctrl_pts.at(0), ctrl_pts.at(1), ctrl_pts.at(2), ctrl_pts.at(3), gui->getLineWidth(), gui->getLineColor(), gui->getFillColor()));
+		histogramPerspective.update(fbo, scene3DShape.getY());
+		std::string name = "Bezier plane";
+		name += to_string(compteur_plane);
+		compteur_plane++;
+		gui->createSceneElement(name, shapes->back());
+		ctrl_pts.clear();
+	}
 }
 
 void DessinGeo::deleteObject(SceneObject* obj) {

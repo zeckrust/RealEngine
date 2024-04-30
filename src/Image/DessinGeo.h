@@ -6,6 +6,7 @@
 #include "../gui/scene/SceneElement.h"
 #include "Drawer.h"
 #include "Skybox.h"
+#include "BezierPlane.h"
 
 class Gui;
 
@@ -20,6 +21,7 @@ class DessinGeo : public Drawer
 		void redraw();
 		void reset();
 		void add_shape();
+		void add_plane();
 
 		void mousePressed(ofMouseEventArgs& args);
 		void mouseReleased(ofMouseEventArgs& args);
@@ -99,6 +101,10 @@ class DessinGeo : public Drawer
 		ofMatrix4x4 pitch;
 		ofMatrix4x4 roll;
 		ofMatrix4x4 originRotation;
+
+		std::vector<ofVec3f> ctrl_pts;
+		bool planeMode;
+		int compteur_plane;
 
 		vector<SceneElement*> sceneElements;
 };

@@ -27,13 +27,14 @@ class DrawingToolsPanel : public CustomPanel
 		Primitype getDrawMode(void);
 		Geotype getGeometricType(void);
 		bool getBezierMode(void);
+		bool getPlaneMode(void);
 
 	private:
 		void setupButtons(void);
 		void setupFields(void);
 		void setupColorPanels(void);
 
-		static const uint8_t NB_DRAWING_BUTTONS = 10;
+		static const uint8_t NB_DRAWING_BUTTONS = 11;
 		CustomButton* drawingButtons[NB_DRAWING_BUTTONS];
 
 		CustomButton* selectedDrawingTool = nullptr;
@@ -47,6 +48,7 @@ class DrawingToolsPanel : public CustomPanel
 		CustomButton drawCylinderButton;
 		CustomButton drawPrismButton;
 		CustomButton drawBezierButton;
+		CustomButton drawPlaneButton;
 		
 		ofxInputField<int> lineWidthField;
 		ColorPanel lineColorPanel;
@@ -55,6 +57,7 @@ class DrawingToolsPanel : public CustomPanel
 		Primitype typePrimitive;
 		Geotype typeGeo;
 		bool bezierMode;
+		bool planeMode;
 
 		const ofColor SELECTED_BUTTON_COLOR = ofColor(90, 90, 90, 255);
 };

@@ -118,6 +118,12 @@
     <ClCompile Include="src\Image\Skybox.cpp">
       <Filter>src\Image</Filter>
     </ClCompile>
+    <ClCompile Include="src\Image\BezierPlane.cpp">
+      <Filter>src\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Image\BezierObject.cpp">
+      <Filter>src\Image</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -561,6 +567,12 @@
       <Filter>src\Image</Filter>
     </ClInclude>
     <ClInclude Include="src\Image\Skybox.h">
+      <Filter>src\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Image\BezierPlane.h">
+      <Filter>src\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Image\BezierObject.h">
       <Filter>src\Image</Filter>
     </ClInclude>
   </ItemGroup>
