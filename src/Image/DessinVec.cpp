@@ -450,6 +450,7 @@ void DessinVec::mouseDragged(ofMouseEventArgs& args)
 
 void DessinVec::draw()
 {
+	ofEnableDepthTest();
 	ofPushStyle();
 	ofSetColor(255, 255, 255, 255);
 	fbo.draw(scene2DShape.getPosition().x, scene2DShape.getPosition().y);
@@ -461,6 +462,7 @@ void DessinVec::draw()
 		skybox.set_texture(gui->getSkyboxImage());
 		gui->setIsSkyboxOrthogonalChanged(false);
 	}
+	ofDisableDepthTest();
 }
 
 void DessinVec::redraw() {

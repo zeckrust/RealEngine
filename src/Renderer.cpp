@@ -32,9 +32,10 @@ void Renderer::update() {
 }
 
 void Renderer::draw() {
-	gui->draw();
+	gui->drawScenes();
 	dessinateurOrthogonal.draw();
 	dessinateurPerspective.draw();
+	gui->draw();
 	cursors.draw();
 }
 

@@ -119,10 +119,11 @@
     <ClCompile Include="src\gui\scene\SceneElementExtension.cpp" />
     <ClCompile Include="src\gui\TitleBar.cpp" />
     <ClCompile Include="src\Image\BezierObject.cpp" />
-    <ClCompile Include="src\Image\BezierPlane.cpp" />
     <ClCompile Include="src\Image\Cursor.cpp" />
     <ClCompile Include="src\Image\DessinGeo.cpp" />
+    <ClCompile Include="src\Image\DessinTopologique.cpp" />
     <ClCompile Include="src\Image\DessinVec.cpp" />
+    <ClCompile Include="src\Image\Filter.cpp" />
     <ClCompile Include="src\Image\GeObject.cpp" />
     <ClCompile Include="src\Image\SceneObject.cpp" />
     <ClCompile Include="src\Image\Skybox.cpp" />
@@ -163,11 +164,12 @@
     <ClInclude Include="src\gui\scene\SceneElementExtension.h" />
     <ClInclude Include="src\gui\TitleBar.h" />
     <ClInclude Include="src\Image\BezierObject.h" />
-    <ClInclude Include="src\Image\BezierPlane.h" />
     <ClInclude Include="src\Image\Cursor.h" />
     <ClInclude Include="src\Image\DessinGeo.h" />
+    <ClInclude Include="src\Image\DessinTopologique.h" />
     <ClInclude Include="src\Image\DessinVec.h" />
     <ClInclude Include="src\Image\Drawer.h" />
+    <ClInclude Include="src\Image\Filter.h" />
     <ClInclude Include="src\Image\GeObject.h" />
     <ClInclude Include="src\Image\SceneObject.h" />
     <ClInclude Include="src\Image\Skybox.h" />

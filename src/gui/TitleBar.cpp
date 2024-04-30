@@ -5,9 +5,11 @@ TitleBar::TitleBar() {
 	buttons[0] = &fileButton;
 	buttons[1] = &modeButton;
 	buttons[2] = &showButton;
+	buttons[3] = &filterButton;
 	buttonNames[0] = "File";
 	buttonNames[1] = "Mode";
 	buttonNames[2] = "Show";
+	buttonNames[3] = "Filter";
 }
 
 void TitleBar::setup() {
@@ -42,6 +44,31 @@ void TitleBar::setup() {
 	skyboxGenButton.setPressedFunction(&Gui::setGeneratedSkybox);
 	std::vector<CustomButton*> showSubButtons = { &histogramButton, &skybox1Button, &skybox2Button, &skyboxGenButton };
 	showButton.setSubButtons(showSubButtons);
+
+	noFilterButton.setup("None", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	noFilterButton.setPressedFunction(&Gui::setFilterNone);
+	grayFilterButton.setup("Gray", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	grayFilterButton.setPressedFunction(&Gui::setFilterGray);
+	kelvinFilterButton.setup("Kelvin", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	kelvinFilterButton.setPressedFunction(&Gui::setFilterKelvin);
+	nashvilleFilterButton.setup("Nashville", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	nashvilleFilterButton.setPressedFunction(&Gui::setFilterNashville);
+	reinhardFilterButton.setup("Reinhard", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	reinhardFilterButton.setPressedFunction(&Gui::setFilterReinhard);
+	exposition2FilterButton.setup("Exposition f=2.0", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	exposition2FilterButton.setPressedFunction(&Gui::setFilterExposition2);
+	exposition05FilterButton.setup("Exposition f=0.5", REGULAR_FONT, 0, 0, TITLE_BAR_HEIGHT);
+	exposition05FilterButton.setPressedFunction(&Gui::setFilterExposition05);
+	std::vector<CustomButton*> filterSubButtons = { 
+		&noFilterButton, 
+		&grayFilterButton, 
+		&kelvinFilterButton, 
+		&nashvilleFilterButton, 
+		&reinhardFilterButton,
+		&exposition2FilterButton,
+		&exposition05FilterButton
+	};
+	filterButton.setSubButtons(filterSubButtons);
 }
 
 void TitleBar::setupButtons() {

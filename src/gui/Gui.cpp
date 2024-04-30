@@ -17,6 +17,7 @@ Gui* Gui::getInstance() {
 void Gui::setup() {
 	titleBar.setup();
 	setupPanels();
+	setupFilters();
 	updateScenes();
 	selectedUserMode = DRAWING;
 	isHistogramShowing = false;
@@ -31,6 +32,10 @@ void Gui::setupPanels() {
 	drawingPanel.minimize();
 	transformPanel.minimize();
 	propertiesPanel.minimize();
+}
+
+void Gui::setupFilters() {
+	currentFilter = FilterType::NO_FILTER;
 }
 
 void Gui::update() {
@@ -59,13 +64,16 @@ void Gui::updateScenes() {
 }
 
 void Gui::draw() {
-	scene2d.draw();
-	scene3d.draw();
 	sceneHierarchyPanel.draw();
 	drawingPanel.draw();
 	transformPanel.draw();
 	propertiesPanel.draw();
 	titleBar.draw();
+}
+
+void Gui::drawScenes() {
+	scene2d.draw();
+	scene3d.draw();
 }
 
 void Gui::mouseMoved(ofMouseEventArgs& args) {
@@ -138,6 +146,38 @@ void Gui::setGeneratedSkybox() {
 	skyboxImage = Skybox::generate_texture();
 	isSkyboxPerspectiveChanged = true;
 	isSkyboxOrthogonalChanged = true;
+}
+
+void Gui::setFilterNone() {
+	currentFilter = FilterType::NO_FILTER;
+}
+
+void Gui::setFilterGray() {
+	currentFilter = FilterType::GRAY;
+}
+
+void Gui::setFilterKelvin() {
+	currentFilter = FilterType::KELVIN;
+}
+
+void Gui::setFilterNashville() {
+	currentFilter = FilterType::NASHVILLE;
+}
+
+void Gui::setFilterReinhard() {
+	currentFilter = FilterType::REINHARD;
+}
+
+void Gui::setFilterExposition2() {
+	currentFilter = FilterType::EXPOSITION2;
+}
+
+void Gui::setFilterExposition05() {
+	currentFilter = FilterType::EXPOSITION05;
+}
+
+FilterType Gui::getCurrentFilter() {
+	return currentFilter;
 }
 
 void Gui::createSceneElement(std::string name, SceneObject* obj_ptr) {
