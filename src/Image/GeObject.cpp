@@ -86,6 +86,7 @@ ofMesh GeObject::draw_cylindre(ofColor color) {
 	for (int i = 0; i < 8; i++) {
 		mesh.addTriangle(i, i + 1, 16);
 	}
+	mesh.addTriangle(7, 0, 16);
 
 	for (int i = 0; i < 7; i++) {
 		mesh.addTriangle(i, i + 9, i + 8);
@@ -98,6 +99,7 @@ ofMesh GeObject::draw_cylindre(ofColor color) {
 	for (int i = 8; i < 16; i++) {
 		mesh.addTriangle(i, i + 1, 17);
 	}
+	mesh.addTriangle(15, 8, 17);
 
 	return mesh;
 }
@@ -227,8 +229,9 @@ ofMesh GeObject::draw_prisme_rect(ofColor color) {
 		mesh.addTriangle(6, 5, 4);
 		mesh.addTriangle(6, 4, 7);
 
-	mesh.addTriangle(6, 3, 2);
-	mesh.addTriangle(6, 3, 7);
+		mesh.addTriangle(6, 3, 2);
+		mesh.addTriangle(6, 3, 7);
+	}
 
 	return mesh;
 }
