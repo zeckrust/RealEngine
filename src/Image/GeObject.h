@@ -4,7 +4,7 @@
 #include "SceneObject.h"
 #include "Filter.h"
 
-enum class Geotype { none, rectangulaire, cylindre };
+enum class Geotype { none, rectangulaire, cylindre, releif_effect};
 
 class GeObject : public SceneObject
 {
@@ -27,6 +27,7 @@ class GeObject : public SceneObject
 	private:
 		void draw_prisme_rect(void);
 		void draw_cylindre(void);
+		void draw_releif_effect(void);
 
 		Geotype type;
 		float stroke_width;

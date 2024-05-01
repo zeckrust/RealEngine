@@ -22,6 +22,9 @@ void GeObject::draw() {
 		case Geotype::cylindre:
 			draw_cylindre();
 			break;
+		case Geotype::releif_effect:
+			draw_releif_effect();
+			break;
 		default:
 			break;
 	}
@@ -231,6 +234,12 @@ void GeObject::draw_prisme_rect() {
 
 		mesh.draw();
 	}
+}
+
+void draw_releif_effect(void) {
+	ofMesh mesh;
+
+	
 }
 
 Geotype GeObject::getType(void) {

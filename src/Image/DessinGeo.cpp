@@ -14,6 +14,7 @@ void DessinGeo::setup(std::vector<SceneObject*>* _shapes) {
 
 	compteur_prism = 0;
 	compteur_cylinder = 0;
+	compteur_releif_effect = 0;
 
 	default_pos_z = 15;
 	default_dim_z = 40;
@@ -343,6 +344,14 @@ void DessinGeo::add_shape() {
 				gui->setIsImageImported(false);
 			}
 			break;
+		case Geotype::releif_effect:
+			name = "Releif_effect";
+			name = to_string(compteur_releif_effect);
+			compteur_releif_effect++;
+
+			if (gui->getIsImageImported()) {
+				gui->setIsImageImported(false);
+			}
 		default:
 			break;
 	}
