@@ -103,6 +103,7 @@ void DessinVec::add_topo() {
 		histogramOrthogonal.update(fbo, scene2DShape.getY());
 		std::string name = "Bezier curve";
 		name += to_string(compteur_bezier);
+		compteur_bezier++;
 		gui->createSceneElement(name, shapes->back());
 		ctrl_pts.clear();
 	}
@@ -194,6 +195,7 @@ void DessinVec::mousePressed(ofMouseEventArgs& args)
 	bool isDrawingToolSelected = (gui->getTypePrimitive() != Primitype::none) || (gui->getBezierMode());
 
 	mode = Primitype::none;
+	bezier_mode = false;
 
 	mouse_press_x = args.x - scene2DShape.getPosition().x - scene2DShape.getWidth() / 2;
 	mouse_press_y = -(args.y - scene2DShape.getPosition().y - scene2DShape.getHeight() / 2);

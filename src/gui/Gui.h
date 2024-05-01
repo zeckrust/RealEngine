@@ -53,6 +53,8 @@ class Gui
 		Primitype getTypePrimitive();
 		Geotype getTypeGeometrique();
 		bool getBezierMode();
+		bool getPlaneMode();
+		int getDepth();
 
 		void setUserModeDrawing(void);
 		void setUserModeTransform(void);

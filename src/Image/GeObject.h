@@ -25,8 +25,8 @@ class GeObject : public SceneObject
 		void draw(void) override;
 
 	private:
-		void draw_prisme_rect(void);
-		void draw_cylindre(void);
+		ofMesh draw_prisme_rect(ofColor color);
+		ofMesh draw_cylindre(ofColor color);
 		void draw_releif_effect(void);
 
 		Geotype type;

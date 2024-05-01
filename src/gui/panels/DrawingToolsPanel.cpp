@@ -11,7 +11,7 @@ DrawingToolsPanel::DrawingToolsPanel() : CustomPanel() {
 	drawingButtons[7] = &drawCylinderButton;
 	drawingButtons[8] = &drawPrismButton;
 	drawingButtons[9] = &drawBezierButton;
-	bezierMode = false;
+	drawingButtons[10] = &drawPlaneButton;
 }
 
 void DrawingToolsPanel::setup(std::string panelName, float x, float y) {
@@ -21,6 +21,8 @@ void DrawingToolsPanel::setup(std::string panelName, float x, float y) {
 	setupColorPanels();
 	typePrimitive = Primitype::none;
 	typeGeo = Geotype::none;
+	bezierMode = false;
+	planeMode = false;
 }
 
 void DrawingToolsPanel::setupButtons(void) {
@@ -33,7 +35,8 @@ void DrawingToolsPanel::setupButtons(void) {
 	drawStage2Button.setup("Stage 2", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 	drawCylinderButton.setup("Cylinder", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 	drawPrismButton.setup("RecPrism", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
-	drawBezierButton.setup("Bezier curve", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
+	drawBezierButton.setup("Bezier Curve", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
+	drawPlaneButton.setup("Bezier Plane", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 
 	add(&drawCircleButton);
 	add(&drawEllipseButton);
@@ -45,12 +48,17 @@ void DrawingToolsPanel::setupButtons(void) {
 	add(&drawCylinderButton);
 	add(&drawPrismButton);
 	add(&drawBezierButton);
+	add(&drawPlaneButton);
 }	
 
 void DrawingToolsPanel::setupFields(void) {
 	lineWidthField.setup("Line width :", 2);
 	lineWidthField.setMin(0);
 	add(&lineWidthField);
+	zAxisField.setup("Z depth : ", 30);
+	zAxisField.setMin(0);
+	add(&zAxisField);
+
 }
 
 void DrawingToolsPanel::setupColorPanels(void) {
@@ -156,6 +164,13 @@ void DrawingToolsPanel::setSelectedDrawingTool(CustomButton* button) {
 			bezierMode = false;
 		}
 
+		if (button == &drawPlaneButton) {
+			planeMode = true;
+		}
+		else {
+			planeMode = false;
+		}
+
 		if (button == &drawCylinderButton) {
 			typeGeo = Geotype::cylindre;
 		}
@@ -180,6 +195,11 @@ bool DrawingToolsPanel::isDrawingButton(ofxBaseGui* element) {
 		}
 	}
 	return false;
+}
+
+int DrawingToolsPanel::getDepth(void) {
+	int depth = zAxisField;
+	return depth;
 }
 
 int DrawingToolsPanel::getLineWidth(void) {
@@ -209,4 +229,8 @@ Geotype DrawingToolsPanel::getGeometricType(void) {
 
 bool DrawingToolsPanel::getBezierMode(void) {
 	return bezierMode;
+}
+
+bool DrawingToolsPanel::getPlaneMode(void) {
+	return planeMode;
 }
