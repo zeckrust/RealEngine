@@ -216,8 +216,16 @@ bool Gui::getBezierMode() {
 	return drawingPanel.getBezierMode();
 }
 
+bool Gui::getPlaneMode() {
+	return drawingPanel.getPlaneMode();
+}
+
 ofColor Gui::getFillColor() {
 	return drawingPanel.getFillColor();
+}
+
+int Gui::getDepth() {
+	return drawingPanel.getDepth();
 }
 
 ofRectangle Gui::getScene2DShape(void) {
