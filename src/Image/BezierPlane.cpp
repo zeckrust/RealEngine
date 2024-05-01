@@ -89,6 +89,7 @@ void BezierPlane::setup_mesh(void) {
 void BezierPlane::draw(void) {
 	
 	ofEnableDepthTest();
+	ofPushStyle();
 	mesh.draw();
 	wire_mesh.drawWireframe();
 	//mesh.drawWireframe();
@@ -105,6 +106,7 @@ void BezierPlane::draw(void) {
 		}
 	}
 
+	ofPopStyle();
 	ofDisableDepthTest();
 }
 

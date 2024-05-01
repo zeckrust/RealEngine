@@ -14,6 +14,8 @@ void GeObject::draw() {
 	ofMesh filled_mesh;
 	ofMesh wire_mesh;
 	ofEnableDepthTest();
+
+	ofPushStyle();
 	ofSetLineWidth(stroke_width);
 	switch (type)
 	{
@@ -22,18 +24,22 @@ void GeObject::draw() {
 	case Geotype::rectangulaire:
 		filled_mesh = draw_prisme_rect(fill_color);
 		wire_mesh = draw_prisme_rect(stroke_color);
+		ofSetColor(fill_color);
 		filled_mesh.draw();
-		wire_mesh.drawWireframe();
 		break;
 	case Geotype::cylindre:
 		filled_mesh = draw_cylindre(fill_color);
 		wire_mesh = draw_cylindre(stroke_color);
+		ofSetColor(fill_color);
 		filled_mesh.draw();
+		ofSetColor(stroke_color);
 		wire_mesh.drawWireframe();
 		break;
 	default:
 		break;
 	}
+	ofPopStyle();
+
 	ofDisableDepthTest();
 }
 
@@ -44,44 +50,26 @@ ofMesh GeObject::draw_cylindre(ofColor color) {
 
 	// Top octogone
 	mesh.addVertex(transformMatrix * ofPoint(position.x - radius, position.y, position.z)); //V0
-	mesh.addColor(color);
 	mesh.addVertex(transformMatrix * ofPoint(position.x - (radius * sqrt(2) / 2), position.y, position.z + (radius * sqrt(2) / 2))); //V1
-	mesh.addColor(color);
 	mesh.addVertex(transformMatrix * ofPoint(position.x, position.y, position.z + radius)); //V2
-	mesh.addColor(color);
 	mesh.addVertex(transformMatrix * ofPoint(position.x + (radius * sqrt(2) / 2), position.y, position.z + (radius * sqrt(2) / 2))); //V3
-	mesh.addColor(color);
 	mesh.addVertex(transformMatrix * ofPoint(position.x + radius, position.y, position.z)); //V4
-	mesh.addColor(color);
 	mesh.addVertex(transformMatrix * ofPoint(position.x + (radius * sqrt(2) / 2), position.y, position.z - (radius * sqrt(2) / 2))); //V5
-	mesh.addColor(color);
 	mesh.addVertex(transformMatrix * ofPoint(position.x, position.y, position.z - radius)); //V6
-	mesh.addColor(color);
 	mesh.addVertex(transformMatrix * ofPoint(position.x - (radius * sqrt(2) / 2), position.y, position.z - (radius * sqrt(2) / 2))); //V7
-	mesh.addColor(color);
 
 	//Botom octogone
 	mesh.addVertex(transformMatrix * ofPoint(position.x - radius, position.y - dimensions.y, position.z)); //V8
-	mesh.addColor(color);
 	mesh.addVertex(transformMatrix * ofPoint(position.x - (radius * sqrt(2) / 2), position.y - dimensions.y, position.z + (radius * sqrt(2) / 2))); //V9
-	mesh.addColor(color);
 	mesh.addVertex(transformMatrix * ofPoint(position.x, position.y - dimensions.y, position.z + radius)); //V10
-	mesh.addColor(color);
 	mesh.addVertex(transformMatrix * ofPoint(position.x + (radius * sqrt(2) / 2), position.y - dimensions.y, position.z + (radius * sqrt(2) / 2))); //V11
-	mesh.addColor(color);
 	mesh.addVertex(transformMatrix * ofPoint(position.x + radius, position.y - dimensions.y, position.z)); //V12
-	mesh.addColor(color);
 	mesh.addVertex(transformMatrix * ofPoint(position.x + (radius * sqrt(2) / 2), position.y - dimensions.y, position.z - (radius * sqrt(2) / 2))); //V13
-	mesh.addColor(color);
 	mesh.addVertex(transformMatrix * ofPoint(position.x, position.y - dimensions.y, position.z - radius)); //V14
-	mesh.addColor(color);
 	mesh.addVertex(transformMatrix * ofPoint(position.x - (radius * sqrt(2) / 2), position.y - dimensions.y, position.z - (radius * sqrt(2) / 2))); //V15
-	mesh.addColor(color);
 
 	mesh.addVertex(transformMatrix * ofPoint(position.x, position.y, position.z)); //V16
-	mesh.addColor(color);
 	mesh.addVertex(transformMatrix * ofPoint(position.x, position.y - dimensions.y, position.z)); //V17
-	mesh.addColor(color);
 
 	for (int i = 0; i < 8; i++) {
 		mesh.addTriangle(i, i + 1, 16);
@@ -109,19 +97,12 @@ ofMesh GeObject::draw_prisme_rect(ofColor color) {
 	ofMesh mesh;
 
 	mesh.addVertex(transformMatrix * ofPoint(position.x, position.y, position.z)); //V0
-	mesh.addColor(color);
 	mesh.addVertex(transformMatrix * ofPoint(position.x + dimensions.x, position.y, position.z)); //V1
-	mesh.addColor(color);
 	mesh.addVertex(transformMatrix * ofPoint(position.x + dimensions.x, position.y, position.z + dimensions.z)); //V2
-	mesh.addColor(color);
 	mesh.addVertex(transformMatrix * ofPoint(position.x, position.y, position.z + dimensions.z)); //V3
-	mesh.addColor(color);
 	mesh.addVertex(transformMatrix * ofPoint(position.x, position.y - dimensions.y, position.z)); //V4
-	mesh.addColor(color);
 	mesh.addVertex(transformMatrix * ofPoint(position.x + dimensions.x, position.y - dimensions.y, position.z)); //V5
-	mesh.addColor(color);
 	mesh.addVertex(transformMatrix * ofPoint(position.x + dimensions.x, position.y - dimensions.y, position.z + dimensions.z)); //V6
-	mesh.addColor(color);
 	mesh.addVertex(transformMatrix * ofPoint(position.x, position.y - dimensions.y, position.z + dimensions.z)); //V7
 
 	if (is_texture_loaded) {
@@ -207,10 +188,6 @@ ofMesh GeObject::draw_prisme_rect(ofColor color) {
 		ofPopStyle();
 	}
 	else {
-		for (int i = 0; i < 8; i++) {
-			mesh.addColor(stroke_color);
-		}
-
 		mesh.addTriangle(0, 1, 2);
 		mesh.addTriangle(0, 2, 3);
 
