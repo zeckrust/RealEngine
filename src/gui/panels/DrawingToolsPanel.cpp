@@ -13,7 +13,7 @@ DrawingToolsPanel::DrawingToolsPanel() : CustomPanel() {
 	drawingButtons[9] = &drawCylinderButton;
 	drawingButtons[10] = &drawPrismButton;
 	drawingButtons[11] = &drawPlaneButton;
-	
+
 }
 
 void DrawingToolsPanel::setup(std::string panelName, float x, float y) {
@@ -26,6 +26,7 @@ void DrawingToolsPanel::setup(std::string panelName, float x, float y) {
 	bezierMode = false;
 	planeMode = false;
 	meshMode = false;
+
 }
 
 void DrawingToolsPanel::setupButtons(void) {
@@ -41,7 +42,7 @@ void DrawingToolsPanel::setupButtons(void) {
 	drawCylinderButton.setup("Cylinder", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 	drawPrismButton.setup("RecPrism", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 	drawPlaneButton.setup("Bezier Plane", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
-	
+
 
 	add(&drawCircleButton);
 	add(&drawEllipseButton);
@@ -56,6 +57,7 @@ void DrawingToolsPanel::setupButtons(void) {
 	add(&drawPrismButton);
 	add(&drawPlaneButton);
 	
+
 }	
 
 void DrawingToolsPanel::setupFields(void) {

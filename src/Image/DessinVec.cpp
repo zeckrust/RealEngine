@@ -206,6 +206,7 @@ void DessinVec::mousePressed(ofMouseEventArgs& args)
 	bezier_mode = false;
 	mesh_mode = false;
 
+
 	mouse_press_x = args.x - scene2DShape.getPosition().x - scene2DShape.getWidth() / 2;
 	mouse_press_y = -(args.y - scene2DShape.getPosition().y - scene2DShape.getHeight() / 2);
 	mouse_current_x = args.x - scene2DShape.getPosition().x - scene2DShape.getWidth() / 2;

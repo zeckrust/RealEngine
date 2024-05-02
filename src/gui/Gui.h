@@ -55,6 +55,7 @@ class Gui
 		bool getBezierMode();
 		bool getPlaneMode();
 		bool getMeshMode();
+
 		int getDepth();
 
 		void setUserModeDrawing(void);

@@ -29,6 +29,7 @@ class DrawingToolsPanel : public CustomPanel
 		bool getBezierMode(void);
 		bool getPlaneMode(void);
 		bool getMeshMode(void);
+
 		int getDepth(void);
 
 	private:
@@ -52,6 +53,7 @@ class DrawingToolsPanel : public CustomPanel
 		CustomButton drawBezierButton;
 		CustomButton drawPlaneButton;
 		CustomButton drawMeshButton;
+
 		
 		ofxInputField<int> lineWidthField;
 		ofxInputField<int> zAxisField;
@@ -63,6 +65,7 @@ class DrawingToolsPanel : public CustomPanel
 		bool bezierMode;
 		bool planeMode;
 		bool meshMode;
+
 
 		const ofColor SELECTED_BUTTON_COLOR = ofColor(90, 90, 90, 255);
 };
