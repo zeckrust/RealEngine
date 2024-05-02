@@ -220,6 +220,10 @@ bool Gui::getPlaneMode() {
 	return drawingPanel.getPlaneMode();
 }
 
+bool Gui::getMeshMode() {
+	return drawingPanel.getMeshMode();
+}
+
 ofColor Gui::getFillColor() {
 	return drawingPanel.getFillColor();
 }

@@ -8,11 +8,14 @@ DrawingToolsPanel::DrawingToolsPanel() : CustomPanel() {
 	drawingButtons[4] = &drawRectButton;
 	drawingButtons[5] = &drawStage1Button;
 	drawingButtons[6] = &drawStage2Button;
-	drawingButtons[7] = &drawCylinderButton;
-	drawingButtons[8] = &drawPrismButton;
-	drawingButtons[9] = &drawBezierButton;
-	drawingButtons[10] = &drawPlaneButton;
-	drawingButtons[11] = &drawReliefEffectButton;
+	drawingButtons[7] = &drawBezierButton;
+	drawingButtons[8] = &drawMeshButton;
+	drawingButtons[9] = &drawCylinderButton;
+	drawingButtons[10] = &drawPrismButton;
+	drawingButtons[11] = &drawPlaneButton;
+  drawingButtons[12] = &drawReliefEffectButton;
+
+
 }
 
 void DrawingToolsPanel::setup(std::string panelName, float x, float y) {
@@ -24,6 +27,8 @@ void DrawingToolsPanel::setup(std::string panelName, float x, float y) {
 	typeGeo = Geotype::none;
 	bezierMode = false;
 	planeMode = false;
+	meshMode = false;
+
 }
 
 void DrawingToolsPanel::setupButtons(void) {
@@ -34,11 +39,13 @@ void DrawingToolsPanel::setupButtons(void) {
 	drawRectButton.setup("Rectangle", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 	drawStage1Button.setup("Stage 1", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 	drawStage2Button.setup("Stage 2", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
+	drawBezierButton.setup("Bezier Curve", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
+	drawMeshButton.setup("Triangular Mesh", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 	drawCylinderButton.setup("Cylinder", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 	drawPrismButton.setup("RecPrism", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
-	drawBezierButton.setup("Bezier Curve", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 	drawPlaneButton.setup("Bezier Plane", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 	drawReliefEffectButton.setup("Relief Effect", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
+
 
 	add(&drawCircleButton);
 	add(&drawEllipseButton);
@@ -47,11 +54,13 @@ void DrawingToolsPanel::setupButtons(void) {
 	add(&drawRectButton);
 	add(&drawStage1Button);
 	add(&drawStage2Button);
+	add(&drawBezierButton);
+	add(&drawMeshButton);
 	add(&drawCylinderButton);
 	add(&drawPrismButton);
-	add(&drawBezierButton);
 	add(&drawPlaneButton);
 	add(&drawReliefEffectButton);
+
 }	
 
 void DrawingToolsPanel::setupFields(void) {
@@ -174,6 +183,13 @@ void DrawingToolsPanel::setSelectedDrawingTool(CustomButton* button) {
 			planeMode = false;
 		}
 
+		if (button == &drawMeshButton) {
+			meshMode = true;
+		}
+		else {
+			meshMode = false;
+		}
+
 		if (button == &drawCylinderButton) {
 			typeGeo = Geotype::cylindre;
 		}
@@ -239,4 +255,8 @@ bool DrawingToolsPanel::getBezierMode(void) {
 
 bool DrawingToolsPanel::getPlaneMode(void) {
 	return planeMode;
+}
+
+bool DrawingToolsPanel::getMeshMode(void) {
+	return meshMode;
 }

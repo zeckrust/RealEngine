@@ -92,7 +92,6 @@ void BezierPlane::draw(void) {
 	ofPushStyle();
 	mesh.draw();
 	wire_mesh.drawWireframe();
-	//mesh.drawWireframe();
 
 	if (selected) {
 		ofSetColor(255, 0, 0);

@@ -54,6 +54,8 @@ class Gui
 		Geotype getTypeGeometrique();
 		bool getBezierMode();
 		bool getPlaneMode();
+		bool getMeshMode();
+
 		int getDepth();
 
 		void setUserModeDrawing(void);

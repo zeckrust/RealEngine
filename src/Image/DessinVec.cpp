@@ -10,6 +10,9 @@ void DessinVec::setup(std::vector<SceneObject*>* _shapes)
 	shapes = _shapes;
 	mode = Primitype::none;
 
+	maillage = Maillage();
+	mesh_mode = false;
+
 	mouse_press_x = mouse_press_y = mouse_current_x = mouse_current_y = mouse_last_x = mouse_last_y = 0;
 	mouse_pressed = false;
 	bezier_mode = false;
@@ -109,6 +112,11 @@ void DessinVec::add_topo() {
 	}
 }
 
+void DessinVec::add_maillage() {
+	maillage.add_point(ofVec3f(mouse_press_x, mouse_press_y, 0), gui->getLineColor());
+	mouse_pressed = false;
+}
+
 void DessinVec::add_shape() 
 {
 	if (mode == Primitype::image) {
@@ -192,10 +200,12 @@ void DessinVec::mousePressed(ofMouseEventArgs& args)
 	is_drawing_mode = gui->getSelectedUserMode() == DRAWING;
 	is_transform_mode = gui->getSelectedUserMode() == TRANSFORM;
 	bool isInsideScene = scene2DShape.inside(args.x, args.y);
-	bool isDrawingToolSelected = (gui->getTypePrimitive() != Primitype::none) || (gui->getBezierMode());
+	bool isDrawingToolSelected = (gui->getTypePrimitive() != Primitype::none) || (gui->getBezierMode() || (gui->getMeshMode()));
 
 	mode = Primitype::none;
 	bezier_mode = false;
+	mesh_mode = false;
+
 
 	mouse_press_x = args.x - scene2DShape.getPosition().x - scene2DShape.getWidth() / 2;
 	mouse_press_y = -(args.y - scene2DShape.getPosition().y - scene2DShape.getHeight() / 2);
@@ -215,6 +225,7 @@ void DessinVec::mousePressed(ofMouseEventArgs& args)
 			else if (isDrawingToolSelected) {
 				mode = gui->getTypePrimitive();
 				bezier_mode = gui->getBezierMode();
+				mesh_mode = gui->getMeshMode();
 			}
 		}
 	}
@@ -230,6 +241,10 @@ void DessinVec::mouseReleased(ofMouseEventArgs& args)
 			else if (bezier_mode) {
 				add_topo();
 			}
+			else if (mesh_mode) {
+				add_maillage();
+			}
+			
 		}
 		sceneElements.clear();
 	}
@@ -490,6 +505,7 @@ void DessinVec::draw_buffer() {
 		}
 		ofPopStyle();
 	}
+	maillage.draw();
 	camera.end();
 }
 
