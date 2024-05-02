@@ -35,8 +35,8 @@ void GeObject::draw() {
 		ofSetColor(stroke_color);
 		wire_mesh.drawWireframe();
 		break;
-	case Geotype::releif_effect:
-		draw_releif_effect();
+	case Geotype::relief_effect:
+		draw_relief_effect();
 		break;
 	default:
 		break;
@@ -216,10 +216,49 @@ ofMesh GeObject::draw_prisme_rect(ofColor color) {
 	return mesh;
 }
 
-void draw_releif_effect(void) {
-	ofMesh mesh;
+void GeObject::create_relief_effect_mesh(void) {
+	float pos_x = getPosition().x;
+	float pos_y = getPosition().y;
+	float width = abs(getDimensions().x);
+	float height = abs(getDimensions().y);
 
-	
+	imported_texture.resize(width, height);
+
+	relief_effect_mesh.setMode(OF_PRIMITIVE_TRIANGLES);
+
+	// Vertices grid
+	for (int y = 0; y < height; y++) {
+		for (int x = 0; x < width; x++) {
+			float grayTone = (imported_texture.getColor(x, y).r + imported_texture.getColor(x, y).g + imported_texture.getColor(x, y).b) / 3;
+			float heightValue = ofMap(grayTone, 0, 255, 0, 10); 
+			relief_effect_mesh.addVertex(ofPoint(x + pos_x, -(y + pos_y), heightValue));
+			relief_effect_mesh.addTexCoord(ofVec2f(x, y));
+		}
+	}
+
+	// Create triangles
+	for (int y = 0; y < height - 1; y++) {
+		for (int x = 0; x < width - 1; x++) {
+			relief_effect_mesh.addIndex(x + (y * width)); // Top left
+			relief_effect_mesh.addIndex((x + 1) + (y * width)); // Top right
+			relief_effect_mesh.addIndex(x + ((y + 1) * width)); // Bottom left
+
+			relief_effect_mesh.addIndex((x + 1) + (y * width)); // Top right
+			relief_effect_mesh.addIndex((x + 1) + ((y + 1) * width)); // Bottom right
+			relief_effect_mesh.addIndex(x + ((y + 1) * width)); // Bottom left
+		}
+	}
+}
+
+void GeObject::draw_relief_effect(void) {
+	if (!is_relief_mesh_created) {
+		create_relief_effect_mesh();
+		is_relief_mesh_created = true;
+	}
+
+	imported_texture.bind();
+	relief_effect_mesh.draw();
+	imported_texture.unbind();
 }
 
 Geotype GeObject::getType(void) {

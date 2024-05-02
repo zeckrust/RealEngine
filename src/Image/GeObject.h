@@ -4,7 +4,7 @@
 #include "SceneObject.h"
 #include "Filter.h"
 
-enum class Geotype { none, rectangulaire, cylindre, releif_effect};
+enum class Geotype { none, rectangulaire, cylindre, relief_effect};
 
 class GeObject : public SceneObject
 {
@@ -27,7 +27,8 @@ class GeObject : public SceneObject
 	private:
 		ofMesh draw_prisme_rect(ofColor color);
 		ofMesh draw_cylindre(ofColor color);
-		void draw_releif_effect(void);
+		void draw_relief_effect(void);
+		void create_relief_effect_mesh(void);
 
 		Geotype type;
 		float stroke_width;
@@ -35,6 +36,9 @@ class GeObject : public SceneObject
 		ofColor fill_color;
 		ofImage imported_texture;
 		Filter* texture_filter;
+
+		ofMesh relief_effect_mesh = ofMesh();
+		bool is_relief_mesh_created = false;
 
 		bool is_texture_loaded;
 };
