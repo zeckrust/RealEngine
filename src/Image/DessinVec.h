@@ -7,6 +7,7 @@
 #include "BezierObject.h"
 #include "Drawer.h"
 #include "Skybox.h"
+#include "Maillage.h"
 
 class Gui;
 
@@ -22,6 +23,7 @@ class DessinVec : public Drawer
 		void reset();
 		void add_shape();
 		void add_topo();
+		void add_maillage();
 
 		void mousePressed(ofMouseEventArgs& args);
 		void mouseReleased(ofMouseEventArgs& args);
@@ -44,6 +46,9 @@ class DessinVec : public Drawer
 		
 		bool bezier_mode;
 		std::vector<ofVec3f> ctrl_pts;
+
+		bool mesh_mode;
+		Maillage maillage;
 
 		int mouse_press_x;
 		int mouse_press_y;

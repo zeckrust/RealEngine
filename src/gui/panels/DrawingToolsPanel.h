@@ -28,6 +28,7 @@ class DrawingToolsPanel : public CustomPanel
 		Geotype getGeometricType(void);
 		bool getBezierMode(void);
 		bool getPlaneMode(void);
+		bool getMeshMode(void);
 		int getDepth(void);
 
 	private:
@@ -35,7 +36,7 @@ class DrawingToolsPanel : public CustomPanel
 		void setupFields(void);
 		void setupColorPanels(void);
 
-		static const uint8_t NB_DRAWING_BUTTONS = 11;
+		static const uint8_t NB_DRAWING_BUTTONS = 12;
 		CustomButton* drawingButtons[NB_DRAWING_BUTTONS];
 
 		CustomButton* selectedDrawingTool = nullptr;
@@ -50,6 +51,7 @@ class DrawingToolsPanel : public CustomPanel
 		CustomButton drawPrismButton;
 		CustomButton drawBezierButton;
 		CustomButton drawPlaneButton;
+		CustomButton drawMeshButton;
 		
 		ofxInputField<int> lineWidthField;
 		ofxInputField<int> zAxisField;
@@ -60,6 +62,7 @@ class DrawingToolsPanel : public CustomPanel
 		Geotype typeGeo;
 		bool bezierMode;
 		bool planeMode;
+		bool meshMode;
 
 		const ofColor SELECTED_BUTTON_COLOR = ofColor(90, 90, 90, 255);
 };
