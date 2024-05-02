@@ -20,5 +20,4 @@ class Maillage : public SceneObject
 		ofVboMesh mesh;
 
 		size_t current_id;
-		int width;
 };

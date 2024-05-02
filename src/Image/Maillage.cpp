@@ -4,7 +4,6 @@
 #include <cmath>
 
 Maillage::Maillage() {
-	width = 10;
 	current_id = 0;
 }
 
@@ -18,7 +17,6 @@ void Maillage::add_point(ofVec3f point, ofColor color) {
 
 void Maillage::draw() {
 	if (points.size() > 2) {
-		ofSetLineWidth(width);
 		mesh.drawWireframe();
 	}
 }
