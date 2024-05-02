@@ -13,6 +13,8 @@ DrawingToolsPanel::DrawingToolsPanel() : CustomPanel() {
 	drawingButtons[9] = &drawCylinderButton;
 	drawingButtons[10] = &drawPrismButton;
 	drawingButtons[11] = &drawPlaneButton;
+  drawingButtons[12] = &drawReliefEffectButton;
+
 
 }
 
@@ -42,6 +44,7 @@ void DrawingToolsPanel::setupButtons(void) {
 	drawCylinderButton.setup("Cylinder", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 	drawPrismButton.setup("RecPrism", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 	drawPlaneButton.setup("Bezier Plane", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
+	drawReliefEffectButton.setup("Relief Effect", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 
 
 	add(&drawCircleButton);
@@ -56,7 +59,7 @@ void DrawingToolsPanel::setupButtons(void) {
 	add(&drawCylinderButton);
 	add(&drawPrismButton);
 	add(&drawPlaneButton);
-	
+	add(&drawReliefEffectButton);
 
 }	
 
@@ -192,6 +195,9 @@ void DrawingToolsPanel::setSelectedDrawingTool(CustomButton* button) {
 		}
 		else if (button == &drawPrismButton) {
 			typeGeo = Geotype::rectangulaire;
+		}
+		else if (button == &drawReliefEffectButton) {
+			typeGeo = Geotype::relief_effect;
 		}
 		else {
 			typeGeo = Geotype::none;

@@ -15,6 +15,7 @@ void DessinGeo::setup(std::vector<SceneObject*>* _shapes) {
 
 	compteur_prism = 0;
 	compteur_cylinder = 0;
+	compteur_releif_effect = 0;
 
 	default_pos_z = 15;
 	default_dim_z = 40;
@@ -228,15 +229,21 @@ void DessinGeo::mouseDragged(ofMouseEventArgs& args) {
 			ofClear(0, 0, 0, 0);
 			draw_buffer();
 
-			GeObject obj = GeObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor());
-			if (gui->getIsImageImported()) {
-				obj.setTexture(filtered_image);
+			if (mode == Geotype::relief_effect) {
+				ofSetColor(255, 255, 255, 255);
+				gui->getImportedImage().draw(glm::vec2(mouse_press_x, -mouse_press_y), mouse_current_x - mouse_press_x, -(mouse_current_y - mouse_press_y));
 			}
+			else {
+				GeObject obj = GeObject(mode, gui->getLineWidth(), gui->getLineColor(), gui->getFillColor());
+				if (gui->getIsImageImported()) {
+					obj.setTexture(filtered_image);
+				}
 
-			obj.setPosition(glm::vec3(mouse_press_x, mouse_press_y, -1 * gui->getDepth()));
-			obj.setDimensions(glm::vec3(mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y, default_dim_z));
+				obj.setPosition(glm::vec3(mouse_press_x, mouse_press_y, -1 * gui->getDepth()));
+				obj.setDimensions(glm::vec3(mouse_current_x - mouse_press_x, mouse_current_y - mouse_press_y, default_dim_z));
 
-			obj.draw();
+				obj.draw();
+			}
 
 			fbo.end();
 			ofPopStyle();
@@ -365,6 +372,14 @@ void DessinGeo::add_shape() {
 				gui->setIsImageImported(false);
 			}
 			break;
+		case Geotype::relief_effect:
+			name = "ReliefEffect";
+			name += to_string(compteur_releif_effect);
+			compteur_releif_effect++;
+
+			if (gui->getIsImageImported()) {
+				gui->setIsImageImported(false);
+			}
 		default:
 			break;
 	}
