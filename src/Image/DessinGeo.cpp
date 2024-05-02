@@ -373,7 +373,7 @@ void DessinGeo::add_shape() {
 			}
 			break;
 		case Geotype::relief_effect:
-			name = "ReleifEffect";
+			name = "ReliefEffect";
 			name += to_string(compteur_releif_effect);
 			compteur_releif_effect++;
 
