@@ -70,6 +70,7 @@ class DessinGeo : public Drawer
 
 		uint32_t compteur_cylinder;
 		uint32_t compteur_prism;
+		uint32_t compteur_releif_effect;
 
 		ofFbo fbo;
 		ofRectangle scene3DShape;

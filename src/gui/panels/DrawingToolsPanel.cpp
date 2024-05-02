@@ -12,6 +12,7 @@ DrawingToolsPanel::DrawingToolsPanel() : CustomPanel() {
 	drawingButtons[8] = &drawPrismButton;
 	drawingButtons[9] = &drawBezierButton;
 	drawingButtons[10] = &drawPlaneButton;
+	drawingButtons[11] = &drawReliefEffectButton;
 }
 
 void DrawingToolsPanel::setup(std::string panelName, float x, float y) {
@@ -37,6 +38,7 @@ void DrawingToolsPanel::setupButtons(void) {
 	drawPrismButton.setup("RecPrism", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 	drawBezierButton.setup("Bezier Curve", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 	drawPlaneButton.setup("Bezier Plane", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
+	drawReliefEffectButton.setup("Relief Effect", REGULAR_FONT, 0, 0, DEFAULT_BUTTON_HEIGHT);
 
 	add(&drawCircleButton);
 	add(&drawEllipseButton);
@@ -49,6 +51,7 @@ void DrawingToolsPanel::setupButtons(void) {
 	add(&drawPrismButton);
 	add(&drawBezierButton);
 	add(&drawPlaneButton);
+	add(&drawReliefEffectButton);
 }	
 
 void DrawingToolsPanel::setupFields(void) {
@@ -176,6 +179,9 @@ void DrawingToolsPanel::setSelectedDrawingTool(CustomButton* button) {
 		}
 		else if (button == &drawPrismButton) {
 			typeGeo = Geotype::rectangulaire;
+		}
+		else if (button == &drawReliefEffectButton) {
+			typeGeo = Geotype::relief_effect;
 		}
 		else {
 			typeGeo = Geotype::none;

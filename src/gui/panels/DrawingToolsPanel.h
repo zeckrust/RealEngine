@@ -35,7 +35,7 @@ class DrawingToolsPanel : public CustomPanel
 		void setupFields(void);
 		void setupColorPanels(void);
 
-		static const uint8_t NB_DRAWING_BUTTONS = 11;
+		static const uint8_t NB_DRAWING_BUTTONS = 12;
 		CustomButton* drawingButtons[NB_DRAWING_BUTTONS];
 
 		CustomButton* selectedDrawingTool = nullptr;
@@ -50,6 +50,7 @@ class DrawingToolsPanel : public CustomPanel
 		CustomButton drawPrismButton;
 		CustomButton drawBezierButton;
 		CustomButton drawPlaneButton;
+		CustomButton drawReliefEffectButton;
 		
 		ofxInputField<int> lineWidthField;
 		ofxInputField<int> zAxisField;
